@@ -275,6 +275,9 @@
                 url: 'api/transactions.php',
                 method: 'GET',
                 dataType: 'json',
+                xhrFields: {
+                    withCredentials: true
+                },
                 success: function(response) {
                     if (response.success && response.transactions) {
                         displayTransactions(response.transactions);
@@ -284,8 +287,10 @@
                 },
                 error: function(xhr, status, error) {
                     console.error('Error loading transactions:', error);
+                    console.error('Response:', xhr.responseText);
                     if (xhr.status === 401) {
                         // Not authenticated, redirect to login
+                        console.log('Not authenticated, redirecting to login');
                         window.location.href = 'login.html';
                     } else {
                         displayNoTransactions();
