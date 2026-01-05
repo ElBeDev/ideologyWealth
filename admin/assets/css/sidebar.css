@@ -1,0 +1,84 @@
+/* Admin Sidebar Standard Styles */
+:root {
+    --primary-color: #0143a3;
+    --success-color: #6fb950;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --dark-bg: #1a1d2e;
+    --sidebar-bg: #212438;
+    --card-bg: #fff;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    width: 260px;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background: var(--sidebar-bg);
+    padding: 20px 0;
+    overflow-y: auto;
+    z-index: 1000;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+}
+
+.sidebar__logo {
+    padding: 0 20px 30px;
+    text-align: center;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.sidebar__logo img {
+    max-width: 140px;
+    height: auto;
+}
+
+.sidebar__menu {
+    list-style: none;
+    padding: 20px 0;
+    margin: 0;
+}
+
+.sidebar-menu-item {
+    margin: 5px 0;
+}
+
+.sidebar-menu-item a {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border-left: 3px solid transparent;
+}
+
+.sidebar-menu-item a:hover,
+.sidebar-menu-item.active a {
+    background: rgba(1,67,163,0.15);
+    color: #fff;
+    border-left: 3px solid var(--primary-color);
+}
+
+.sidebar-menu-item i {
+    font-size: 20px;
+    width: 30px;
+    margin-right: 10px;
+}
+
+.sidebar-menu-item span {
+    flex: 1;
+}
+
+.menu-badge {
+    background: var(--danger-color);
+    color: #fff;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-left: 10px;
+    min-width: 20px;
+    text-align: center;
+}

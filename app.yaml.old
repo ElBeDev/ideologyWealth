@@ -1,0 +1,159 @@
+runtime: python312
+
+handlers:
+# Serve manifest.json (must be before other handlers)
+- url: /manifest.json
+  static_files: manifest.json
+  upload: manifest.json
+  mime_type: application/manifest+json
+  http_headers:
+    Access-Control-Allow-Origin: "*"
+
+# Serve service worker
+- url: /service-worker.js
+  static_files: service-worker.js
+  upload: service-worker.js
+  mime_type: application/javascript
+  http_headers:
+    Service-Worker-Allowed: "/"
+    Cache-Control: "no-cache"
+
+# Serve offline page first
+- url: /offline.html
+  static_files: offline.html
+  upload: offline.html
+  mime_type: text/html
+
+# Serve specific HTML pages (with spaces in names) - BEFORE catch-all
+- url: /1life%20Financial%20-%20Home\.html
+  static_files: 1life Financial - Home.html
+  upload: 1life Financial - Home\.html
+  mime_type: text/html
+  http_headers:
+    Cache-Control: "no-cache"
+
+- url: /1life%20Financial%20-%20About%20Us\.html
+  static_files: 1life Financial - About Us.html
+  upload: 1life Financial - About Us\.html
+  mime_type: text/html
+  http_headers:
+    Cache-Control: "no-cache"
+
+- url: /1life%20Financial%20-%20Services\.html
+  static_files: 1life Financial - Services.html
+  upload: 1life Financial - Services\.html
+  mime_type: text/html
+  http_headers:
+    Cache-Control: "no-cache"
+
+- url: /1life%20Financial%20-%20FAQ\.html
+  static_files: 1life Financial - FAQ.html
+  upload: 1life Financial - FAQ\.html
+  mime_type: text/html
+  http_headers:
+    Cache-Control: "no-cache"
+
+- url: /1life%20Financial%20-%20Contact%20Us\.html
+  static_files: 1life Financial - Contact Us.html
+  upload: 1life Financial - Contact Us\.html
+  mime_type: text/html
+  http_headers:
+    Cache-Control: "no-cache"
+
+# Serve the main index HTML file - EXPLICIT
+- url: /index.html
+  static_files: index.html
+  upload: index.html
+  mime_type: text/html
+  http_headers:
+    Cache-Control: "no-cache"
+
+# Serve root as index.html
+- url: /
+  static_files: index.html
+  upload: index.html
+  mime_type: text/html
+  expiration: "0s"
+  http_headers:
+    Cache-Control: "no-cache"
+
+# Serve all other HTML files
+- url: /(.*\.html)
+  static_files: \1
+  upload: .*\.html
+  mime_type: text/html
+
+# Serve manifest.json
+- url: /manifest.json
+  static_files: manifest.json
+  upload: manifest.json
+  mime_type: application/json
+
+# Serve service worker
+- url: /service-worker.js
+  static_files: service-worker.js
+  upload: service-worker.js
+  mime_type: application/javascript
+
+# Serve offline page
+- url: /offline.html
+  static_files: offline.html
+  upload: offline.html
+
+# Serve CSS files
+- url: /(.*\.css)
+  static_files: \1
+  upload: .*\.css
+  mime_type: text/css
+
+# Serve JavaScript files with query params
+- url: /(.*\.js)\?(.*)
+  static_files: \1
+  upload: .*\.js
+  mime_type: application/javascript
+
+# Serve JavaScript files
+- url: /(.*\.js)
+  static_files: \1
+  upload: .*\.js
+  mime_type: application/javascript
+
+# Serve images
+- url: /(.*\.(png|jpg|jpeg|gif|ico|svg|webp))
+  static_files: \1
+  upload: .*\.(png|jpg|jpeg|gif|ico|svg|webp)
+  mime_type: image/auto
+
+# Serve fonts
+- url: /(.*\.(woff|woff2|ttf|eot))
+  static_files: \1
+  upload: .*\.(woff|woff2|ttf|eot)
+  mime_type: font/auto
+
+# Serve font files from webfonts directory
+- url: /webfonts/(.*)
+  static_files: webfonts/\1
+  upload: webfonts/.*
+  mime_type: font/auto
+  
+# Serve files from _files directories
+- url: /(.*_files/.*)
+  static_files: \1
+  upload: .*_files/.*
+  mime_type: auto
+
+# Serve PHP files as text (they're just CSS)
+- url: /(.*\.php)
+  static_files: \1
+  upload: .*\.php
+  mime_type: text/css
+
+# Security headers and cache
+default_expiration: "1h"
+
+# Enable HTTPS
+automatic_scaling:
+  min_idle_instances: automatic
+  max_idle_instances: automatic
+  min_pending_latency: automatic
+  max_pending_latency: automatic

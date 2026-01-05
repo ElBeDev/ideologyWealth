@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1life Financial - Profile</title>
+    <link rel="shortcut icon" href="https://1lifefinancial.com/assets/images/logoIcon/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="profile_files/bootstrap.min.css">
+    <link rel="stylesheet" href="profile_files/all.min.css">
+    <link rel="stylesheet" href="profile_files/line-awesome.min.css">
+    <link rel="stylesheet" href="profile_files/slick.css">
+    <link rel="stylesheet" href="profile_files/lightcase.css">
+    <link rel="stylesheet" href="profile_files/custom.css">
+    <link rel="stylesheet" href="profile_files/main.css">
+    <link rel="stylesheet" href="profile_files/color.css">
+    <link rel="stylesheet" href="profile_files/bootstrap-fileinput.css">
+    <link rel="stylesheet" href="profile_files/intlTelInput.css">
+    <link rel="stylesheet" href="profile_files/iziToast.min.css">
+</head>
+<body>
+    <div class="preloader" style="opacity: 0; display: none;">
+        <div class="dl">
+            <div class="dl__container">
+                <div class="dl__corner--top"></div>
+                <div class="dl__corner--bottom"></div>
+            </div>
+            <div class="dl__square"></div>
+        </div>
+    </div>
+
+    <header class="header inner-hero bg_img overlay--one" style="background-image: url('https://1lifefinancial.com/assets/images/frontend/breadcumb/60c7569dec4f01623676573.jpg');padding-top: 0px;padding-bottom: 27px;">
+        <div class="header__bottom2">
+            <div class="container">
+                <nav class="navbar navbar-expand-lg p-0 align-items-center justify-content-between">
+                    <a class="site-logo site-title" href="index.html">
+                        <img src="https://1lifefinancial.com/assets/images/logoIcon/logo.png" alt="logo">
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+                        <span class="menu-toggle"></span>
+                    </button>
+                    <div class="collapse navbar-collapse mt-xl-0 mt-3" id="navbarSupportedContent">
+                        <ul class="navbar-nav main-menu m-auto">
+                            <li><a class="" href="dashboard.html">Dashboard</a></li>
+                            <li><a class="" href="deposits.html">Deposit</a></li>
+                            <li><a class="" href="withdrawals.html">TRANSFER</a></li>
+                            <li><a class="active" href="profile.html">More</a></li>
+                        </ul>
+                        <div class="nav-right">
+                            <a href="#" onclick="logout(); return false;" class="btn btn-sm py-2 custom--bg text-white">
+                                <i class="fa fa-sign-out-alt"></i> Logout
+                            </a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-wrapper" style="min-height: calc(-536px + 100vh);">
+        <nav class="navbar navbar-expand-lg section--bg2 bottom-menu p-0">
+            <div class="container-lg">
+                <button class="navbar-toggler text-white align-items-center py-2 ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#bottomMenu">
+                    <p class="d-flex align-items-center"><span class="fs--14px me-2"></span><i class="las la-bars"></i></p>
+                </button>
+                <div class="collapse navbar-collapse justify-content-center" id="bottomMenu">
+                    <ul class="navbar-nav text-center">
+                        <li><a class="active" href="profile.html">Profile</a></li>
+                        <li><a href="change-password.html">Change Password</a></li>
+                        <li><a href="transactions.html">Transactions</a></li>
+                        <li><a class="" href="support.html">Support</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <section class="pt-100 pb-100 bg_img" style="background-image: url('https://1lifefinancial.com/assets/templates/basic/images/elements/bg1.jpg');">
+            <div class="container">
+                <form class="register" id="profileForm" enctype="multipart/form-data">
+                    <div class="row justify-content-center gy-4">
+                        <div class="col-xl-4 col-lg-5">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="avatar-upload">
+                                        <div class="avatar-edit">
+                                            <input type="file" name="image" id="imageUpload" accept=".png, .jpg, .jpeg">
+                                            <label for="imageUpload"></label>
+                                        </div>
+                                        <div class="avatar-preview">
+                                            <div id="imagePreview" style="background-image: url(https://1lifefinancial.com/placeholder-image/350x300);"></div>
+                                        </div>
+                                    </div>
+                                    <ul class="caption-list-two">
+                                        <li><span class="caption">Name</span><span class="value" id="fullName">-</span></li>
+                                        <li><span class="caption">E-mail Address</span><span class="value" id="email">-</span></li>
+                                        <li><span class="caption">Mobile Number</span><span class="value" id="mobile">-</span></li>
+                                        <li><span class="caption">Country</span><span class="value" id="country">-</span></li>
+                                        <li><span class="caption">City</span><span class="value" id="city">-</span></li>
+                                        <li><span class="caption">Zip Code</span><span class="value" id="zip">-</span></li>
+                                        <li><span class="caption">Address</span><span class="value" id="address">-</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-8 col-lg-7">
+                            <div class="card">
+                                <div class="card-body p-4">
+                                    <div class="row">
+                                        <div class="form-group col-12">
+                                            <label for="firstname" class="col-form-label">First Name:</label>
+                                            <input type="text" class="form--control" id="firstname" name="firstname" placeholder="First Name" readonly>
+                                        </div>
+                                        <div class="form-group col-12">
+                                            <label for="lastname" class="col-form-label">Last Name:</label>
+                                            <input type="text" class="form--control" id="lastname" name="lastname" placeholder="Last Name" readonly>
+                                        </div>
+                                        <div class="form-group col-12">
+                                            <label for="emailInput" class="col-form-label">E-mail Address:</label>
+                                            <input type="text" class="form--control" id="emailInput" name="email" placeholder="E-mail Address">
+                                        </div>
+                                        <div class="form-group col-12">
+                                            <label for="mobileInput" class="col-form-label">Mobile Number:</label>
+                                            <input type="text" class="form--control" id="mobileInput" name="mobile" placeholder="Mobile Number">
+                                        </div>
+                                        <div class="form-group col-12">
+                                            <label for="countryInput" class="col-form-label">Country:</label>
+                                            <input type="text" class="form--control" id="countryInput" name="country" placeholder="Country" readonly>
+                                        </div>
+                                        <div class="form-group col-12">
+                                            <label for="cityInput" class="col-form-label">City:</label>
+                                            <input type="text" class="form--control" id="cityInput" name="city" placeholder="City" readonly>
+                                        </div>
+                                        <div class="form-group col-12">
+                                            <label for="zipInput" class="col-form-label">Zip Code:</label>
+                                            <input type="text" class="form--control" id="zipInput" name="zip" placeholder="Zip Code" readonly>
+                                        </div>
+                                        <div class="form-group col-12">
+                                            <label for="addressInput" class="col-form-label">Address:</label>
+                                            <input type="text" class="form--control" id="addressInput" name="address" placeholder="Address" readonly>
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn--base w-100">Update Profile</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </div>
+
+    <footer class="footer position-relative z-index-2">
+        <div class="footer-bottom-wave">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                <path fill="#ffffff" fill-opacity="1" d="M0,256L48,266.7C96,277,192,299,288,282.7C384,267,480,213,576,165.3C672,117,768,75,864,96C960,117,1056,203,1152,213.3C1248,224,1344,160,1392,128L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+            </svg>
+        </div>
+        <div class="container">
+            <div class="row gy-4">
+                <div class="col-lg-4 col-sm-6 order-lg-1 order-1">
+                    <div class="footer-widget">
+                        <h3 class="footer-widget__title">About Us</h3>
+                        <p>1life financial is a complete e-Banking system.</p>
+                        <ul class="social-media-links d-flex align-items-center mt-3">
+                            <li><a href="https://bd.linkedin.com/" target="_blank"><i class="fab fa-linkedin-in"></i></a></li>
+                            <li><a href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram"></i></a></li>
+                            <li><a href="https://twitter.com/" target="_blank"><i class="fab fa-twitter"></i></a></li>
+                            <li><a href="https://www.facebook.com/" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-sm-6 order-lg-2 order-3">
+                    <div class="footer-widget">
+                        <h3 class="footer-widget__title">Quick Links</h3>
+                        <ul class="short-link-list">
+                            <li><a href="login.html">Login</a></li>
+                            <li><a href="register.html">Register</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-sm-6 order-lg-3 order-4">
+                    <div class="footer-widget">
+                        <h3 class="footer-widget__title">Page</h3>
+                        <ul class="short-link-list">
+                            <li><a href="#">Company Policy</a></li>
+                            <li><a href="#">Terms of Services</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6 order-lg-4 order-2">
+                    <div class="footer-widget">
+                        <h3 class="footer-widget__title">Contact Us</h3>
+                        <ul class="footer-info-list">
+                            <li><i class="fas fa-map-marked"></i><p>4400 Easton Commons Way, Columbus Ohio 43219.</p></li>
+                            <li><i class="fas fa-envelope"></i><p>inquiries@1lifefinancial.com</p></li>
+                            <li><i class="fas fa-headphones"></i><p>+1 614 3627053 // +1 614 3627054</p></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <div class="row gy-4 align-items-center">
+                    <div class="col-lg-12 col-sm-6 order-lg-3 order-2 text-sm-end text-center">
+                        <p>Copyright © 2021 1life financial All Right Reserved</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="profile_files/jquery-3.5.1.min.js"></script>
+    <script src="profile_files/lightcase.js"></script>
+    <script src="profile_files/bootstrap.bundle.min.js"></script>
+    <script src="profile_files/slick.min.js"></script>
+    <script src="profile_files/wow.min.js"></script>
+    <script src="profile_files/app.js"></script>
+    <script src="profile_files/iziToast.min.js"></script>
+    <script>
+        function notify(s,m){iziToast[s]({message:m,position:"topRight"});}
+        function logout(){localStorage.clear();window.location.href='login.html';}
+        
+        function readURL(input){
+            if(input.files&&input.files[0]){
+                var reader=new FileReader();
+                reader.onload=function(e){
+                    $('#imagePreview').css('background-image','url('+e.target.result+')');
+                    $('#imagePreview').hide();$('#imagePreview').fadeIn(650);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        $("#imageUpload").change(function(){readURL(this);});
+        
+        function loadProfile(){
+            $.get('/api/user.php').done(r=>{
+                if(r.success&&r.user){
+                    const u=r.user;
+                    $('#fullName').text(u.firstname+' '+u.lastname);
+                    $('#email').text(u.email);
+                    $('#mobile').text(u.mobile);
+                    $('#country').text(u.country_code);
+                    $('#city').text(u.city);
+                    $('#zip').text(u.zip);
+                    $('#address').text(u.address);
+                    $('#firstname').val(u.firstname);
+                    $('#lastname').val(u.lastname);
+                    $('#emailInput').val(u.email);
+                    $('#mobileInput').val(u.mobile);
+                    $('#countryInput').val(u.country_code);
+                    $('#cityInput').val(u.city);
+                    $('#zipInput').val(u.zip);
+                    $('#addressInput').val(u.address);
+                }
+            });
+        }
+        
+        $('#profileForm').on('submit',function(e){
+            e.preventDefault();
+            const data={
+                email:$('#emailInput').val(),
+                mobile:$('#mobileInput').val()
+            };
+            $.ajax({url:'/api/update_profile.php',method:'POST',contentType:'application/json',data:JSON.stringify(data)}).done(r=>{
+                if(r.success){notify('success','Profile updated successfully');loadProfile();}
+                else notify('error',r.message||'Error updating profile');
+            }).fail(()=>notify('error','Connection error'));
+        });
+        
+        if(localStorage.getItem('logged_in')!=='true')window.location.href='login.html';
+        else loadProfile();
+    </script>
+</body>
+</html>

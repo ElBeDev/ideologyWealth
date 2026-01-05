@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Withdrawals - Admin Panel</title>
+    <link rel="stylesheet" href="1life Financial - Dashboard_files/bootstrap.min.css">
+    <link rel="stylesheet" href="1life Financial - Dashboard_files/line-awesome.min.css">
+    <link rel="stylesheet" href="1life Financial - Dashboard_files/iziToast.min.css">
+    <style>
+        :root{--primary-color:#0143a3;--success-color:#6fb950;--danger-color:#dc3545;--warning-color:#ffc107;--dark-bg:#1a1d2e;--sidebar-bg:#212438}
+        body{background:#f4f7fc;font-family:'Inter',sans-serif;margin:0}
+        .sidebar{width:260px;height:100vh;position:fixed;left:0;top:0;background:var(--sidebar-bg);padding:20px 0;overflow-y:auto;z-index:1000}
+        .sidebar__logo{padding:0 20px 30px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.1)}
+        .sidebar__logo img{max-width:140px}
+        .sidebar__menu{list-style:none;padding:20px 0;margin:0}
+        .sidebar-menu-item{margin:5px 0}
+        .sidebar-menu-item a{display:flex;align-items:center;padding:12px 20px;color:rgba(255,255,255,0.7);text-decoration:none;transition:all 0.3s}
+        .sidebar-menu-item a:hover,.sidebar-menu-item.active a{background:rgba(1,67,163,0.1);color:#fff;border-left:3px solid var(--primary-color)}
+        .sidebar-menu-item i{font-size:20px;width:30px}
+        .main-content{margin-left:260px;padding:20px;min-height:100vh}
+        .top-navbar{background:#fff;padding:15px 30px;border-radius:10px;margin-bottom:30px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 10px rgba(0,0,0,0.05)}
+        .top-navbar h4{margin:0;color:var(--dark-bg)}
+        .card{background:#fff;border-radius:10px;padding:25px;box-shadow:0 2px 10px rgba(0,0,0,0.05);margin-bottom:20px}
+        .card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;padding-bottom:15px;border-bottom:1px solid #eee}
+        .card-header h5{margin:0;color:var(--dark-bg);font-weight:600}
+        .table{width:100%}
+        .table th{background:#f8f9fa;padding:12px;text-align:left;font-weight:600;color:var(--dark-bg);font-size:13px;text-transform:uppercase}
+        .table td{padding:15px 12px;border-bottom:1px solid #f0f0f0}
+        .table tbody tr:hover{background:#f8f9fa}
+        .badge{padding:5px 12px;border-radius:20px;font-size:12px;font-weight:600}
+        .badge--success{background:rgba(111,185,80,0.1);color:var(--success-color)}
+        .badge--warning{background:rgba(255,193,7,0.1);color:var(--warning-color)}
+        .badge--danger{background:rgba(220,53,69,0.1);color:var(--danger-color)}
+        .btn{padding:8px 16px;border:none;border-radius:5px;cursor:pointer;font-size:13px;font-weight:500;transition:all 0.3s}
+        .btn-sm{padding:5px 12px;font-size:12px}
+        .btn--primary{background:var(--primary-color);color:#fff}
+        .btn--success{background:var(--success-color);color:#fff}
+        .btn--danger{background:var(--danger-color);color:#fff}
+        .filter-tabs{display:flex;gap:10px;margin-bottom:20px}
+        .filter-tabs button{padding:10px 20px;border:none;background:#f0f0f0;border-radius:5px;cursor:pointer;transition:all 0.3s}
+        .filter-tabs button.active{background:var(--primary-color);color:#fff}
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar__logo">
+            <img src="1life Financial - Dashboard_files/logo.png" alt="1life Financial">
+        </div>
+        <ul class="sidebar__menu">
+            <li class="sidebar-menu-item"><a href="dashboard.html"><i class="las la-home"></i><span>Dashboard</span></a></li>
+            <li class="sidebar-menu-item"><a href="users.html"><i class="las la-users"></i><span>Manage Users</span></a></li>
+            <li class="sidebar-menu-item"><a href="deposits.html"><i class="las la-wallet"></i><span>Deposits</span></a></li>
+            <li class="sidebar-menu-item active"><a href="withdrawals.html"><i class="las la-money-bill-wave"></i><span>Withdrawals</span></a></li>
+            <li class="sidebar-menu-item"><a href="#" onclick="logout()"><i class="las la-sign-out-alt"></i><span>Logout</span></a></li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <div class="top-navbar">
+            <div class="navbar__left"><h4>Manage Withdrawals</h4></div>
+        </div>
+
+        <div class="filter-tabs">
+            <button class="active" onclick="filterWithdrawals('all')">All</button>
+            <button onclick="filterWithdrawals('pending')">Pending</button>
+            <button onclick="filterWithdrawals('approved')">Approved</button>
+            <button onclick="filterWithdrawals('rejected')">Rejected</button>
+        </div>
+
+        <div class="card">
+            <div class="card-header"><h5>Withdrawals List</h5></div>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>User</th>
+                            <th>TRX</th>
+                            <th>Amount</th>
+                            <th>Gateway</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="withdrawalsTable">
+                        <tr><td colspan="8" class="text-center">Loading...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="1life Financial - Dashboard_files/jquery-3.5.1.min.js"></script>
+    <script src="1life Financial - Dashboard_files/bootstrap.bundle.min.js"></script>
+    <script src="1life Financial - Dashboard_files/iziToast.min.js"></script>
+    <script>
+        function notify(s,m){iziToast[s]({message:m,position:"topRight"});}
+        function logout(){localStorage.removeItem('admin_logged_in');window.location.href='login.html';}
+        let currentFilter='all';
+
+        function filterWithdrawals(status){
+            currentFilter=status;
+            document.querySelectorAll('.filter-tabs button').forEach(b=>b.classList.remove('active'));
+            event.target.classList.add('active');
+            loadWithdrawals();
+        }
+
+        function loadWithdrawals(){
+            $.get('/api/admin_withdrawals.php?status='+currentFilter).done(r=>{
+                if(r.success){
+                    displayWithdrawals(r.withdrawals);
+                }else{
+                    $('#withdrawalsTable').html('<tr><td colspan="8" class="text-center text-danger">Error loading withdrawals</td></tr>');
+                }
+            });
+        }
+
+        function displayWithdrawals(withdrawals){
+            const tbody=$('#withdrawalsTable');
+            tbody.empty();
+            
+            if(!withdrawals || withdrawals.length===0){
+                tbody.html('<tr><td colspan="8" class="text-center">No withdrawals found</td></tr>');
+                return;
+            }
+            
+            withdrawals.forEach(w=>{
+                const statusBadge=w.status==='pending'?'<span class="badge badge--warning">Pending</span>':
+                                 w.status==='approved'?'<span class="badge badge--success">Approved</span>':
+                                 '<span class="badge badge--danger">Rejected</span>';
+                const actions=w.status==='pending'?
+                    `<button onclick="approveWithdrawal(${w.id})" class="btn btn--success btn-sm">Approve</button>
+                     <button onclick="rejectWithdrawal(${w.id})" class="btn btn--danger btn-sm">Reject</button>`:'—';
+                
+                tbody.append(`
+                    <tr>
+                        <td>${w.id}</td>
+                        <td><strong>${w.username||'N/A'}</strong><br><small>${w.email||''}</small></td>
+                        <td>${w.trx}</td>
+                        <td><strong>$${parseFloat(w.amount).toFixed(2)}</strong></td>
+                        <td>${w.gateway}</td>
+                        <td>${new Date(w.created_at).toLocaleDateString()}</td>
+                        <td>${statusBadge}</td>
+                        <td>${actions}</td>
+                    </tr>
+                `);
+            });
+        }
+
+        function approveWithdrawal(id){
+            if(!confirm('¿Aprobar este retiro?'))return;
+            $.ajax({
+                url:'/api/admin_withdrawals.php',
+                method:'POST',
+                contentType:'application/json',
+                data:JSON.stringify({action:'approve',id:id}),
+                success:function(r){
+                    if(r.success){notify('success','Withdrawal approved');loadWithdrawals();}
+                    else notify('error',r.message);
+                }
+            });
+        }
+
+        function rejectWithdrawal(id){
+            if(!confirm('¿Rechazar este retiro? El saldo será devuelto al usuario.'))return;
+            $.ajax({
+                url:'/api/admin_withdrawals.php',
+                method:'POST',
+                contentType:'application/json',
+                data:JSON.stringify({action:'reject',id:id}),
+                success:function(r){
+                    if(r.success){notify('success','Withdrawal rejected and balance returned');loadWithdrawals();}
+                    else notify('error',r.message);
+                }
+            });
+        }
+
+        if(localStorage.getItem('admin_logged_in')!=='true'){
+            window.location.href='login.html';
+        }else{
+            loadWithdrawals();
+        }
+    </script>
+</body>
+</html>

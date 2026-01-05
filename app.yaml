@@ -1,0 +1,85 @@
+runtime: python312
+
+handlers:
+# Serve manifest.json
+- url: /manifest.json
+  static_files: manifest.json
+  upload: manifest.json
+  mime_type: application/manifest+json
+  http_headers:
+    Access-Control-Allow-Origin: "*"
+
+# Serve service worker
+- url: /service-worker.js
+  static_files: service-worker.js
+  upload: service-worker.js
+  mime_type: application/javascript
+  http_headers:
+    Service-Worker-Allowed: "/"
+    Cache-Control: "no-cache"
+
+# Serve root as index.html
+- url: /
+  static_files: index.html
+  upload: index.html
+  mime_type: text/html
+  expiration: "0s"
+  http_headers:
+    Cache-Control: "no-cache"
+
+# Serve all HTML files
+- url: /(.*\.html)
+  static_files: \1
+  upload: .*\.html
+  mime_type: text/html
+  http_headers:
+    Cache-Control: "no-cache"
+
+# Serve CSS files
+- url: /(.*\.css)
+  static_files: \1
+  upload: .*\.css
+  mime_type: text/css
+
+# Serve JavaScript files
+- url: /(.*\.js)
+  static_files: \1
+  upload: .*\.js
+  mime_type: application/javascript
+
+# Serve images
+- url: /(.*\.(png|jpg|jpeg|gif|ico|svg|webp))
+  static_files: \1
+  upload: .*\.(png|jpg|jpeg|gif|ico|svg|webp)
+
+# Serve fonts
+- url: /(.*\.(woff|woff2|ttf|eot))
+  static_files: \1
+  upload: .*\.(woff|woff2|ttf|eot)
+
+# Serve font files from webfonts directory
+- url: /webfonts/(.*)
+  static_files: webfonts/\1
+  upload: webfonts/.*
+  
+# Serve files from _files directories
+- url: /(.*_files/.*)
+  static_files: \1
+  upload: .*_files/.*
+
+# Serve PHP files as CSS
+- url: /(.*\.php)
+  static_files: \1
+  upload: .*\.php
+  mime_type: text/css
+
+# Security headers and cache
+default_expiration: "0s"
+
+# Enable HTTPS
+automatic_scaling:
+  min_idle_instances: automatic
+  max_idle_instances: automatic
+  min_pending_latency: automatic
+  max_pending_latency: automatic
+  max_instances: 20

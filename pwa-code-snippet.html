@@ -1,0 +1,215 @@
+
+  <!-- PWA Service Worker Registration -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./service-worker.js')
+          .then((registration) => {
+            console.log('Service Worker registered successfully:', registration.scope);
+          })
+          .catch((error) => {
+            console.log('Service Worker registration failed:', error);
+          });
+      });
+    }
+
+    // PWA Install Prompt
+    let deferredPrompt;
+    const installButton = document.getElementById('pwa-install-btn');
+    
+    window.addEventListener('beforeinstallprompt', (e) => {
+      // Prevent the mini-infobar from appearing on mobile
+      e.preventDefault();
+      // Store the event so it can be triggered later
+      deferredPrompt = e;
+      // Show the install button
+      if (installButton) {
+        installButton.style.display = 'flex';
+        console.log('PWA Install button shown');
+      }
+    });
+
+    // Handle install button click
+    if (installButton) {
+      installButton.addEventListener('click', async () => {
+        if (!deferredPrompt) {
+          alert('Esta aplicación ya está instalada o tu navegador no soporta instalación PWA.');
+          return;
+        }
+        // Show the install prompt
+        deferredPrompt.prompt();
+        // Wait for the user to respond to the prompt
+        const { outcome } = await deferredPrompt.userChoice;
+        console.log(`User response to the install prompt: ${outcome}`);
+        
+        // We've used the prompt, and can't use it again, throw it away
+        deferredPrompt = null;
+        // Hide the install button
+        installButton.style.display = 'none';
+      });
+    }
+
+    // Track PWA installation
+    window.addEventListener('appinstalled', () => {
+      console.log('PWA was installed');
+      // Hide install button
+      const installBtn = document.getElementById('pwa-install-btn');
+      if (installBtn) {
+        installBtn.style.display = 'none';
+      }
+      alert('¡Aplicación instalada exitosamente!');
+    });
+
+    // Check if app is running as PWA
+    if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
+      console.log('App is running as PWA');
+      // Add PWA-specific styles or behavior
+      document.body.classList.add('pwa-mode');
+    }
+
+    // Handle online/offline status
+    window.addEventListener('online', () => {
+      console.log('Back online');
+      if (typeof notify === 'function') {
+        notify('success', 'You are back online!');
+      }
+    });
+
+    window.addEventListener('offline', () => {
+      console.log('Gone offline');
+      if (typeof notify === 'function') {
+        notify('warning', 'You are offline. Some features may be limited.');
+      }
+    });
+  </script>
+
+  <!-- PWA Styles -->
+  <style>
+    /* PWA specific styles */
+    .pwa-mode {
+      /* Add safe area for notch devices */
+      padding-top: env(safe-area-inset-top);
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+    
+    /* PWA Install Button Styles */
+    .pwa-install-button {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: linear-gradient(135deg, #6fb950 0%, #0143a3 100%);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      padding: 15px 30px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 10px 30px rgba(111, 185, 80, 0.4);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.3s ease;
+      animation: pulse-install 2s infinite;
+    }
+    
+    .pwa-install-button:hover {
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 15px 40px rgba(111, 185, 80, 0.6);
+    }
+    
+    .pwa-install-button:active {
+      transform: translateY(-2px) scale(0.98);
+    }
+    
+    .pwa-install-button i {
+      font-size: 20px;
+      animation: bounce-icon 1s infinite;
+    }
+    
+    @keyframes pulse-install {
+      0%, 100% {
+        box-shadow: 0 10px 30px rgba(111, 185, 80, 0.4);
+      }
+      50% {
+        box-shadow: 0 10px 40px rgba(111, 185, 80, 0.7);
+      }
+    }
+    
+    @keyframes bounce-icon {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-3px);
+      }
+    }
+    
+    /* Responsive design for mobile */
+    @media (max-width: 768px) {
+      .pwa-install-button {
+        bottom: 20px;
+        right: 20px;
+        padding: 12px 20px;
+        font-size: 14px;
+      }
+      
+      .pwa-install-button span {
+        display: none;
+      }
+      
+      .pwa-install-button i {
+        font-size: 24px;
+      }
+    }
+    
+    /* Smooth scrolling for PWA */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Color Override Styles */
+    .custom--bg, .feature-card::after, .testimonial-item, .section-top-title.border-left::before, 
+    .about-thumb .video-icon, .service-section, .how-work-card__step::before, .overview-section::after, 
+    .loan-card, .gradient--bg, .btn--gradient::before, .custom--accordion .accordion-button:not(.collapsed), 
+    .btn-outline--gradient, .pagination .page-item.active .page-link, .btn--base, .bg--base,
+    .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active, .dl__square, .plan-card__header,
+    .btn-primary, .custom--btn {
+        background: #6fb950 !important;
+        background-color: #6fb950 !important;
+    }
+
+    .btn-primary:hover, .btn-primary:focus, .btn-check:focus+.btn-primary {
+        background: #5ea840 !important;
+        background-color: #5ea840 !important;
+        border-color: #5ea840 !important;
+    }
+
+    .custom--cl, .service-card__icon i, .choose-card__icon i, .overview-card__icon i, 
+    .ratings i, .footer-info-list i, .feature-card i, .text--base,
+    .header .main-menu li a:hover, .header .main-menu li a:focus, a:hover {
+        color: #6fb950 !important;
+    }
+
+    .overview-section, .testimonial-item::before, .footer, .account-wrapper .left, 
+    .btn--dark, .btn--dark:hover, .registration-wrapper .top-content, .btn--base-2, 
+    .custom--table thead, .account-section-right, .how-work-card__step, 
+    .btn-outline--gradient::before, .choose-card, .dark--overlay::before, 
+    .dark--overlay-two::before, .plan-card .fdr-badge, .beneficiary-card .nav-tabs .nav-link {
+        background: #0143a3 !important;
+        background-color: #0143a3 !important;
+    }
+
+    .service-card__icon {
+        background-color: #6fb95026 !important;
+    }
+    
+    .feature-card .icon {
+        background-color: #6fb95026 !important;
+    }
+
+    .form--control:focus, .border--base {
+        border-color: #6fb950 !important;
+    }
+  </style>

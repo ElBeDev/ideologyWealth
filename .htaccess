@@ -1,0 +1,41 @@
+# 1life Financial - PWA Configuration for Apache
+
+# Enable HTTPS redirect (uncomment in production)
+# RewriteEngine On
+# RewriteCond %{HTTPS} off
+# RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Service Worker must be served with correct MIME type
+<FilesMatch "service-worker\.js$">
+  Header set Service-Worker-Allowed "/"
+  Header set Cache-Control "no-cache"
+</FilesMatch>
+
+# Manifest.json MIME type
+<FilesMatch "manifest\.json$">
+  Header set Content-Type "application/manifest+json"
+  Header set Cache-Control "public, max-age=604800"
+</FilesMatch>
+
+# Cache static assets
+<FilesMatch "\.(jpg|jpeg|png|gif|svg|webp|ico|css|js|woff|woff2|ttf|eot)$">
+  Header set Cache-Control "public, max-age=2592000"
+</FilesMatch>
+
+# Gzip compression
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json
+</IfModule>
+
+# Security headers
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set X-Frame-Options "SAMEORIGIN"
+  Header set X-XSS-Protection "1; mode=block"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# Error pages
+ErrorDocument 404 /offline.html
+ErrorDocument 500 /offline.html
+ErrorDocument 503 /offline.html

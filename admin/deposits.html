@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1life Financial - Deposits</title>
+    <link rel="shortcut icon" type="image/png" href="assets/deposits/favicon.png">
+    <link rel="stylesheet" href="assets/deposits/css2.css">
+    <link rel="stylesheet" href="assets/deposits/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/deposits/bootstrap-toggle.min.css">
+    <link rel="stylesheet" href="assets/deposits/all.min.css">
+    <link rel="stylesheet" href="assets/deposits/line-awesome.min.css">
+    <link rel="stylesheet" href="assets/deposits/nice-select.css">
+    <link rel="stylesheet" href="assets/deposits/select2.min.css">
+    <link rel="stylesheet" href="assets/deposits/jquery-jvectormap-2.0.5.css">
+    <link rel="stylesheet" href="assets/deposits/datepicker.min.css">
+    <link rel="stylesheet" href="assets/deposits/jquery-timepicky.css">
+    <link rel="stylesheet" href="assets/deposits/bootstrap-clockpicker.min.css">
+    <link rel="stylesheet" href="assets/deposits/bootstrap-pincode-input.css">
+    <link rel="stylesheet" href="assets/deposits/app.css">
+    <link rel="stylesheet" href="assets/deposits/iziToast.min.css">
+    <link rel="stylesheet" href="assets/css/sidebar.css">
+</head>
+<body>
+    <div class="page-wrapper default-version">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar__logo">
+                <img src="1life Financial - Dashboard_files/logo.png" alt="1life Financial">
+            </div>
+            
+            <ul class="sidebar__menu">
+                <li class="sidebar-menu-item">
+                    <a href="dashboard.html">
+                        <i class="las la-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="sidebar-menu-item">
+                    <a href="users.html">
+                        <i class="las la-users"></i>
+                        <span>Manage Users</span>
+                        <span class="menu-badge" id="totalUsersCount">396</span>
+                    </a>
+                </li>
+                <li class="sidebar-menu-item active">
+                    <a href="deposits.html">
+                        <i class="las la-wallet"></i>
+                        <span>Deposits</span>
+                        <span class="menu-badge" id="pendingDepositsCount">0</span>
+                    </a>
+                </li>
+                <li class="sidebar-menu-item">
+                    <a href="withdrawals.html">
+                        <i class="las la-money-bill-wave"></i>
+                        <span>Withdrawals</span>
+                        <span class="menu-badge" id="pendingWithdrawalsCount">0</span>
+                    </a>
+                </li>
+                <li class="sidebar-menu-item">
+                    <a href="transfers.html">
+                        <i class="las la-exchange-alt"></i>
+                        <span>Transfers</span>
+                        <span class="menu-badge" id="pendingTransfersCount">0</span>
+                    </a>
+                </li>
+                <li class="sidebar-menu-item">
+                    <a href="#" onclick="logout()">
+                        <i class="las la-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="body-wrapper">
+            <div class="bodywrapper__inner">
+                <!-- Page Header -->
+                <div class="row align-items-center mb-30 justify-content-between">
+                    <div class="col-lg-6 col-sm-6">
+                        <h6 class="page-title" id="pageTitle">All Deposits</h6>
+                    </div>
+                    <div class="col-lg-6 col-sm-6 text-sm-right mt-sm-0 mt-3 right-part">
+                        <form id="searchForm" class="form-inline float-sm-right bg--white mb-2 ml-0 ml-xl-2 ml-lg-0">
+                            <div class="input-group has_append">
+                                <input type="text" id="searchInput" class="form-control" placeholder="Trx number/Username">
+                                <div class="input-group-append">
+                                    <button class="btn btn--primary" type="submit"><i class="fa fa-search"></i></button>
+                                </div>
+                            </div>
+                        </form>
+
+                        <form id="dateSearchForm" class="form-inline float-sm-right bg--white">
+                            <div class="input-group has_append">
+                                <input id="dateRange" type="text" data-range="true" data-multiple-dates-separator=" - " data-language="en" class="datepicker-here form-control" data-position="bottom right" placeholder="Min date - Max date" autocomplete="off">
+                                <div class="input-group-append">
+                                    <button class="btn btn--primary" type="submit"><i class="fa fa-search"></i></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Filters -->
+                <div class="row mb-30">
+                    <div class="col-12">
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn--primary filter-btn active" data-status="all" onclick="filterDeposits('all')">All Deposits</button>
+                            <button type="button" class="btn btn--warning filter-btn" data-status="pending" onclick="filterDeposits('pending')">Pending</button>
+                            <button type="button" class="btn btn--success filter-btn" data-status="approved" onclick="filterDeposits('approved')">Approved</button>
+                            <button type="button" class="btn btn--danger filter-btn" data-status="rejected" onclick="filterDeposits('rejected')">Rejected</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Deposits Table -->
+                <div class="row justify-content-center">
+                    <div class="col-md-12">
+                        <div class="card b-radius--10">
+                            <div class="card-body p-0">
+                                <div class="table-responsive--sm table-responsive">
+                                    <table class="table table--light style--two">
+                                        <thead>
+                                            <tr>
+                                                <th>Gateway | Trx</th>
+                                                <th>Initiated</th>
+                                                <th>User</th>
+                                                <th>Amount</th>
+                                                <th>Charge</th>
+                                                <th>Status</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="depositsTable">
+                                            <tr>
+                                                <td class="text-muted text-center" colspan="7">Loading deposits...</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="card-footer py-4">
+                                <div id="pagination" class="d-flex justify-content-end"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Detail Modal -->
+    <div class="modal fade" id="detailModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Deposit Details</h5>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <ul class="list-group" id="detailContent">
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>Transaction ID:</span>
+                            <span id="detailTrx"></span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>User:</span>
+                            <span id="detailUser"></span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>Amount:</span>
+                            <span id="detailAmount"></span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>Gateway:</span>
+                            <span id="detailGateway"></span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>Date:</span>
+                            <span id="detailDate"></span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>Status:</span>
+                            <span id="detailStatus"></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/deposits/jquery-3.5.1.min.js"></script>
+    <script src="assets/deposits/bootstrap.bundle.min.js"></script>
+    <script src="assets/deposits/bootstrap-toggle.min.js"></script>
+    <script src="assets/deposits/jquery.slimscroll.min.js"></script>
+    <script src="assets/deposits/jquery.nice-select.min.js"></script>
+    <script src="assets/deposits/iziToast.min.js"></script>
+    <script src="assets/deposits/datepicker.min.js"></script>
+    <script src="assets/deposits/datepicker.en.js"></script>
+    <script src="assets/deposits/select2.min.js"></script>
+    <script src="assets/deposits/nicEdit.js"></script>
+    <script src="assets/deposits/app.js"></script>
+
+    <script>
+        "use strict";
+        
+        function notify(status, message) {
+            if(typeof message == 'string'){
+                iziToast[status]({
+                    message: message,
+                    position: "topRight"
+                });
+            }else{
+                $.each(message, function(i, val) {
+                    iziToast[status]({
+                        message: val,
+                        position: "topRight"
+                    });
+                });
+            }
+        }
+
+        let currentFilter = 'all';
+        let searchQuery = '';
+        let dateRange = '';
+
+        // Initialize datepicker
+        $(document).ready(function() {
+            $('.datepicker-here').datepicker({
+                dateFormat: 'yyyy-mm-dd'
+            });
+        });
+
+        function filterDeposits(status) {
+            currentFilter = status;
+            $('.filter-btn').removeClass('active');
+            $(`.filter-btn[data-status="${status}"]`).addClass('active');
+            
+            // Update page title
+            const titles = {
+                'all': 'All Deposits',
+                'pending': 'Pending Deposits',
+                'approved': 'Approved Deposits',
+                'rejected': 'Rejected Deposits'
+            };
+            $('#pageTitle').text(titles[status] || 'Deposits');
+            
+            loadDeposits();
+        }
+
+        $('#searchForm').submit(function(e) {
+            e.preventDefault();
+            searchQuery = $('#searchInput').val();
+            loadDeposits();
+        });
+
+        $('#dateSearchForm').submit(function(e) {
+            e.preventDefault();
+            dateRange = $('#dateRange').val();
+            loadDeposits();
+        });
+
+        function loadDeposits() {
+            let url = '/api/admin_deposits.php?status=' + currentFilter;
+            if (searchQuery) {
+                url += '&search=' + encodeURIComponent(searchQuery);
+            }
+            if (dateRange) {
+                url += '&date_range=' + encodeURIComponent(dateRange);
+            }
+
+            $.get(url).done(function(r) {
+                if (r.success) {
+                    displayDeposits(r.deposits);
+                } else {
+                    $('#depositsTable').html('<tr><td colspan="7" class="text-center text-danger">Error loading deposits</td></tr>');
+                }
+            }).fail(function() {
+                $('#depositsTable').html('<tr><td colspan="7" class="text-center text-danger">Failed to connect to server</td></tr>');
+            });
+        }
+
+        function displayDeposits(deposits) {
+            const tbody = $('#depositsTable');
+            tbody.empty();
+            
+            if (!deposits || deposits.length === 0) {
+                tbody.html('<tr><td colspan="7" class="text-muted text-center">No deposits found.</td></tr>');
+                return;
+            }
+            
+            deposits.forEach(function(d) {
+                let statusClass = '';
+                let statusText = '';
+                
+                if (d.status === 'pending') {
+                    statusClass = 'badge badge-pill bg--warning';
+                    statusText = 'Pending';
+                } else if (d.status === 'approved') {
+                    statusClass = 'badge badge-pill bg--success';
+                    statusText = 'Approved';
+                } else if (d.status === 'rejected') {
+                    statusClass = 'badge badge-pill bg--danger';
+                    statusText = 'Rejected';
+                }
+                
+                let actions = '';
+                if (d.status === 'pending') {
+                    actions = `
+                        <button onclick="approveDeposit(${d.id})" class="btn btn--success btn-sm mb-1" title="Approve">
+                            <i class="las la-check"></i> Approve
+                        </button>
+                        <button onclick="rejectDeposit(${d.id})" class="btn btn--danger btn-sm mb-1" title="Reject">
+                            <i class="las la-times"></i> Reject
+                        </button>
+                    `;
+                } else {
+                    actions = `<span class="text-muted">—</span>`;
+                }
+                
+                const username = d.username || 'N/A';
+                const email = d.email || '';
+                const amount = parseFloat(d.amount || 0).toFixed(2);
+                const charge = parseFloat(d.charge || 0).toFixed(2);
+                const finalAmount = parseFloat(d.final_amount || d.amount || 0).toFixed(2);
+                const gateway = d.gateway || 'Manual';
+                const date = new Date(d.created_at).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: '2-digit',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+                
+                tbody.append(`
+                    <tr>
+                        <td>
+                            <span class="font-weight-bold text--primary">${gateway}</span>
+                            <br>
+                            <small>${d.trx || 'N/A'}</small>
+                        </td>
+                        <td>${date}</td>
+                        <td>
+                            <span class="font-weight-bold d-block">${username}</span>
+                            <small><a href="user-detail.html?id=${d.user_id}">${email}</a></small>
+                        </td>
+                        <td>
+                            <strong>$${amount}</strong>
+                            <br>
+                            <small class="text-muted">+ Charge: $${charge}</small>
+                        </td>
+                        <td>
+                            <strong class="text--success">$${finalAmount}</strong>
+                        </td>
+                        <td>
+                            <span class="${statusClass}">${statusText}</span>
+                        </td>
+                        <td>
+                            ${actions}
+                        </td>
+                    </tr>
+                `);
+            });
+        }
+
+        function approveDeposit(id) {
+            if (!confirm('Are you sure you want to approve this deposit?')) {
+                return;
+            }
+            
+            $.ajax({
+                url: '/api/admin_deposits.php',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    action: 'approve',
+                    id: id
+                }),
+                success: function(r) {
+                    if (r.success) {
+                        notify('success', 'Deposit approved successfully');
+                        loadDeposits();
+                    } else {
+                        notify('error', r.message || 'Failed to approve deposit');
+                    }
+                },
+                error: function() {
+                    notify('error', 'Failed to connect to server');
+                }
+            });
+        }
+
+        function rejectDeposit(id) {
+            if (!confirm('Are you sure you want to reject this deposit?')) {
+                return;
+            }
+            
+            $.ajax({
+                url: '/api/admin_deposits.php',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    action: 'reject',
+                    id: id
+                }),
+                success: function(r) {
+                    if (r.success) {
+                        notify('success', 'Deposit rejected successfully');
+                        loadDeposits();
+                    } else {
+                        notify('error', r.message || 'Failed to reject deposit');
+                    }
+                },
+                error: function() {
+                    notify('error', 'Failed to connect to server');
+                }
+            });
+        }
+
+        // Check authentication
+        if (localStorage.getItem('admin_logged_in') !== 'true') {
+            window.location.href = 'login.html';
+        } else {
+            loadDeposits();
+        }
+    </script>
+</body>
+</html>

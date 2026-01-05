@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1life Financial - Transfer</title>
+    <link rel="shortcut icon" href="https://1lifefinancial.com/assets/images/logoIcon/favicon.png" type="image/x-icon">
+    
+    <!-- bootstrap 5  -->
+    <link rel="stylesheet" href="home_files/bootstrap.min.css">
+    <!-- fontawesome 5  -->
+    <link rel="stylesheet" href="home_files/all.min.css">
+    <!-- lineawesome font -->
+    <link rel="stylesheet" href="home_files/line-awesome.min.css">
+    <link rel="stylesheet" href="home_files/custom.css">
+    <!-- main css -->
+    <link rel="stylesheet" href="home_files/main.css">
+    <link rel="stylesheet" href="home_files/color.php">
+    <link rel="stylesheet" href="home_files/iziToast.min.css">
+</head>
+
+<body>
+    <header class="header inner-hero bg_img overlay--one" style="background-image: url('https://1lifefinancial.com/assets/images/frontend/breadcumb/60c7569dec4f01623676573.jpg');padding-top: 0px;padding-bottom: 27px;">
+        <div class="header__bottom2">
+            <div class="container">
+                <nav class="navbar navbar-expand-lg p-0 align-items-center justify-content-between">
+                    <a class="site-logo site-title" href="index.html">
+                        <img src="https://1lifefinancial.com/assets/images/logoIcon/logo.png" alt="logo">
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+                        <span class="menu-toggle"></span>
+                    </button>
+                    <div class="collapse navbar-collapse mt-xl-0 mt-3" id="navbarSupportedContent">
+                        <ul class="navbar-nav main-menu m-auto">
+                            <li><a href="dashboard.html">Dashboard</a></li>
+                            <li><a href="deposits.html">Deposit</a></li>
+                            <li><a class="active" href="transfer.html">Transfer</a></li>
+                            <li><a href="withdrawals.html">Withdraw</a></li>
+                            <li><a href="profile.html">More</a></li>
+                        </ul>
+                        <div class="nav-right">
+                            <a href="#" onclick="logout(); return false;" class="btn btn-sm py-2 custom--bg text-white">
+                                <i class="fa fa-sign-out-alt"></i> Logout
+                            </a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-wrapper" style="min-height: calc(-536px + 100vh);">
+        <section class="pt-100 pb-100 bg_img" style="background-image: url('https://1lifefinancial.com/assets/templates/basic/images/elements/bg1.jpg');">
+            <div class="container">
+                <h3 class="mb-4" style="color: #83af40;">Transfer Options</h3>
+                
+                <div class="row">
+                    <!-- Account Transfer -->
+                    <div class="col-lg-6 mb-4">
+                        <div class="custom--card h-100">
+                            <div class="card-body text-center p-5">
+                                <div class="mb-4">
+                                    <i class="las la-university" style="font-size: 72px; color: #83af40;"></i>
+                                </div>
+                                <h4 class="mb-3">Account Transfer</h4>
+                                <p class="text-muted mb-4">View your account information and make transfers to your registered account</p>
+                                <button class="btn btn--base btn-lg" onclick="showAccountInfo()">
+                                    <i class="las la-eye"></i> View Account Info
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Other Account Transfer -->
+                    <div class="col-lg-6 mb-4">
+                        <div class="custom--card h-100">
+                            <div class="card-body text-center p-5">
+                                <div class="mb-4">
+                                    <i class="las la-exchange-alt" style="font-size: 72px; color: #0143a3;"></i>
+                                </div>
+                                <h4 class="mb-3">Other Account</h4>
+                                <p class="text-muted mb-4">Transfer funds to another account within our system</p>
+                                <button class="btn btn--base btn-lg" onclick="showOtherAccountTransfer()">
+                                    <i class="las la-paper-plane"></i> Transfer to Other
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Account Information Section (Hidden by default) -->
+                <div id="accountInfoSection" style="display: none;" class="mt-4">
+                    <div class="custom--card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <h4 style="color: #83af40;">Your Account Information</h4>
+                                <button class="btn btn-sm btn-secondary" onclick="hideAccountInfo()">
+                                    <i class="las la-times"></i> Close
+                                </button>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <div class="p-3" style="background: #f8f9fa; border-radius: 8px;">
+                                        <label class="fw-bold text-muted mb-2">Account Number</label>
+                                        <h5 id="displayAccountNumber" style="color: #83af40;">-</h5>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6 mb-3">
+                                    <div class="p-3" style="background: #f8f9fa; border-radius: 8px;">
+                                        <label class="fw-bold text-muted mb-2">Routing Number</label>
+                                        <h5 id="displayRouting" style="color: #83af40;">-</h5>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6 mb-3">
+                                    <div class="p-3" style="background: #f8f9fa; border-radius: 8px;">
+                                        <label class="fw-bold text-muted mb-2">Beneficiary</label>
+                                        <h5 id="displayBeneficiary" style="color: #83af40;">-</h5>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6 mb-3">
+                                    <div class="p-3" style="background: #f8f9fa; border-radius: 8px;">
+                                        <label class="fw-bold text-muted mb-2">Swift Code</label>
+                                        <h5 id="displaySwift" style="color: #83af40;">-</h5>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="alert alert-info mt-3">
+                                <i class="las la-info-circle"></i> Use this information to receive transfers to your account
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Other Account Transfer Section (Hidden by default) -->
+                <div id="otherAccountSection" style="display: none;" class="mt-4">
+                    <div class="custom--card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <h4 style="color: #0143a3;">Transfer to Other Account</h4>
+                                <button class="btn btn-sm btn-secondary" onclick="hideOtherAccountTransfer()">
+                                    <i class="las la-times"></i> Close
+                                </button>
+                            </div>
+                            
+                            <form id="transferForm">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Beneficiary's Name</label>
+                                        <input type="text" class="form-control" id="beneficiaryName" required>
+                                    </div>
+                                    
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Recipient Account Number</label>
+                                        <input type="text" class="form-control" id="recipientAccount" required>
+                                    </div>
+                                    
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Routing Number</label>
+                                        <input type="text" class="form-control" id="routingNumber" required>
+                                    </div>
+                                    
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">SWIFT Code</label>
+                                        <input type="text" class="form-control" id="swiftCode" required>
+                                    </div>
+                                    
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Amount</label>
+                                        <input type="number" class="form-control" id="transferAmount" step="0.01" required>
+                                    </div>
+                                    
+                                    <div class="col-12 mb-3">
+                                        <label class="form-label">Purpose of Transfer</label>
+                                        <textarea class="form-control" id="transferPurpose" rows="3" required></textarea>
+                                    </div>
+                                    
+                                    <div class="col-12">
+                                        <button type="submit" class="btn btn--base btn-lg w-100">
+                                            <i class="las la-paper-plane"></i> Submit Transfer Request
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="home_files/jquery-3.5.1.min.js"></script>
+    <script src="home_files/bootstrap.bundle.min.js"></script>
+    <script src="home_files/iziToast.min.js"></script>
+    
+    <script>
+        // Check authentication
+        if (localStorage.getItem('logged_in') !== 'true') {
+            window.location.href = 'login.html';
+        }
+
+        // Load user data
+        let userData = null;
+        
+        async function loadUserData() {
+            // First, try to get from localStorage
+            const cachedUser = localStorage.getItem('user');
+            if (cachedUser) {
+                try {
+                    userData = JSON.parse(cachedUser);
+                } catch (e) {
+                    console.error('Error parsing cached user:', e);
+                }
+            }
+
+            // Then try to refresh from API
+            try {
+                const response = await fetch('/api/user.php', {
+                    method: 'GET',
+                    credentials: 'include'
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    
+                    if (data.success && data.user) {
+                        userData = data.user;
+                        localStorage.setItem('user', JSON.stringify(data.user));
+                    }
+                }
+            } catch (error) {
+                console.error('Error loading user data:', error);
+                // Continue with cached data if available
+            }
+        }
+
+        function showAccountInfo() {
+            if (!userData) {
+                const cachedUser = localStorage.getItem('user');
+                if (cachedUser) {
+                    try {
+                        userData = JSON.parse(cachedUser);
+                    } catch (e) {
+                        console.error('Error parsing user data:', e);
+                    }
+                }
+            }
+
+            if (userData) {
+                const accountNum = document.getElementById('displayAccountNumber');
+                const routing = document.getElementById('displayRouting');
+                const beneficiary = document.getElementById('displayBeneficiary');
+                const swift = document.getElementById('displaySwift');
+                
+                if (accountNum) accountNum.textContent = userData.bank_account_number || '317012315';
+                if (routing) routing.textContent = userData.bank_routing || '-';
+                if (beneficiary) beneficiary.textContent = userData.bank_beneficiary || '-';
+                if (swift) swift.textContent = userData.bank_swift || '-';
+            }
+
+            document.getElementById('accountInfoSection').style.display = 'block';
+            document.getElementById('otherAccountSection').style.display = 'none';
+        }
+
+        function hideAccountInfo() {
+            document.getElementById('accountInfoSection').style.display = 'none';
+        }
+
+        function showOtherAccountTransfer() {
+            document.getElementById('otherAccountSection').style.display = 'block';
+            document.getElementById('accountInfoSection').style.display = 'none';
+        }
+
+        function hideOtherAccountTransfer() {
+            document.getElementById('otherAccountSection').style.display = 'none';
+        }
+
+        document.getElementById('transferForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const beneficiaryName = document.getElementById('beneficiaryName').value;
+            const recipientAccount = document.getElementById('recipientAccount').value;
+            const routingNumber = document.getElementById('routingNumber').value;
+            const swiftCode = document.getElementById('swiftCode').value;
+            const amount = document.getElementById('transferAmount').value;
+            const purpose = document.getElementById('transferPurpose').value;
+
+            // Show loading
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="las la-spinner la-spin"></i> Processing...';
+
+            try {
+                const response = await fetch('/api/transfer.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    credentials: 'include',
+                    body: JSON.stringify({
+                        beneficiary_name: beneficiaryName,
+                        account_number: recipientAccount,
+                        routing_number: routingNumber,
+                        swift_code: swiftCode,
+                        amount: amount,
+                        purpose: purpose
+                    })
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    iziToast.success({
+                        title: 'Success',
+                        message: 'Transfer request submitted successfully. It will be reviewed by our team.',
+                        position: 'topRight'
+                    });
+                    document.getElementById('transferForm').reset();
+                    hideOtherAccountTransfer();
+                } else {
+                    iziToast.error({
+                        title: 'Error',
+                        message: data.message || 'Transfer failed',
+                        position: 'topRight'
+                    });
+                }
+            } catch (error) {
+                console.error('Transfer error:', error);
+                iziToast.error({
+                    title: 'Error',
+                    message: 'Failed to process transfer',
+                    position: 'topRight'
+                });
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
+            }
+        });
+
+        function logout() {
+            fetch('/api/logout.php', {
+                method: 'GET',
+                credentials: 'include'
+            }).finally(() => {
+                localStorage.clear();
+                window.location.href = 'login.html';
+            });
+        }
+
+        // Initialize
+        loadUserData();
+    </script>
+</body>
+</html>

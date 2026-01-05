@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PWA Checker - 1life Financial</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #6fb950 0%, #0143a3 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    h1 {
+      color: #6fb950;
+      margin-bottom: 10px;
+      font-size: 32px;
+    }
+
+    .subtitle {
+      color: #666;
+      margin-bottom: 30px;
+      font-size: 16px;
+    }
+
+    .check-item {
+      background: #f8f9fa;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 15px;
+      border-left: 4px solid #ddd;
+      transition: all 0.3s ease;
+    }
+
+    .check-item.success {
+      border-left-color: #4caf50;
+      background: #f1f8f4;
+    }
+
+    .check-item.error {
+      border-left-color: #f44336;
+      background: #fef1f0;
+    }
+
+    .check-item.warning {
+      border-left-color: #ff9800;
+      background: #fff8f0;
+    }
+
+    .check-title {
+      font-weight: 600;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 18px;
+    }
+
+    .check-description {
+      color: #666;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .icon {
+      font-size: 24px;
+    }
+
+    .success .icon { color: #4caf50; }
+    .error .icon { color: #f44336; }
+    .warning .icon { color: #ff9800; }
+
+    button {
+      background: linear-gradient(135deg, #6fb950 0%, #0143a3 100%);
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      border-radius: 50px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 20px;
+      transition: transform 0.3s ease;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+    }
+
+    .summary {
+      background: #f8f9fa;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .summary h2 {
+      color: #333;
+      margin-bottom: 15px;
+    }
+
+    .score {
+      font-size: 48px;
+      font-weight: bold;
+      color: #6fb950;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 40px;
+      color: #666;
+    }
+
+    .spinner {
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #6fb950;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 20px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 30px;
+      color: #666;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🔍 PWA Checker</h1>
+    <p class="subtitle">Verificación de Progressive Web App para 1life Financial</p>
+
+    <div id="loading" class="loading">
+      <div class="spinner"></div>
+      <p>Verificando configuración de PWA...</p>
+    </div>
+
+    <div id="results" style="display: none;">
+      <div class="summary">
+        <h2>Resultado General</h2>
+        <div class="score" id="score">0/10</div>
+        <p id="status-message">Calculando...</p>
+      </div>
+
+      <div id="checks"></div>
+
+      <button onclick="runChecks()">🔄 Verificar Nuevamente</button>
+    </div>
+
+    <div class="footer">
+      <p>💡 Tip: Ejecuta esto desde un servidor HTTP local o HTTPS para mejores resultados</p>
+    </div>
+  </div>
+
+  <script>
+    const checks = [
+      {
+        name: 'Service Worker',
+        description: 'Verifica si el Service Worker está registrado',
+        test: async () => {
+          if ('serviceWorker' in navigator) {
+            const registrations = await navigator.serviceWorker.getRegistrations();
+            return registrations.length > 0;
+          }
+          return false;
+        }
+      },
+      {
+        name: 'Manifest',
+        description: 'Verifica que el archivo manifest.json sea accesible',
+        test: async () => {
+          try {
+            const response = await fetch('./manifest.json');
+            const manifest = await response.json();
+            return manifest.name && manifest.icons && manifest.icons.length > 0;
+          } catch {
+            return false;
+          }
+        }
+      },
+      {
+        name: 'HTTPS o Localhost',
+        description: 'PWA requiere HTTPS en producción o localhost en desarrollo',
+        test: () => {
+          return location.protocol === 'https:' || 
+                 location.hostname === 'localhost' || 
+                 location.hostname === '127.0.0.1';
+        }
+      },
+      {
+        name: 'Iconos PWA',
+        description: 'Verifica que los iconos existan (al menos 192x192 y 512x512)',
+        test: async () => {
+          try {
+            const responses = await Promise.all([
+              fetch('./icons/icon-192x192.png'),
+              fetch('./icons/icon-512x512.png')
+            ]);
+            return responses.every(r => r.ok);
+          } catch {
+            return false;
+          }
+        }
+      },
+      {
+        name: 'Offline Page',
+        description: 'Verifica que exista una página para modo offline',
+        test: async () => {
+          try {
+            const response = await fetch('./offline.html');
+            return response.ok;
+          } catch {
+            return false;
+          }
+        }
+      },
+      {
+        name: 'Meta Theme Color',
+        description: 'Verifica que exista el meta tag theme-color',
+        test: () => {
+          return document.querySelector('meta[name="theme-color"]') !== null;
+        }
+      },
+      {
+        name: 'Viewport Meta Tag',
+        description: 'Verifica que la página sea responsive',
+        test: () => {
+          return document.querySelector('meta[name="viewport"]') !== null;
+        }
+      },
+      {
+        name: 'Apple Touch Icon',
+        description: 'Verifica iconos para dispositivos iOS',
+        test: () => {
+          return document.querySelector('link[rel="apple-touch-icon"]') !== null;
+        }
+      },
+      {
+        name: 'Cache API',
+        description: 'Verifica que la Cache API esté disponible',
+        test: () => {
+          return 'caches' in window;
+        }
+      },
+      {
+        name: 'Responsive Design',
+        description: 'Verifica que el sitio sea responsive',
+        test: () => {
+          return window.innerWidth >= 320; // Mínimo ancho móvil
+        }
+      }
+    ];
+
+    async function runChecks() {
+      document.getElementById('loading').style.display = 'block';
+      document.getElementById('results').style.display = 'none';
+
+      const checksContainer = document.getElementById('checks');
+      checksContainer.innerHTML = '';
+
+      let passedChecks = 0;
+
+      for (const check of checks) {
+        const result = await check.test();
+        if (result) passedChecks++;
+
+        const checkElement = document.createElement('div');
+        checkElement.className = `check-item ${result ? 'success' : 'error'}`;
+        checkElement.innerHTML = `
+          <div class="check-title">
+            <span class="icon">${result ? '✅' : '❌'}</span>
+            ${check.name}
+          </div>
+          <div class="check-description">${check.description}</div>
+        `;
+        checksContainer.appendChild(checkElement);
+      }
+
+      // Update score
+      const score = `${passedChecks}/${checks.length}`;
+      document.getElementById('score').textContent = score;
+
+      // Update status message
+      const statusMessage = document.getElementById('status-message');
+      if (passedChecks === checks.length) {
+        statusMessage.textContent = '🎉 ¡Perfecto! Tu PWA está completamente configurada';
+        statusMessage.style.color = '#4caf50';
+      } else if (passedChecks >= checks.length * 0.7) {
+        statusMessage.textContent = '⚠️ Casi listo - Revisa los items pendientes';
+        statusMessage.style.color = '#ff9800';
+      } else {
+        statusMessage.textContent = '❌ Necesitas completar más configuraciones';
+        statusMessage.style.color = '#f44336';
+      }
+
+      document.getElementById('loading').style.display = 'none';
+      document.getElementById('results').style.display = 'block';
+    }
+
+    // Run checks on load
+    window.addEventListener('load', () => {
+      setTimeout(runChecks, 1000);
+    });
+  </script>
+</body>
+</html>

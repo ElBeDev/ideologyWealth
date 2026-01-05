@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1life Financial - User Detail</title>
+    <link rel="shortcut icon" type="image/png" href="assets/user-detail/favicon.png">
+    <link rel="stylesheet" href="assets/user-detail/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/user-detail/all.min.css">
+    <link rel="stylesheet" href="assets/user-detail/line-awesome.min.css">
+    <link rel="stylesheet" href="assets/user-detail/app.css">
+    <link rel="stylesheet" href="assets/user-detail/iziToast.min.css">
+</head>
+<body>
+    <div class="page-wrapper default-version">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar__logo">
+                <img src="1life Financial - Dashboard_files/logo.png" alt="1life Financial">
+            </div>
+            
+            <ul class="sidebar__menu">
+                <li class="sidebar-menu-item">
+                    <a href="dashboard.html">
+                        <i class="las la-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="sidebar-menu-item active">
+                    <a href="users.html">
+                        <i class="las la-users"></i>
+                        <span>Manage Users</span>
+                        <span class="menu-badge" id="totalUsersCount">396</span>
+                    </a>
+                </li>
+                <li class="sidebar-menu-item">
+                    <a href="deposits.html">
+                        <i class="las la-wallet"></i>
+                        <span>Deposits</span>
+                        <span class="menu-badge" id="pendingDepositsCount">0</span>
+                    </a>
+                </li>
+                <li class="sidebar-menu-item">
+                    <a href="withdrawals.html">
+                        <i class="las la-money-bill-wave"></i>
+                        <span>Withdrawals</span>
+                        <span class="menu-badge" id="pendingWithdrawalsCount">0</span>
+                    </a>
+                </li>
+                <li class="sidebar-menu-item">
+                    <a href="transfers.html">
+                        <i class="las la-exchange-alt"></i>
+                        <span>Transfers</span>
+                        <span class="menu-badge" id="pendingTransfersCount">0</span>
+                    </a>
+                </li>
+                <li class="sidebar-menu-item">
+                    <a href="#" onclick="logout()">
+                        <i class="las la-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="body-wrapper">
+            <div class="bodywrapper__inner">
+                <!-- Page Header -->
+                <div class="row align-items-center mb-30 justify-content-between">
+                    <div class="col-lg-6 col-sm-6">
+                        <h6 class="page-title">User Detail</h6>
+                    </div>
+                    <div class="col-lg-6 col-sm-6 text-sm-right mt-sm-0 mt-3">
+                        <a href="users.html" class="btn btn--primary">
+                            <i class="las la-arrow-left"></i> Back to Users
+                        </a>
+                    </div>
+                </div>
+
+                <div class="row mb-none-30">
+                    <!-- Left Column - User Info -->
+                    <div class="col-xl-3 col-lg-5 col-md-5 mb-30">
+                        <!-- Profile Card -->
+                        <div class="card b-radius--10 overflow-hidden box--shadow1">
+                            <div class="card-body p-0">
+                                <div class="p-3 bg--white">
+                                    <div class="">
+                                        <img src="assets/user-detail/350x300.jpg" alt="Profile Image" class="b-radius--10 w-100">
+                                    </div>
+                                    <div class="mt-15">
+                                        <h4 id="userName"></h4>
+                                        <span class="text--small">Joined At <strong id="joinedDate"></strong></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- User Information -->
+                        <div class="card b-radius--10 overflow-hidden mt-30 box--shadow1">
+                            <div class="card-body">
+                                <h5 class="mb-20 text-muted">User Information</h5>
+                                <ul class="list-group">
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        Username
+                                        <span class="font-weight-bold" id="usernameInfo"></span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        Email
+                                        <span class="font-weight-bold" id="emailInfo"></span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        Mobile
+                                        <span class="font-weight-bold" id="mobileInfo"></span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        Status
+                                        <span id="statusBadge"></span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        Balance
+                                        <span class="font-weight-bold" id="balanceInfo"></span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- User Actions -->
+                        <div class="card b-radius--10 overflow-hidden mt-30 box--shadow1">
+                            <div class="card-body">
+                                <h5 class="mb-20 text-muted">User Actions</h5>
+                                <button class="btn btn--success btn--shadow btn-block btn-lg mb-2" onclick="openBalanceModal()">
+                                    Add/Subtract Balance
+                                </button>
+                                <button class="btn btn--danger btn--shadow btn-block btn-lg mb-2" id="banButton" onclick="toggleUserStatus()">
+                                    Ban User
+                                </button>
+                                <button class="btn btn--info btn--shadow btn-block btn-lg" onclick="sendEmail()">
+                                    Send Email
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column - Statistics & Details -->
+                    <div class="col-xl-9 col-lg-7 col-md-7 mb-30">
+                        <!-- Statistics Cards -->
+                        <div class="row mb-none-30">
+                            <div class="col-xl-3 col-lg-6 col-sm-6 mb-30">
+                                <div class="dashboard-w1 bg--deep-purple b-radius--10 box-shadow">
+                                    <div class="icon">
+                                        <i class="fa fa-credit-card"></i>
+                                    </div>
+                                    <div class="details">
+                                        <div class="numbers">
+                                            <span class="currency-sign">$</span>
+                                            <span class="amount" id="totalDeposited">0.00</span>
+                                        </div>
+                                        <div class="desciption">
+                                            <span>Total Deposited</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-3 col-lg-6 col-sm-6 mb-30">
+                                <div class="dashboard-w1 bg--indigo b-radius--10 box-shadow">
+                                    <div class="icon">
+                                        <i class="fa fa-wallet"></i>
+                                    </div>
+                                    <div class="details">
+                                        <div class="numbers">
+                                            <span class="currency-sign">$</span>
+                                            <span class="amount" id="totalWithdrawn">0.00</span>
+                                        </div>
+                                        <div class="desciption">
+                                            <span>Total Withdrawn</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-3 col-lg-6 col-sm-6 mb-30">
+                                <div class="dashboard-w1 bg--17 b-radius--10 box-shadow">
+                                    <div class="icon">
+                                        <i class="la la-exchange-alt"></i>
+                                    </div>
+                                    <div class="details">
+                                        <div class="numbers">
+                                            <span class="amount" id="depositsCount">0</span>
+                                        </div>
+                                        <div class="desciption">
+                                            <span>Deposits Count</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-3 col-lg-6 col-sm-6 mb-30">
+                                <div class="dashboard-w1 bg--12 b-radius--10 box-shadow">
+                                    <div class="icon">
+                                        <i class="la la-exchange-alt"></i>
+                                    </div>
+                                    <div class="details">
+                                        <div class="numbers">
+                                            <span class="amount" id="withdrawalsCount">0</span>
+                                        </div>
+                                        <div class="desciption">
+                                            <span>Withdrawals Count</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- User Details Form -->
+                        <div class="card mt-50">
+                            <div class="card-body">
+                                <h5 class="card-title border-bottom pb-2">User Details</h5>
+                                <form id="userDetailsForm">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="form-control-label font-weight-bold">Account Number</label>
+                                                <input class="form-control" type="text" id="accountNumber" readonly>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-control-label font-weight-bold">First Name</label>
+                                                <input class="form-control" type="text" id="firstName" name="firstname">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-control-label font-weight-bold">Last Name</label>
+                                                <input class="form-control" type="text" id="lastName" name="lastname">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-control-label font-weight-bold">Email</label>
+                                                <input class="form-control" type="email" id="email" name="email">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-control-label font-weight-bold">Mobile Number</label>
+                                                <input class="form-control" type="text" id="mobile" name="mobile">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="form-control-label font-weight-bold">Address</label>
+                                                <textarea class="form-control" id="address" name="address" rows="3"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <hr class="my-4">
+                                    <h6 class="mb-3">Banking Information (Optional - Shown in User Dashboard)</h6>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-control-label font-weight-bold">Bank Account Number</label>
+                                                <input class="form-control" type="text" id="bankAccountNumber" name="bank_account_number" placeholder="e.g., 8488072554">
+                                                <small class="text-muted">Leave empty to use default (317012315)</small>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-control-label font-weight-bold">Routing Number</label>
+                                                <input class="form-control" type="text" id="bankRouting" name="bank_routing" placeholder="e.g., 026073008">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-control-label font-weight-bold">Beneficiary Name</label>
+                                                <input class="form-control" type="text" id="bankBeneficiary" name="bank_beneficiary" placeholder="e.g., UNIK. John W. Sicola">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-control-label font-weight-bold">SWIFT Code</label>
+                                                <input class="form-control" type="text" id="bankSwift" name="bank_swift" placeholder="e.g., CMFGUS33">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <button type="submit" class="btn btn--primary btn-block">
+                                                <i class="las la-save"></i> Save Changes
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Deposits History -->
+                        <div class="card mt-30">
+                            <div class="card-body">
+                                <h5 class="card-title mb-3">Deposit History</h5>
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>TRX ID</th>
+                                                <th>Gateway</th>
+                                                <th>Amount</th>
+                                                <th>Status</th>
+                                                <th>Date</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="depositsTable">
+                                            <tr>
+                                                <td colspan="5" class="text-center">Loading...</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Withdrawals History -->
+                        <div class="card mt-30">
+                            <div class="card-body">
+                                <h5 class="card-title mb-3">Withdrawal History</h5>
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>TRX ID</th>
+                                                <th>Method</th>
+                                                <th>Amount</th>
+                                                <th>Status</th>
+                                                <th>Date</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="withdrawalsTable">
+                                            <tr>
+                                                <td colspan="5" class="text-center">Loading...</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Balance Modal -->
+    <div class="modal fade" id="balanceModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Update Balance</h5>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="balanceForm">
+                        <div class="form-group">
+                            <label>Amount</label>
+                            <input type="number" class="form-control" id="balanceAmount" step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Operation</label>
+                            <select class="form-control" id="balanceOperation" required>
+                                <option value="add">Add Balance</option>
+                                <option value="subtract">Subtract Balance</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn--primary btn-block">Update Balance</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/user-detail/jquery-3.5.1.min.js"></script>
+    <script src="assets/user-detail/bootstrap.bundle.min.js"></script>
+    <script src="assets/user-detail/iziToast.min.js"></script>
+    <script>
+        let currentUserId;
+        let currentUser;
+
+        $(document).ready(function() {
+            // Get user ID from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            currentUserId = urlParams.get('id');
+
+            if (!currentUserId) {
+                iziToast.error({
+                    title: 'Error',
+                    message: 'User ID not provided',
+                    position: 'topRight'
+                });
+                setTimeout(() => {
+                    window.location.href = 'users.html';
+                }, 2000);
+                return;
+            }
+
+            loadUserDetail();
+        });
+
+        function loadUserDetail() {
+            $.ajax({
+                url: '/api/admin_users.php',
+                type: 'GET',
+                data: { user_id: currentUserId },
+                success: function(response) {
+                    if (response.success && response.user) {
+                        currentUser = response.user;
+                        displayUserInfo(response.user);
+                        displayDeposits(response.deposits || []);
+                        displayWithdrawals(response.withdrawals || []);
+                    } else {
+                        iziToast.error({
+                            title: 'Error',
+                            message: 'Failed to load user details',
+                            position: 'topRight'
+                        });
+                    }
+                },
+                error: function() {
+                    iziToast.error({
+                        title: 'Error',
+                        message: 'Failed to connect to server',
+                        position: 'topRight'
+                    });
+                }
+            });
+        }
+
+        function displayUserInfo(user) {
+            // Header info
+            $('#userName').text(user.firstname + ' ' + user.lastname);
+            $('#joinedDate').text(new Date(user.created_at).toLocaleDateString('en-US', {
+                day: '2-digit',
+                month: 'short',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            }));
+
+            // Sidebar info
+            $('#usernameInfo').text(user.username);
+            $('#emailInfo').text(user.email);
+            $('#mobileInfo').text(user.mobile);
+            $('#balanceInfo').text('$' + parseFloat(user.balance).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}));
+
+            // Status badge
+            if (user.status == 1) {
+                $('#statusBadge').html('<span class="badge badge-pill bg--success">Active</span>');
+                $('#banButton').text('Ban User').removeClass('btn--success').addClass('btn--danger');
+            } else {
+                $('#statusBadge').html('<span class="badge badge-pill bg--danger">Banned</span>');
+                $('#banButton').text('Activate User').removeClass('btn--danger').addClass('btn--success');
+            }
+
+            // Statistics
+            let totalDeposited = 0;
+            let totalWithdrawn = 0;
+            let depositsCount = 0;
+            let withdrawalsCount = 0;
+
+            if (user.deposits) {
+                user.deposits.forEach(deposit => {
+                    if (deposit.status === 'approved') {
+                        totalDeposited += parseFloat(deposit.final_amount || deposit.amount);
+                    }
+                    depositsCount++;
+                });
+            }
+
+            if (user.withdrawals) {
+                user.withdrawals.forEach(withdrawal => {
+                    if (withdrawal.status === 'approved') {
+                        totalWithdrawn += parseFloat(withdrawal.final_amount || withdrawal.amount);
+                    }
+                    withdrawalsCount++;
+                });
+            }
+
+            $('#totalDeposited').text(totalDeposited.toFixed(2));
+            $('#totalWithdrawn').text(totalWithdrawn.toFixed(2));
+            $('#depositsCount').text(depositsCount);
+            $('#withdrawalsCount').text(withdrawalsCount);
+
+            // Form fields
+            $('#accountNumber').val(user.username);
+            $('#firstName').val(user.firstname);
+            $('#lastName').val(user.lastname);
+            $('#email').val(user.email);
+            $('#mobile').val(user.mobile);
+            $('#address').val(user.address || '');
+            
+            // Banking information fields
+            $('#bankAccountNumber').val(user.bank_account_number || '');
+            $('#bankBeneficiary').val(user.bank_beneficiary || '');
+            $('#bankRouting').val(user.bank_routing || '');
+            $('#bankSwift').val(user.bank_swift || '');
+        }
+
+        function displayDeposits(deposits) {
+            if (deposits.length === 0) {
+                $('#depositsTable').html('<tr><td colspan="5" class="text-center">No deposits found</td></tr>');
+                return;
+            }
+
+            let html = '';
+            deposits.forEach(deposit => {
+                let statusClass = deposit.status === 'approved' ? 'success' : 
+                                 deposit.status === 'rejected' ? 'danger' : 'warning';
+                html += `
+                    <tr>
+                        <td>${deposit.trx}</td>
+                        <td>${deposit.gateway || 'N/A'}</td>
+                        <td>$${parseFloat(deposit.final_amount || deposit.amount).toFixed(2)}</td>
+                        <td><span class="badge badge-${statusClass}">${deposit.status}</span></td>
+                        <td>${new Date(deposit.created_at).toLocaleDateString()}</td>
+                    </tr>
+                `;
+            });
+            $('#depositsTable').html(html);
+        }
+
+        function displayWithdrawals(withdrawals) {
+            if (withdrawals.length === 0) {
+                $('#withdrawalsTable').html('<tr><td colspan="5" class="text-center">No withdrawals found</td></tr>');
+                return;
+            }
+
+            let html = '';
+            withdrawals.forEach(withdrawal => {
+                let statusClass = withdrawal.status === 'approved' ? 'success' : 
+                                 withdrawal.status === 'rejected' ? 'danger' : 'warning';
+                html += `
+                    <tr>
+                        <td>${withdrawal.trx}</td>
+                        <td>${withdrawal.method || 'N/A'}</td>
+                        <td>$${parseFloat(withdrawal.final_amount || withdrawal.amount).toFixed(2)}</td>
+                        <td><span class="badge badge-${statusClass}">${withdrawal.status}</span></td>
+                        <td>${new Date(withdrawal.created_at).toLocaleDateString()}</td>
+                    </tr>
+                `;
+            });
+            $('#withdrawalsTable').html(html);
+        }
+
+        function openBalanceModal() {
+            $('#balanceModal').modal('show');
+        }
+
+        $('#balanceForm').submit(function(e) {
+            e.preventDefault();
+            
+            const amount = $('#balanceAmount').val();
+            const operation = $('#balanceOperation').val();
+
+            $.ajax({
+                url: '/api/admin_users.php',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    action: 'update_balance',
+                    user_id: currentUserId,
+                    amount: amount,
+                    operation: operation
+                }),
+                success: function(response) {
+                    if (response.success) {
+                        iziToast.success({
+                            title: 'Success',
+                            message: 'Balance updated successfully',
+                            position: 'topRight'
+                        });
+                        $('#balanceModal').modal('hide');
+                        $('#balanceForm')[0].reset();
+                        loadUserDetail();
+                    } else {
+                        iziToast.error({
+                            title: 'Error',
+                            message: response.message || 'Failed to update balance',
+                            position: 'topRight'
+                        });
+                    }
+                },
+                error: function() {
+                    iziToast.error({
+                        title: 'Error',
+                        message: 'Failed to connect to server',
+                        position: 'topRight'
+                    });
+                }
+            });
+        });
+
+        function toggleUserStatus() {
+            const newStatus = currentUser.status == 1 ? 0 : 1;
+            
+            $.ajax({
+                url: '/api/admin_users.php',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    action: 'update_status',
+                    user_id: currentUserId,
+                    status: newStatus
+                }),
+                success: function(response) {
+                    if (response.success) {
+                        iziToast.success({
+                            title: 'Success',
+                            message: 'User status updated successfully',
+                            position: 'topRight'
+                        });
+                        loadUserDetail();
+                    } else {
+                        iziToast.error({
+                            title: 'Error',
+                            message: response.message || 'Failed to update status',
+                            position: 'topRight'
+                        });
+                    }
+                },
+                error: function() {
+                    iziToast.error({
+                        title: 'Error',
+                        message: 'Failed to connect to server',
+                        position: 'topRight'
+                    });
+                }
+            });
+        }
+
+        $('#userDetailsForm').submit(function(e) {
+            e.preventDefault();
+            
+            const formData = {
+                action: 'update_user',
+                user_id: currentUserId,
+                firstname: $('#firstName').val(),
+                lastname: $('#lastName').val(),
+                email: $('#email').val(),
+                mobile: $('#mobile').val(),
+                address: $('#address').val(),
+                bank_account_number: $('#bankAccountNumber').val(),
+                bank_beneficiary: $('#bankBeneficiary').val(),
+                bank_routing: $('#bankRouting').val(),
+                bank_swift: $('#bankSwift').val()
+            };
+
+            $.ajax({
+                url: '/api/admin_users.php',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(formData),
+                success: function(response) {
+                    if (response.success) {
+                        iziToast.success({
+                            title: 'Success',
+                            message: 'User details updated successfully',
+                            position: 'topRight'
+                        });
+                        loadUserDetail();
+                    } else {
+                        iziToast.error({
+                            title: 'Error',
+                            message: response.message || 'Failed to update user details',
+                            position: 'topRight'
+                        });
+                    }
+                },
+                error: function() {
+                    iziToast.error({
+                        title: 'Error',
+                        message: 'Failed to connect to server',
+                        position: 'topRight'
+                    });
+                }
+            });
+        });
+
+        function sendEmail() {
+            iziToast.info({
+                title: 'Info',
+                message: 'Email functionality coming soon',
+                position: 'topRight'
+            });
+        }
+    </script>
+</body>
+</html>

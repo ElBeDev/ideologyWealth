@@ -1,0 +1,236 @@
+/**
+ * 1Life Financial - Colores de Marca
+ * 
+ * Este archivo contiene todas las variables CSS y clases de utilidad
+ * para mantener la consistencia de colores en toda la aplicación PWA
+ */
+
+:root {
+    /* Colores Primarios */
+    --color-primary: #6fb950;
+    --color-primary-hover: #5ea840;
+    --color-primary-light: rgba(111, 185, 80, 0.15);
+    
+    /* Colores Secundarios */
+    --color-secondary: #0143a3;
+    --color-secondary-dark: #013178;
+    
+    /* Gradientes */
+    --gradient-primary: linear-gradient(135deg, #6fb950 0%, #0143a3 100%);
+    --gradient-primary-hover: linear-gradient(135deg, #5ea840 0%, #013178 100%);
+    
+    /* Colores de Texto */
+    --text-dark: #464646;
+    --text-light: #ffffff;
+    --text-muted: #cccccc;
+    
+    /* Colores de Fondo */
+    --bg-light: #f8f8f8;
+    --bg-white: #ffffff;
+}
+
+/* ========== Clases de Utilidad - Colores de Fondo ========== */
+
+.bg-primary {
+    background-color: var(--color-primary) !important;
+}
+
+.bg-primary-light {
+    background-color: var(--color-primary-light) !important;
+}
+
+.bg-secondary {
+    background-color: var(--color-secondary) !important;
+}
+
+.bg-gradient-primary {
+    background: var(--gradient-primary) !important;
+}
+
+/* ========== Clases de Utilidad - Colores de Texto ========== */
+
+.text-primary {
+    color: var(--color-primary) !important;
+}
+
+.text-secondary {
+    color: var(--color-secondary) !important;
+}
+
+/* ========== Clases de Utilidad - Bordes ========== */
+
+.border-primary {
+    border-color: var(--color-primary) !important;
+}
+
+.border-secondary {
+    border-color: var(--color-secondary) !important;
+}
+
+/* ========== Botones ========== */
+
+.btn-primary-brand {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--text-light);
+    transition: all 0.3s ease;
+}
+
+.btn-primary-brand:hover,
+.btn-primary-brand:focus {
+    background-color: var(--color-primary-hover);
+    border-color: var(--color-primary-hover);
+    color: var(--text-light);
+}
+
+.btn-secondary-brand {
+    background-color: var(--color-secondary);
+    border-color: var(--color-secondary);
+    color: var(--text-light);
+    transition: all 0.3s ease;
+}
+
+.btn-secondary-brand:hover,
+.btn-secondary-brand:focus {
+    background-color: var(--color-secondary-dark);
+    border-color: var(--color-secondary-dark);
+    color: var(--text-light);
+}
+
+.btn-gradient-brand {
+    background: var(--gradient-primary);
+    border: none;
+    color: var(--text-light);
+    transition: all 0.3s ease;
+}
+
+.btn-gradient-brand:hover,
+.btn-gradient-brand:focus {
+    background: var(--gradient-primary-hover);
+    color: var(--text-light);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(111, 185, 80, 0.4);
+}
+
+/* ========== Enlaces ========== */
+
+a.link-primary-brand {
+    color: var(--color-primary);
+    transition: color 0.3s ease;
+}
+
+a.link-primary-brand:hover {
+    color: var(--color-primary-hover);
+}
+
+/* ========== Tarjetas ========== */
+
+.card-primary-brand {
+    border-color: var(--color-primary);
+}
+
+.card-primary-brand .card-header {
+    background-color: var(--color-primary);
+    color: var(--text-light);
+}
+
+/* ========== Iconos ========== */
+
+.icon-primary-brand {
+    color: var(--color-primary);
+}
+
+.icon-bg-primary-brand {
+    background-color: var(--color-primary-light);
+    color: var(--color-primary);
+}
+
+/* ========== Badges ========== */
+
+.badge-primary-brand {
+    background-color: var(--color-primary);
+    color: var(--text-light);
+}
+
+.badge-secondary-brand {
+    background-color: var(--color-secondary);
+    color: var(--text-light);
+}
+
+/* ========== Alertas ========== */
+
+.alert-primary-brand {
+    background-color: var(--color-primary-light);
+    border-color: var(--color-primary);
+    color: var(--color-secondary);
+}
+
+/* ========== Estados de Formulario ========== */
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 0.25rem var(--color-primary-light);
+}
+
+/* ========== Navegación ========== */
+
+.nav-link-brand:hover,
+.nav-link-brand:focus,
+.nav-link-brand.active {
+    color: var(--color-primary);
+}
+
+/* ========== Progreso ========== */
+
+.progress-bar-brand {
+    background-color: var(--color-primary);
+}
+
+/* ========== Spinners y Loaders ========== */
+
+.spinner-primary-brand {
+    color: var(--color-primary);
+}
+
+/* ========== PWA específico ========== */
+
+.pwa-header {
+    background: var(--gradient-primary);
+}
+
+.pwa-install-button {
+    background: var(--gradient-primary);
+    color: var(--text-light);
+}
+
+.pwa-install-button:hover {
+    background: var(--gradient-primary-hover);
+    transform: translateY(-2px);
+}
+
+/* ========== Utilidades de Sombra ========== */
+
+.shadow-primary-brand {
+    box-shadow: 0 0.5rem 1rem rgba(111, 185, 80, 0.15);
+}
+
+.shadow-primary-brand-lg {
+    box-shadow: 0 1rem 3rem rgba(111, 185, 80, 0.175);
+}
+
+/* ========== Overlay ========== */
+
+.overlay-primary-brand {
+    position: relative;
+}
+
+.overlay-primary-brand::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(111, 185, 80, 0.9) 0%, rgba(1, 67, 163, 0.9) 100%);
+}
