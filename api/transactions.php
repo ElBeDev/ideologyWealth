@@ -54,7 +54,7 @@ try {
     // Get real transactions from database (if table exists)
     try {
         $stmt = $pdo->prepare("
-            SELECT id, trx, date, details, amount, type, status, post_balance, description
+            SELECT id, trx, date, details, account_number, amount, type, status, post_balance, description
             FROM transactions 
             WHERE user_id = :user_id 
             ORDER BY date DESC, id DESC
