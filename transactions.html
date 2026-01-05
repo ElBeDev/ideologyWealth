@@ -330,12 +330,13 @@
                     statusBadge = '<span class="badge bg-warning text-dark mt-1"><i class="fas fa-lock"></i> PENDING - FROZEN</span>';
                     postBalance = '<span class="text-muted">---</span><br><small class="text-warning"><i class="fas fa-exclamation-triangle"></i> On Hold</small>';
                 } else if (trx.status === 'approved' || trx.status === 'completed') {
+                    statusBadge = '<span class="badge bg-success text-white mt-1"><i class="fas fa-check"></i> COMPLETED</span>';
                     postBalance = trx.post_balance ? '$' + parseFloat(trx.post_balance).toLocaleString('en-US', {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2
                     }) : '---';
-                } else if (trx.status === 'rejected') {
-                    statusBadge = '<span class="badge bg-danger text-white mt-1"><i class="fas fa-times"></i> REJECTED</span>';
+                } else if (trx.status === 'rejected' || trx.status === 'failed') {
+                    statusBadge = '<span class="badge bg-danger text-white mt-1"><i class="fas fa-times"></i> FAILED</span>';
                     postBalance = '<span class="text-muted">---</span>';
                 }
 
