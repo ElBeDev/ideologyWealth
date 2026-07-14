@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ideology-wealth-advisors-v6'; // Updated: Never cache API calls
+const CACHE_NAME = 'ideology-wealth-advisors-v7'; // Updated: Never cache API calls
 const urlsToCache = [
   '/',
   '/index.html',
