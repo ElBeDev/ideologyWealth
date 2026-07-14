@@ -98,7 +98,7 @@ if [ $passed -eq $total ]; then
     echo "🎉 ¡PERFECTO! Todos los recursos están presentes"
     echo ""
     echo "✨ PRÓXIMOS PASOS:"
-    echo "   1. ✅ Service Worker actualizado a v2"
+    echo "   1. ✅ Service Worker actualizado a v7"
     echo "   2. 🔄 Recarga la página con CTRL+SHIFT+R (hard reload)"
     echo "   3. 🔍 Abre DevTools → Console"
     echo "   4. ✅ Verifica que no haya errores 404"
