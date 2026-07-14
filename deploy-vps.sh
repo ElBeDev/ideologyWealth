@@ -1,11 +1,11 @@
 #!/bin/bash
 set -e
 
-VPS_HOST="vps-1life"
-VPS_DIR="/var/www/1lifefinancial"
+VPS_HOST="vps-ideologywealth"
+VPS_DIR="/var/www/ideologywealthadvisors"
 DOMAIN="62.72.7.44"  # Change to your domain when ready
 
-echo "🚀 Deploying 1life Financial PWA to VPS..."
+echo "🚀 Deploying Ideology Wealth Advisors PWA to VPS..."
 
 # 1. Prepare VPS
 echo "📦 Setting up VPS environment..."
@@ -22,11 +22,11 @@ if ! systemctl is-active --quiet php*-fpm; then
 fi
 
 # Create web directory
-mkdir -p /var/www/1lifefinancial
-mkdir -p /var/www/1lifefinancial/api
-chown -R www-data:www-data /var/www/1lifefinancial
-chmod -R 755 /var/www/1lifefinancial
-chmod -R 775 /var/www/1lifefinancial/api
+mkdir -p /var/www/ideologywealthadvisors
+mkdir -p /var/www/ideologywealthadvisors/api
+chown -R www-data:www-data /var/www/ideologywealthadvisors
+chmod -R 755 /var/www/ideologywealthadvisors
+chmod -R 775 /var/www/ideologywealthadvisors/api
 ENDSSH
 
 # 2. Upload files
@@ -52,7 +52,7 @@ rsync -avz --delete \
 # Fix permissions
 echo "🔐 Setting correct permissions..."
 ssh $VPS_HOST << 'ENDSSH'
-cd /var/www/1lifefinancial
+cd /var/www/ideologywealthadvisors
 chmod -R 755 .
 chmod -R 775 api
 chown -R www-data:www-data .
@@ -62,15 +62,15 @@ ENDSSH
 echo "⚙️  Configuring Nginx..."
 ssh $VPS_HOST << ENDSSH
 # Only create initial config if it doesn't exist
-if [ ! -f /etc/nginx/sites-available/1lifefinancial ]; then
+if [ ! -f /etc/nginx/sites-available/ideologywealthadvisors ]; then
   echo "Creating initial Nginx configuration..."
-  cat > /etc/nginx/sites-available/1lifefinancial << 'EOF'
+  cat > /etc/nginx/sites-available/ideologywealthadvisors << 'EOF'
 server {
     listen 80;
     listen [::]:80;
     server_name srv1131803.hstgr.cloud www.srv1131803.hstgr.cloud 62.72.7.44;
     
-    root /var/www/1lifefinancial;
+    root /var/www/ideologywealthadvisors;
     index index.html login.html;
     
     # Security headers
@@ -129,7 +129,7 @@ server {
 EOF
 
   # Enable site
-  ln -sf /etc/nginx/sites-available/1lifefinancial /etc/nginx/sites-enabled/
+  ln -sf /etc/nginx/sites-available/ideologywealthadvisors /etc/nginx/sites-enabled/
   rm -f /etc/nginx/sites-enabled/default
 else
   echo "Nginx configuration already exists, skipping..."

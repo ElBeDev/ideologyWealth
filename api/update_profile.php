@@ -1,85 +1,57 @@
 <?php
 header('Content-Type: application/json');
-header('Access-Control-Allow-Origin: *');
+$origin = $_SERVER['HTTP_ORIGIN'] ?? '';
+if ($origin) {
+    header('Access-Control-Allow-Origin: ' . $origin);
+    header('Access-Control-Allow-Credentials: true');
+} else {
+    header('Access-Control-Allow-Origin: *');
+}
 header('Access-Control-Allow-Methods: POST, OPTIONS');
-header('Access-Control-Allow-Headers: Content-Type');
+header('Access-Control-Allow-Headers: Content-Type, X-Auth-Token');
 
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit(0);
 }
 
-session_start();
 require_once 'config.php';
 
-if (!isset($_SESSION['user_id'])) {
-    echo json_encode([
-        'success' => false,
-        'message' => 'Unauthorized. Please login.'
-    ]);
+// Authenticate via session OR X-Auth-Token header
+$user_id = null;
+if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
+    $user_id = $_SESSION['user_id'];
+} else {
+    $token = $_SERVER['HTTP_X_AUTH_TOKEN'] ?? null;
+    if ($token) {
+        $stmt = $pdo->prepare("SELECT id FROM users WHERE auth_token = ? LIMIT 1");
+        $stmt->execute([$token]);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($row) $user_id = $row['id'];
+    }
+}
+
+if (!$user_id) {
+    echo json_encode(['success' => false, 'message' => 'Unauthorized. Please login.']);
     exit;
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $input = json_decode(file_get_contents('php://input'), true);
     
-    $user_id = $_SESSION['user_id'];
-    $firstname = trim($input['firstname'] ?? '');
-    $lastname = trim($input['lastname'] ?? '');
     $mobile = trim($input['mobile'] ?? '');
-    $country_code = trim($input['country_code'] ?? '');
-    $city = trim($input['city'] ?? '');
-    $zip = trim($input['zip'] ?? '');
-    $address = trim($input['address'] ?? '');
+    $email  = trim($input['email']  ?? '');
     
     // Validation
-    if (empty($firstname) || empty($lastname) || empty($mobile) || empty($city) || empty($zip) || empty($address)) {
-        echo json_encode([
-            'success' => false,
-            'message' => 'All fields are required'
-        ]);
+    if (empty($mobile) || empty($email)) {
+        echo json_encode(['success' => false, 'message' => 'Email and mobile are required']);
         exit;
     }
     
     try {
-        $stmt = $pdo->prepare("
-            UPDATE users 
-            SET firstname = ?, 
-                lastname = ?, 
-                mobile = ?, 
-                country_code = ?, 
-                city = ?, 
-                zip = ?, 
-                address = ?,
-                updated_at = NOW()
-            WHERE id = ?
-        ");
+        $stmt = $pdo->prepare("UPDATE users SET email = ?, mobile = ?, updated_at = NOW() WHERE id = ?");
+        $stmt->execute([$email, $mobile, $user_id]);
         
-        $stmt->execute([
-            $firstname,
-            $lastname,
-            $mobile,
-            $country_code,
-            $city,
-            $zip,
-            $address,
-            $user_id
-        ]);
-        
-        // Get updated user data
-        $stmt = $pdo->prepare("SELECT * FROM users WHERE id = ?");
-        $stmt->execute([$user_id]);
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
-        
-        if ($user) {
-            unset($user['password']);
-            $_SESSION['user_data'] = $user;
-        }
-        
-        echo json_encode([
-            'success' => true,
-            'message' => 'Profile updated successfully',
-            'user' => $user
-        ]);
+        echo json_encode(['success' => true, 'message' => 'Profile updated successfully']);
         
     } catch (PDOException $e) {
         echo json_encode([

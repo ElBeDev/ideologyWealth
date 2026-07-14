@@ -1,4 +1,4 @@
-const CACHE_NAME = '1life-financial-v6'; // Updated: Never cache API calls
+const CACHE_NAME = 'ideology-wealth-advisors-v6'; // Updated: Never cache API calls
 const urlsToCache = [
   '/',
   '/index.html',
@@ -144,11 +144,11 @@ async function syncForms() {
 // Push Notifications
 self.addEventListener('push', (event) => {
   const options = {
-    body: event.data ? event.data.text() : 'New notification from 1life Financial',
+    body: event.data ? event.data.text() : 'New notification from Ideology Wealth Advisors',
     icon: '/icons/icon-192x192.png',
     badge: '/icons/icon-72x72.png',
     vibrate: [200, 100, 200],
-    tag: '1life-notification',
+    tag: 'ideology-wealth-notification',
     requireInteraction: false,
     actions: [
       {
@@ -165,7 +165,7 @@ self.addEventListener('push', (event) => {
   };
 
   event.waitUntil(
-    self.registration.showNotification('1life Financial', options)
+    self.registration.showNotification('Ideology Wealth Advisors', options)
   );
 });
 

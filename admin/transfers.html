@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>1life Financial - Transfers</title>
+    <title>Ideology Wealth Advisors - Transfers</title>
     <link rel="shortcut icon" type="image/png" href="assets/withdrawals/favicon.png">
     <link rel="stylesheet" href="assets/withdrawals/css2.css">
     <link rel="stylesheet" href="assets/withdrawals/bootstrap.min.css">
@@ -26,7 +26,7 @@
         <!-- Sidebar -->
         <div class="sidebar">
             <div class="sidebar__logo">
-                <img src="1life Financial - Dashboard_files/logo.png" alt="1life Financial">
+                <img src="1life Financial - Dashboard_files/logo.png" alt="Ideology Wealth Advisors">
             </div>
             
             <ul class="sidebar__menu">
@@ -40,7 +40,7 @@
                     <a href="users.html">
                         <i class="las la-users"></i>
                         <span>Manage Users</span>
-                        <span class="menu-badge" id="totalUsersCount">396</span>
+                        <span class="menu-badge" id="totalUsersCount">0</span>
                     </a>
                 </li>
                 <li class="sidebar-menu-item">
@@ -203,6 +203,10 @@
                                     <p id="detailBeneficiary" class="mb-0 mt-1"></p>
                                 </li>
                                 <li class="list-group-item">
+                                    <strong>Bank Name:</strong>
+                                    <p id="detailBankName" class="mb-0 mt-1"></p>
+                                </li>
+                                <li class="list-group-item">
                                     <strong>Account Number:</strong>
                                     <p id="detailAccount" class="mb-0 mt-1"></p>
                                 </li>
@@ -273,12 +277,24 @@
         let dateRange = '';
         let currentTransferId = null;
 
+        function loadSidebarStats() {
+            $.get('/api/admin_dashboard.php').done(r => {
+                if (r.success) {
+                    $('#totalUsersCount').text(r.stats.total_users);
+                    $('#pendingDepositsCount').text(r.stats.pending_deposits);
+                    $('#pendingWithdrawalsCount').text(r.stats.pending_withdrawals);
+                    $('#pendingTransfersCount').text(r.stats.pending_transfers || 0);
+                }
+            });
+        }
+
         // Initialize datepicker
         $(document).ready(function() {
             $('.datepicker-here').datepicker({
                 dateFormat: 'yyyy-mm-dd'
             });
             loadTransfers();
+            loadSidebarStats();
         });
 
         function filterTransfers(status) {
@@ -378,11 +394,14 @@
                         <td>
                             <span class="font-weight-bold text-success">$${parseFloat(transfer.amount).toFixed(2)}</span>
                         </td>
-                        <td>${new Date(transfer.date).toLocaleDateString()}</td>
+                        <td>${new Date(transfer.date).toLocaleDateString('en-US', {month:'2-digit',day:'2-digit',year:'numeric'})}</td>
                         <td>${statusBadge}</td>
                         <td>
                             <button class="btn btn-sm btn-info" onclick="showTransferDetails(${JSON.stringify(transfer).replace(/"/g, '&quot;')})">
                                 <i class="las la-eye"></i> View
+                            </button>
+                            <button class="btn btn-sm btn-danger" onclick="deleteTransfer(${transfer.id})">
+                                <i class="las la-trash"></i> Delete
                             </button>
                         </td>
                     </tr>
@@ -406,10 +425,11 @@
             $('#detailTrx').text(transfer.trx);
             $('#detailUser').text(transfer.username);
             $('#detailAmount').html(`<strong class="text-success">$${parseFloat(transfer.amount).toFixed(2)}</strong>`);
-            $('#detailDate').text(new Date(transfer.date).toLocaleString());
+            $('#detailDate').text(new Date(transfer.date).toLocaleDateString('en-US', {month:'2-digit',day:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}));
             $('#detailStatus').html(getStatusBadge(transfer.status));
             
             $('#detailBeneficiary').text(transfer.beneficiary_name);
+            $('#detailBankName').text(transfer.bank_name || '-');
             $('#detailAccount').text(transfer.account_number);
             $('#detailRouting').text(transfer.routing_number);
             $('#detailSwift').text(transfer.swift_code);
@@ -463,6 +483,26 @@
                     console.error('Update Error:', xhr.responseText);
                     notify('error', 'Failed to update transfer. Please try again.');
                 }
+            });
+        }
+
+        function deleteTransfer(id) {
+            if (!confirm('Delete this transfer? If it is pending, the amount will be returned to the user.')) {
+                return;
+            }
+            $.ajax({
+                url: '../api/transfers.php',
+                method: 'POST',
+                data: { action: 'delete', transfer_id: id },
+                success: function(r) {
+                    if (r.success) {
+                        notify('success', 'Transfer deleted');
+                        loadTransfers();
+                    } else {
+                        notify('error', r.message || 'Failed to delete');
+                    }
+                },
+                error: function() { notify('error', 'Connection error'); }
             });
         }
 

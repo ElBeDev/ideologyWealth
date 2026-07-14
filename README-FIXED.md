@@ -1,4 +1,4 @@
-# 🎉 1Life Financial PWA - COMPLETAMENTE CORREGIDO
+# 🎉 Ideology Wealth Advisors PWA - COMPLETAMENTE CORREGIDO
 
 ## ✅ Estado Actual: 100% FUNCIONAL
 
@@ -113,12 +113,12 @@ Luego abre: http://localhost:8000
 ## 📂 Estructura de Archivos
 
 ```
-1lifefinancial.com/
-├── 1life Financial - Home.html
-├── 1life Financial - About Us.html
-├── 1life Financial - Services.html
-├── 1life Financial - FAQ.html
-├── 1life Financial - Contact Us.html
+ideologywealthadvisors.com/
+├── Ideology Wealth Advisors - Home.html
+├── Ideology Wealth Advisors - About Us.html
+├── Ideology Wealth Advisors - Services.html
+├── Ideology Wealth Advisors - FAQ.html
+├── Ideology Wealth Advisors - Contact Us.html
 ├── manifest.json
 ├── service-worker.js (v2)
 ├── offline.html

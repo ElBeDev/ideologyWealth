@@ -9,7 +9,7 @@ NC='\033[0m' # No Color
 echo "
 ╔═══════════════════════════════════════════════════════════════╗
 ║                                                                 ║
-║      🛠️  HERRAMIENTAS DE DIAGNÓSTICO - 1Life Financial PWA    ║
+║      🛠️  HERRAMIENTAS DE DIAGNÓSTICO - Ideology Wealth Advisors PWA    ║
 ║                                                                 ║
 ╚═══════════════════════════════════════════════════════════════╝
 "

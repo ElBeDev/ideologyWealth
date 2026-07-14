@@ -1,10 +1,10 @@
-# Actualización de Colores de Marca - 1Life Financial PWA
+# Actualización de Colores de Marca - Ideology Wealth Advisors PWA
 
 ## 📅 Fecha: 14 de Noviembre 2025
 
 ## ✅ Trabajo Completado
 
-Se ha realizado una actualización completa de todos los colores en la aplicación PWA de 1Life Financial, eliminando completamente los colores de la plantilla original clonada y aplicando los colores oficiales de la marca.
+Se ha realizado una actualización completa de todos los colores en la aplicación PWA de Ideology Wealth Advisors, eliminando completamente los colores de la plantilla original clonada y aplicando los colores oficiales de la marca.
 
 ## 🎨 Colores Actualizados
 
@@ -17,7 +17,7 @@ Se ha realizado una actualización completa de todos los colores en la aplicaci�
 - ❌ `#e73351` - Rojo magenta
 - ❌ `#00a6f7` - Azul claro
 
-### Colores Aplicados (Marca 1Life Financial)
+### Colores Aplicados (Marca Ideology Wealth Advisors)
 - ✅ `#6fb950` - Verde primario (color principal de la marca)
 - ✅ `#0143a3` - Azul oscuro (color secundario)
 - ✅ `#5ea840` - Verde hover (para estados interactivos)
@@ -128,7 +128,7 @@ La aplicación mantiene todas sus características PWA:
 
 ## 📝 Notas Importantes
 
-- Los colores ahora están **100% alineados** con la marca 1Life Financial
+- Los colores ahora están **100% alineados** con la marca Ideology Wealth Advisors
 - Se eliminaron **todos los rastros** de la plantilla original clonada
 - La identidad visual es **consistente** en toda la aplicación
 - Los cambios respetan las **guías de accesibilidad** WCAG 2.1
@@ -146,4 +146,4 @@ Para mantener la consistencia:
 
 ## ✨ Resultado Final
 
-La aplicación PWA de 1Life Financial ahora tiene una **identidad visual única y profesional**, completamente diferenciada de la plantilla original, con colores que reflejan la marca y generan confianza en los usuarios.
+La aplicación PWA de Ideology Wealth Advisors ahora tiene una **identidad visual única y profesional**, completamente diferenciada de la plantilla original, con colores que reflejan la marca y generan confianza en los usuarios.

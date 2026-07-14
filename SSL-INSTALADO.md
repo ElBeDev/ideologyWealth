@@ -1,18 +1,18 @@
-# 🔒 SSL Instalado Correctamente - 1stlifefinancial.com
+# 🔒 SSL Instalado Correctamente - ideologywealthadvisors.com
 
 ## ✅ Certificado SSL Instalado
 
 ### **Detalles del Certificado:**
 - **Emisor:** Let's Encrypt
-- **Dominio Principal:** 1stlifefinancial.com
-- **Dominio Alternativo:** www.1stlifefinancial.com
+- **Dominio Principal:** ideologywealthadvisors.com
+- **Dominio Alternativo:** www.ideologywealthadvisors.com
 - **Válido hasta:** 4 de Marzo, 2026
 - **Renovación Automática:** ✅ Configurada
 
 ### **Ubicación de Archivos:**
 ```
-Certificado: /etc/letsencrypt/live/1stlifefinancial.com/fullchain.pem
-Clave Privada: /etc/letsencrypt/live/1stlifefinancial.com/privkey.pem
+Certificado: /etc/letsencrypt/live/ideologywealthadvisors.com/fullchain.pem
+Clave Privada: /etc/letsencrypt/live/ideologywealthadvisors.com/privkey.pem
 ```
 
 ---
@@ -20,12 +20,12 @@ Clave Privada: /etc/letsencrypt/live/1stlifefinancial.com/privkey.pem
 ## 🌐 URLs Disponibles
 
 ### **Con HTTPS (Seguro - Recomendado):**
-- ✅ https://1stlifefinancial.com
-- ✅ https://www.1stlifefinancial.com
+- ✅ https://ideologywealthadvisors.com
+- ✅ https://www.ideologywealthadvisors.com
 
 ### **Con HTTP (Redirige automáticamente a HTTPS):**
-- http://1stlifefinancial.com → https://1stlifefinancial.com
-- http://www.1stlifefinancial.com → https://www.1stlifefinancial.com
+- http://ideologywealthadvisors.com → https://ideologywealthadvisors.com
+- http://www.ideologywealthadvisors.com → https://www.ideologywealthadvisors.com
 
 ### **Por IP:**
 - http://62.72.7.44 (sin SSL, solo para pruebas)
@@ -38,17 +38,17 @@ El certificado SSL se renueva automáticamente cada 90 días.
 
 ### **Verificar Renovación:**
 ```bash
-ssh vps-1life 'sudo certbot renew --dry-run'
+ssh vps-ideologywealth 'sudo certbot renew --dry-run'
 ```
 
 ### **Forzar Renovación Manual (si es necesario):**
 ```bash
-ssh vps-1life 'sudo certbot renew --force-renewal'
+ssh vps-ideologywealth 'sudo certbot renew --force-renewal'
 ```
 
 ### **Ver Estado de Certificados:**
 ```bash
-ssh vps-1life 'sudo certbot certificates'
+ssh vps-ideologywealth 'sudo certbot certificates'
 ```
 
 ---
@@ -74,7 +74,7 @@ La configuración incluye:
 ## 📊 Calificación SSL
 
 Puedes verificar la calificación de seguridad de tu SSL en:
-- https://www.ssllabs.com/ssltest/analyze.html?d=1stlifefinancial.com
+- https://www.ssllabs.com/ssltest/analyze.html?d=ideologywealthadvisors.com
 
 **Calificación esperada:** A o A+
 
@@ -88,14 +88,14 @@ server {
     listen 443 ssl http2;
     listen [::]:443 ssl http2;
     
-    server_name 1stlifefinancial.com www.1stlifefinancial.com;
+    server_name ideologywealthadvisors.com www.ideologywealthadvisors.com;
     
-    ssl_certificate /etc/letsencrypt/live/1stlifefinancial.com/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/1stlifefinancial.com/privkey.pem;
+    ssl_certificate /etc/letsencrypt/live/ideologywealthadvisors.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/ideologywealthadvisors.com/privkey.pem;
     include /etc/letsencrypt/options-ssl-nginx.conf;
     ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
     
-    root /var/www/1lifefinancial;
+    root /var/www/ideologywealthadvisors;
     index index.html index.php;
     
     location / {
@@ -113,7 +113,7 @@ server {
     listen 80;
     listen [::]:80;
     
-    server_name 1stlifefinancial.com www.1stlifefinancial.com;
+    server_name ideologywealthadvisors.com www.ideologywealthadvisors.com;
     
     return 301 https://$host$request_uri;
 }
@@ -134,10 +134,10 @@ server {
 ### **Manifest.json Actualizado:**
 ```json
 {
-  "name": "1life Financial - E-Banking System",
-  "short_name": "1life Financial",
-  "start_url": "https://1stlifefinancial.com/",
-  "scope": "https://1stlifefinancial.com/",
+  "name": "Ideology Wealth Advisors - E-Banking System",
+  "short_name": "Ideology Wealth Advisors",
+  "start_url": "https://ideologywealthadvisors.com/",
+  "scope": "https://ideologywealthadvisors.com/",
   "theme_color": "#83af40"
 }
 ```
@@ -148,23 +148,23 @@ server {
 
 ### **1. Verificar Certificado SSL:**
 ```bash
-openssl s_client -connect 1stlifefinancial.com:443 -servername 1stlifefinancial.com
+openssl s_client -connect ideologywealthadvisors.com:443 -servername ideologywealthadvisors.com
 ```
 
 ### **2. Verificar Redirección HTTP → HTTPS:**
 ```bash
-curl -I http://1stlifefinancial.com/
+curl -I http://ideologywealthadvisors.com/
 ```
 Debe mostrar: `HTTP/1.1 301 Moved Permanently`
 
 ### **3. Verificar HTTPS Funcional:**
 ```bash
-curl -I https://1stlifefinancial.com/
+curl -I https://ideologywealthadvisors.com/
 ```
 Debe mostrar: `HTTP/1.1 200 OK`
 
 ### **4. Verificar en Navegador:**
-Abre https://1stlifefinancial.com y verifica:
+Abre https://ideologywealthadvisors.com y verifica:
 - ✅ Candado verde en la barra de direcciones
 - ✅ Sin advertencias de seguridad
 - ✅ Certificado válido al hacer clic en el candado
@@ -176,12 +176,12 @@ Abre https://1stlifefinancial.com y verifica:
 Con SSL habilitado, los usuarios pueden instalar tu sitio como app:
 
 ### **En Chrome/Edge (Desktop):**
-1. Visitar https://1stlifefinancial.com
+1. Visitar https://ideologywealthadvisors.com
 2. Hacer clic en el icono de instalación (+) en la barra de direcciones
 3. Hacer clic en "Instalar"
 
 ### **En Chrome/Safari (Mobile):**
-1. Visitar https://1stlifefinancial.com
+1. Visitar https://ideologywealthadvisors.com
 2. Abrir menú del navegador
 3. Seleccionar "Agregar a pantalla de inicio"
 
@@ -191,17 +191,17 @@ Con SSL habilitado, los usuarios pueden instalar tu sitio como app:
 
 ### **Comando para Ver Fecha de Expiración:**
 ```bash
-ssh vps-1life 'sudo certbot certificates'
+ssh vps-ideologywealth 'sudo certbot certificates'
 ```
 
 ### **Logs de Renovación:**
 ```bash
-ssh vps-1life 'sudo cat /var/log/letsencrypt/letsencrypt.log'
+ssh vps-ideologywealth 'sudo cat /var/log/letsencrypt/letsencrypt.log'
 ```
 
 ### **Servicio de Timer de Renovación:**
 ```bash
-ssh vps-1life 'sudo systemctl status certbot.timer'
+ssh vps-ideologywealth 'sudo systemctl status certbot.timer'
 ```
 
 ---
@@ -211,22 +211,22 @@ ssh vps-1life 'sudo systemctl status certbot.timer'
 ### **Si el SSL no funciona:**
 ```bash
 # Verificar Nginx
-ssh vps-1life 'sudo nginx -t'
+ssh vps-ideologywealth 'sudo nginx -t'
 
 # Recargar Nginx
-ssh vps-1life 'sudo systemctl reload nginx'
+ssh vps-ideologywealth 'sudo systemctl reload nginx'
 
 # Ver logs de errores
-ssh vps-1life 'sudo tail -f /var/log/nginx/1lifefinancial_error.log'
+ssh vps-ideologywealth 'sudo tail -f /var/log/nginx/ideologywealthadvisors_error.log'
 ```
 
 ### **Si la renovación falla:**
 ```bash
 # Renovar manualmente
-ssh vps-1life 'sudo certbot renew --force-renewal'
+ssh vps-ideologywealth 'sudo certbot renew --force-renewal'
 
 # Ver logs de certbot
-ssh vps-1life 'sudo cat /var/log/letsencrypt/letsencrypt.log'
+ssh vps-ideologywealth 'sudo cat /var/log/letsencrypt/letsencrypt.log'
 ```
 
 ---
@@ -234,7 +234,7 @@ ssh vps-1life 'sudo cat /var/log/letsencrypt/letsencrypt.log'
 ## ✅ Resumen Final
 
 ### **Estado del Sistema:**
-- ✅ Dominio: 1stlifefinancial.com
+- ✅ Dominio: ideologywealthadvisors.com
 - ✅ DNS: Apuntando a 62.72.7.44
 - ✅ SSL: Instalado y funcionando
 - ✅ HTTPS: Activo con redirección automática
@@ -244,8 +244,8 @@ ssh vps-1life 'sudo cat /var/log/letsencrypt/letsencrypt.log'
 
 ### **URLs Finales:**
 ```
-🌐 Sitio Web:     https://1stlifefinancial.com
-📱 Con WWW:       https://www.1stlifefinancial.com
+🌐 Sitio Web:     https://ideologywealthadvisors.com
+📱 Con WWW:       https://www.ideologywealthadvisors.com
 🔒 Seguridad:     A+ (SSL Labs)
 📅 Válido hasta:  4 de Marzo, 2026
 🔄 Auto-renueva:  Sí
@@ -262,4 +262,4 @@ Tu sitio web está:
 - ✅ Con renovación automática
 - ✅ Listo para producción
 
-**Puedes compartir:** https://1stlifefinancial.com 🚀
+**Puedes compartir:** https://ideologywealthadvisors.com 🚀

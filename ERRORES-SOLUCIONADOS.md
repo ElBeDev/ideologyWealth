@@ -1,4 +1,4 @@
-# 🎯 ERRORES SOLUCIONADOS - 1life Financial PWA
+# 🎯 ERRORES SOLUCIONADOS - Ideology Wealth Advisors PWA
 
 ## ✅ Problema Principal Resuelto
 
@@ -25,7 +25,7 @@
 
 ### 1. **Service Worker v3 → v4**
 ```javascript
-const CACHE_NAME = '1life-financial-v4';
+const CACHE_NAME = 'ideology-wealth-advisors-v4';
 ```
 **¿Por qué?** Para forzar que el navegador descargue la nueva versión de `app.js`
 

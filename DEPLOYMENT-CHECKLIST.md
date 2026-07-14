@@ -1,4 +1,4 @@
-# 📋 PWA Deployment Checklist - 1life Financial
+# 📋 PWA Deployment Checklist - Ideology Wealth Advisors
 
 ## Pre-Despliegue
 
@@ -41,7 +41,7 @@
 **Pasos:**
 ```bash
 # 1. Inicializar repositorio
-cd /Users/bener/GitHub/1lifefinancial.com
+cd /Users/bener/GitHub/ideologywealthadvisors.com
 git init
 
 # 2. Agregar archivos
@@ -49,18 +49,18 @@ git add .
 git commit -m "Initial commit - PWA ready"
 
 # 3. Crear repositorio en GitHub
-# Ve a github.com y crea un nuevo repositorio llamado "1lifefinancial"
+# Ve a github.com y crea un nuevo repositorio llamado "ideologywealthadvisors"
 
 # 4. Conectar y subir
 git branch -M main
-git remote add origin https://github.com/TU-USUARIO/1lifefinancial.git
+git remote add origin https://github.com/TU-USUARIO/ideologywealthadvisors.git
 git push -u origin main
 
 # 5. Activar GitHub Pages
 # Settings > Pages > Source: main branch > Save
 ```
 
-**URL Final:** `https://TU-USUARIO.github.io/1lifefinancial/`
+**URL Final:** `https://TU-USUARIO.github.io/ideologywealthadvisors/`
 
 ✅ Checklist GitHub Pages:
 - [ ] Repositorio creado
@@ -77,11 +77,11 @@ git push -u origin main
 1. [ ] Ir a [netlify.com](https://netlify.com)
 2. [ ] Crear cuenta (GitHub, GitLab, o Email)
 3. [ ] Click en "Add new site" > "Deploy manually"
-4. [ ] Arrastrar la carpeta `1lifefinancial.com` completa
+4. [ ] Arrastrar la carpeta `ideologywealthadvisors.com` completa
 5. [ ] Esperar deployment (1-2 minutos)
 6. [ ] Cambiar nombre del sitio: Site settings > Change site name
 
-**URL Final:** `https://1lifefinancial.netlify.app`
+**URL Final:** `https://ideologywealthadvisors.netlify.app`
 
 ✅ Checklist Netlify:
 - [ ] Cuenta creada
@@ -112,13 +112,13 @@ npm install -g vercel
 vercel login
 
 # 3. Deploy
-cd /Users/bener/GitHub/1lifefinancial.com
+cd /Users/bener/GitHub/ideologywealthadvisors.com
 vercel --prod
 
 # Seguir las instrucciones en pantalla
 ```
 
-**URL Final:** `https://1lifefinancial.vercel.app`
+**URL Final:** `https://ideologywealthadvisors.vercel.app`
 
 ✅ Checklist Vercel:
 - [ ] CLI instalado
@@ -140,7 +140,7 @@ npm install -g firebase-tools
 firebase login
 
 # 3. Inicializar
-cd /Users/bener/GitHub/1lifefinancial.com
+cd /Users/bener/GitHub/ideologywealthadvisors.com
 firebase init hosting
 # Seleccionar: Usar directorio actual
 # Public directory: . (punto)
@@ -151,7 +151,7 @@ firebase init hosting
 firebase deploy --only hosting
 ```
 
-**URL Final:** `https://1lifefinancial-XXXXX.web.app`
+**URL Final:** `https://ideologywealthadvisors-XXXXX.web.app`
 
 ✅ Checklist Firebase:
 - [ ] CLI instalado
@@ -206,7 +206,7 @@ firebase deploy --only hosting
 # 1. Hacer cambios en archivos locales
 # 2. Probar localmente con ./start-server.sh
 # 3. Actualizar versión del cache en service-worker.js:
-#    const CACHE_NAME = '1life-financial-v2'; // incrementar versión
+#    const CACHE_NAME = 'ideology-wealth-advisors-v2'; // incrementar versión
 
 # Para GitHub Pages:
 git add .

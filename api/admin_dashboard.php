@@ -33,6 +33,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $stmt = $pdo->query("SELECT COUNT(*) as count FROM withdrawals WHERE status = 'pending'");
         $pending_withdrawals = $stmt->fetch()['count'];
         
+        $pending_transfers = 0;
+        
         // Recent deposits with user info
         $stmt = $pdo->query("
             SELECT d.*, u.username, u.firstname, u.lastname 
@@ -59,7 +61,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 'total_users' => $total_users,
                 'total_deposits' => $total_deposits,
                 'pending_deposits' => $pending_deposits,
-                'pending_withdrawals' => $pending_withdrawals
+                'pending_withdrawals' => $pending_withdrawals,
+                'pending_transfers' => $pending_transfers
             ],
             'recent_deposits' => $recent_deposits,
             'recent_withdrawals' => $recent_withdrawals

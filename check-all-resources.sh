@@ -3,12 +3,13 @@
 echo "
 ╔═══════════════════════════════════════════════════════════════╗
 ║                                                                 ║
-║      ✅ VERIFICACIÓN COMPLETA DE RECURSOS - 1Life Financial    ║
+║      ✅ VERIFICACIÓN COMPLETA DE RECURSOS - Ideology Wealth Advisors    ║
 ║                                                                 ║
 ╚═══════════════════════════════════════════════════════════════╝
 "
 
-cd "/Users/bener/GitHub/1lifefinancial.com"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+cd "$SCRIPT_DIR"
 
 echo "📋 CHECKLIST DE RECURSOS:"
 echo ""
@@ -29,10 +30,10 @@ total=0
 passed=0
 
 echo "1️⃣  IMÁGENES PRINCIPALES:"
-check_file "1life Financial - Home_files/logo.png" && ((passed++)); ((total++))
-check_file "1life Financial - Home_files/white-wave-1.png" && ((passed++)); ((total++))
-check_file "1life Financial - Home_files/white-wave-2.png" && ((passed++)); ((total++))
-check_file "1life Financial - Home_files/60c75675a19651623676533.jpg" && ((passed++)); ((total++))
+check_file "home_files/logo.png" && ((passed++)); ((total++))
+check_file "home_files/white-wave-1.png" && ((passed++)); ((total++))
+check_file "home_files/white-wave-2.png" && ((passed++)); ((total++))
+check_file "home_files/60c75675a19651623676533.jpg" && ((passed++)); ((total++))
 
 echo ""
 echo "2️⃣  IMAGEN SLIDER (Slick):"
@@ -67,24 +68,24 @@ check_file "offline.html" && ((passed++)); ((total++))
 
 echo ""
 echo "7️⃣  PÁGINAS HTML:"
-check_file "1life Financial - Home.html" && ((passed++)); ((total++))
-check_file "1life Financial - About Us.html" && ((passed++)); ((total++))
-check_file "1life Financial - Services.html" && ((passed++)); ((total++))
-check_file "1life Financial - FAQ.html" && ((passed++)); ((total++))
-check_file "1life Financial - Contact Us.html" && ((passed++)); ((total++))
+check_file "home.html" && ((passed++)); ((total++))
+check_file "about.html" && ((passed++)); ((total++))
+check_file "services.html" && ((passed++)); ((total++))
+check_file "faq.html" && ((passed++)); ((total++))
+check_file "contact.html" && ((passed++)); ((total++))
 
 echo ""
 echo "8️⃣  CSS PRINCIPALES:"
-check_file "1life Financial - Home_files/bootstrap.min.css" && ((passed++)); ((total++))
-check_file "1life Financial - Home_files/main.css" && ((passed++)); ((total++))
-check_file "1life Financial - Home_files/custom.css" && ((passed++)); ((total++))
+check_file "home_files/bootstrap.min.css" && ((passed++)); ((total++))
+check_file "home_files/main.css" && ((passed++)); ((total++))
+check_file "home_files/custom.css" && ((passed++)); ((total++))
 
 echo ""
 echo "9️⃣  JAVASCRIPT PRINCIPALES:"
-check_file "1life Financial - Home_files/jquery-3.5.1.min.js" && ((passed++)); ((total++))
-check_file "1life Financial - Home_files/bootstrap.bundle.min.js" && ((passed++)); ((total++))
-check_file "1life Financial - Home_files/app.js" && ((passed++)); ((total++))
-check_file "1life Financial - Home_files/slick.min.js" && ((passed++)); ((total++))
+check_file "home_files/jquery-3.5.1.min.js" && ((passed++)); ((total++))
+check_file "home_files/bootstrap.bundle.min.js" && ((passed++)); ((total++))
+check_file "home_files/app.js" && ((passed++)); ((total++))
+check_file "home_files/slick.min.js" && ((passed++)); ((total++))
 
 echo ""
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"

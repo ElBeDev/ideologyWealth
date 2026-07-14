@@ -1,0 +1,13 @@
+.git/
+.venv/
+*.bak
+*.old
+*.backup
+*.log
+*.tmp
+*.swp
+*.swo
+.DS_Store
+**/.DS_Store
+**/*.pyc
+**/__pycache__/

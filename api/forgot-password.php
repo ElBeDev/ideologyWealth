@@ -41,25 +41,24 @@ try {
     $stmt = $pdo->prepare("
         INSERT INTO password_resets (user_id, token, expires_at, created_at) 
         VALUES (:user_id, :token, :expires_at, NOW())
-        ON DUPLICATE KEY UPDATE token = :token, expires_at = :expires_at, created_at = NOW()
+        ON DUPLICATE KEY UPDATE token = :token2, expires_at = :expires_at2, created_at = NOW()
     ");
     $stmt->execute([
-        'user_id' => $user['id'],
-        'token' => $token,
-        'expires_at' => $expires
+        'user_id'     => $user['id'],
+        'token'       => $token,
+        'expires_at'  => $expires,
+        'token2'      => $token,
+        'expires_at2' => $expires,
     ]);
     
-    // TODO: Send email with reset link
-    // For now, just log the token (in production, send via email)
-    error_log("Password reset token for {$user['email']}: $token");
-    error_log("Reset link: " . $_SERVER['HTTP_HOST'] . "/reset-password.html?token=$token");
-    
-    jsoReturn token directly (no email needed)
-    error_log("Password reset token for {$user['email']}: $token");
-    
     jsonResponse([
-        'success' => true, 
+        'success' => true,
         'message' => 'Reset link generated successfully',
-        'token' => $token,
-        'username' => $user['username']false, 'message' => 'An error occurred. Please try again later.'], 500);
+        'token'   => $token,
+        'username' => $user['username']
+    ]);
+
+} catch (Exception $e) {
+    error_log("Forgot password error: " . $e->getMessage());
+    jsonResponse(['success' => false, 'message' => 'An error occurred. Please try again later.'], 500);
 }

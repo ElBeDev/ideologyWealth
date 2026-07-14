@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>1life Financial - Withdrawals</title>
+    <title>Ideology Wealth Advisors - Withdrawals</title>
     <link rel="shortcut icon" type="image/png" href="assets/withdrawals/favicon.png">
     <link rel="stylesheet" href="assets/withdrawals/css2.css">
     <link rel="stylesheet" href="assets/withdrawals/bootstrap.min.css">
@@ -26,7 +26,7 @@
         <!-- Sidebar -->
         <div class="sidebar">
             <div class="sidebar__logo">
-                <img src="1life Financial - Dashboard_files/logo.png" alt="1life Financial">
+                <img src="1life Financial - Dashboard_files/logo.png" alt="Ideology Wealth Advisors">
             </div>
             
             <ul class="sidebar__menu">
@@ -40,7 +40,7 @@
                     <a href="users.html">
                         <i class="las la-users"></i>
                         <span>Manage Users</span>
-                        <span class="menu-badge" id="totalUsersCount">396</span>
+                        <span class="menu-badge" id="totalUsersCount">0</span>
                     </a>
                 </li>
                 <li class="sidebar-menu-item">
@@ -316,9 +316,16 @@
                         <button onclick="rejectWithdrawal(${w.id})" class="btn btn--danger btn-sm mb-1" title="Reject">
                             <i class="las la-times"></i> Reject
                         </button>
+                        <button onclick="deleteWithdrawal(${w.id})" class="btn btn--secondary btn-sm mb-1" title="Delete">
+                            <i class="las la-trash"></i> Delete
+                        </button>
                     `;
                 } else {
-                    actions = `<span class="text-muted">—</span>`;
+                    actions = `
+                        <button onclick="deleteWithdrawal(${w.id})" class="btn btn--secondary btn-sm" title="Delete">
+                            <i class="las la-trash"></i> Delete
+                        </button>
+                    `;
                 }
                 
                 const username = w.username || 'N/A';
@@ -329,7 +336,7 @@
                 const method = w.method || 'Bank Transfer';
                 const date = new Date(w.created_at).toLocaleDateString('en-US', {
                     year: 'numeric',
-                    month: 'short',
+                    month: '2-digit',
                     day: '2-digit',
                     hour: '2-digit',
                     minute: '2-digit'
@@ -420,11 +427,44 @@
             });
         }
 
+        function deleteWithdrawal(id) {
+            if (!confirm('Delete this withdrawal? If it is pending, the amount will be returned to the user.')) {
+                return;
+            }
+            $.ajax({
+                url: '/api/admin_withdrawals.php',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ action: 'delete', id: id }),
+                success: function(r) {
+                    if (r.success) {
+                        notify('success', 'Withdrawal deleted');
+                        loadWithdrawals();
+                    } else {
+                        notify('error', r.message || 'Failed to delete');
+                    }
+                },
+                error: function() { notify('error', 'Failed to connect to server'); }
+            });
+        }
+
+        function loadSidebarStats() {
+            $.get('/api/admin_dashboard.php').done(r => {
+                if (r.success) {
+                    $('#totalUsersCount').text(r.stats.total_users);
+                    $('#pendingDepositsCount').text(r.stats.pending_deposits);
+                    $('#pendingWithdrawalsCount').text(r.stats.pending_withdrawals);
+                    $('#pendingTransfersCount').text(r.stats.pending_transfers || 0);
+                }
+            });
+        }
+
         // Check authentication
         if (localStorage.getItem('admin_logged_in') !== 'true') {
             window.location.href = 'login.html';
         } else {
             loadWithdrawals();
+            loadSidebarStats();
         }
     </script>
 </body>

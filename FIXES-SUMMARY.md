@@ -1,4 +1,4 @@
-# 📋 RESUMEN DE CORRECCIONES - 1Life Financial PWA
+# 📋 RESUMEN DE CORRECCIONES - Ideology Wealth Advisors PWA
 
 ## ✅ Problemas Detectados y Solucionados
 

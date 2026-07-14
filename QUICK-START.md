@@ -1,4 +1,4 @@
-# 🚀 Quick Start Guide - 1life Financial PWA
+# 🚀 Quick Start Guide - Ideology Wealth Advisors PWA
 
 ## ⚡ Inicio Rápido (3 pasos)
 
@@ -78,11 +78,11 @@ git init
 git add .
 git commit -m "PWA ready"
 git branch -M main
-git remote add origin https://github.com/TU-USUARIO/1lifefinancial.git
+git remote add origin https://github.com/TU-USUARIO/ideologywealthadvisors.git
 git push -u origin main
 
 # Activa en: Settings > Pages > Deploy from main
-# URL: https://TU-USUARIO.github.io/1lifefinancial/
+# URL: https://TU-USUARIO.github.io/ideologywealthadvisors/
 ```
 
 ### Netlify (Más fácil)

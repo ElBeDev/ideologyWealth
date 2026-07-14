@@ -1,16 +1,16 @@
-# 🌐 Configuración del Dominio 1stlifefinancial.com
+# 🌐 Configuración del Dominio ideologywealthadvisors.com
 
 ## ✅ Cambios Realizados en el VPS
 
 ### **1. Nginx Configurado**
-- ✅ Dominio agregado: `1stlifefinancial.com`
-- ✅ Dominio con www: `www.1stlifefinancial.com`
+- ✅ Dominio agregado: `ideologywealthadvisors.com`
+- ✅ Dominio con www: `www.ideologywealthadvisors.com`
 - ✅ IP del VPS: `62.72.7.44`
 - ✅ Nginx recargado y funcionando
 
 ### **2. Manifest.json Actualizado**
-- ✅ `start_url`: https://1stlifefinancial.com/
-- ✅ `scope`: https://1stlifefinancial.com/
+- ✅ `start_url`: https://ideologywealthadvisors.com/
+- ✅ `scope`: https://ideologywealthadvisors.com/
 - ✅ `theme_color`: #83af40 (verde del brand)
 
 ---
@@ -53,7 +53,7 @@ Debe existir este registro (ya lo tienes):
 ```
 Type: CNAME
 Nombre: www
-Apunta a: 1stlifefinancial.com
+Apunta a: ideologywealthadvisors.com
 TTL: 300
 ```
 
@@ -76,28 +76,28 @@ Puedes verificar si el DNS se ha propagado en: https://dnschecker.org/
 
 ### **Método 1: Ping**
 ```bash
-ping 1stlifefinancial.com
+ping ideologywealthadvisors.com
 ```
 Debe responder desde: `62.72.7.44`
 
 ### **Método 2: Navegador**
 Abre en tu navegador:
-- http://1stlifefinancial.com
-- http://www.1stlifefinancial.com
+- http://ideologywealthadvisors.com
+- http://www.ideologywealthadvisors.com
 - http://62.72.7.44
 
 Todos deben mostrar tu sitio web.
 
 ### **Método 3: nslookup**
 ```bash
-nslookup 1stlifefinancial.com
+nslookup ideologywealthadvisors.com
 ```
 Debe responder:
 ```
 Server:  dns.google
 Address:  8.8.8.8
 
-Name:    1stlifefinancial.com
+Name:    ideologywealthadvisors.com
 Address:  62.72.7.44
 ```
 
@@ -108,12 +108,12 @@ Address:  62.72.7.44
 Una vez que el dominio esté funcionando (después de la propagación DNS), ejecuta:
 
 ```bash
-ssh vps-1life 'sudo certbot --nginx -d 1stlifefinancial.com -d www.1stlifefinancial.com'
+ssh vps-ideologywealth 'sudo certbot --nginx -d ideologywealthadvisors.com -d www.ideologywealthadvisors.com'
 ```
 
 Esto instalará un certificado SSL gratuito de Let's Encrypt y tu sitio estará disponible en:
-- ✅ https://1stlifefinancial.com
-- ✅ https://www.1stlifefinancial.com
+- ✅ https://ideologywealthadvisors.com
+- ✅ https://www.ideologywealthadvisors.com
 
 ---
 
@@ -122,7 +122,7 @@ Esto instalará un certificado SSL gratuito de Let's Encrypt y tu sitio estará 
 ### **DNS en Hostinger:**
 ```
 A       @       62.72.7.44      14400
-CNAME   www     1stlifefinancial.com    300
+CNAME   www     ideologywealthadvisors.com    300
 ```
 
 ### **Nginx en VPS:**
@@ -130,9 +130,9 @@ CNAME   www     1stlifefinancial.com    300
 server {
     listen 80;
     listen [::]:80;
-    server_name 1stlifefinancial.com www.1stlifefinancial.com 62.72.7.44;
+    server_name ideologywealthadvisors.com www.ideologywealthadvisors.com 62.72.7.44;
     
-    root /var/www/1lifefinancial;
+    root /var/www/ideologywealthadvisors;
     index index.html index.php;
     
     location / {
@@ -152,7 +152,7 @@ server {
 
 - ✅ VPS configurado y listo: `62.72.7.44`
 - ✅ Nginx configurado para responder al dominio
-- ✅ Archivos desplegados en `/var/www/1lifefinancial/`
+- ✅ Archivos desplegados en `/var/www/ideologywealthadvisors/`
 - ✅ PHP funcionando correctamente
 - ⏳ **FALTA:** Cambiar el registro A en Hostinger DNS
 - ⏳ **FALTA:** Esperar propagación DNS (15 min - 24 hrs)
@@ -167,8 +167,8 @@ server {
 - http://srv1131803.hstgr.cloud ✅ (Funciona ahora)
 
 **Después de cambiar el DNS en Hostinger:**
-- http://1stlifefinancial.com ✅ (Funcionará después de propagación)
-- http://www.1stlifefinancial.com ✅ (Funcionará después de propagación)
+- http://ideologywealthadvisors.com ✅ (Funcionará después de propagación)
+- http://www.ideologywealthadvisors.com ✅ (Funcionará después de propagación)
 
 ---
 

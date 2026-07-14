@@ -34,7 +34,7 @@ header('Content-Type: text/html; charset=utf-8');
 </head>
 <body>
     <div class="container">
-        <h1>🏦 1Life Financial - Sistema de Registro</h1>
+        <h1>🏦 Ideology Wealth Advisors - Sistema de Registro</h1>
         
         <?php
         try {

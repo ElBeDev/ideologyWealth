@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>1life Financial - Profile</title>
-    <link rel="shortcut icon" href="https://1lifefinancial.com/assets/images/logoIcon/favicon.png" type="image/x-icon">
+    <title>Ideology Wealth Advisors - Profile</title>
+    <link rel="shortcut icon" href="https://ideologywealthadvisors.com/assets/images/logoIcon/favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="profile_files/bootstrap.min.css">
     <link rel="stylesheet" href="profile_files/all.min.css">
     <link rel="stylesheet" href="profile_files/line-awesome.min.css">
@@ -28,12 +28,12 @@
         </div>
     </div>
 
-    <header class="header inner-hero bg_img overlay--one" style="background-image: url('https://1lifefinancial.com/assets/images/frontend/breadcumb/60c7569dec4f01623676573.jpg');padding-top: 0px;padding-bottom: 27px;">
+    <header class="header inner-hero bg_img overlay--one" style="background-image: url('https://ideologywealthadvisors.com/assets/images/frontend/breadcumb/60c7569dec4f01623676573.jpg');padding-top: 0px;padding-bottom: 27px;">
         <div class="header__bottom2">
             <div class="container">
                 <nav class="navbar navbar-expand-lg p-0 align-items-center justify-content-between">
                     <a class="site-logo site-title" href="index.html">
-                        <img src="https://1lifefinancial.com/assets/images/logoIcon/logo.png" alt="logo">
+                        <img src="https://ideologywealthadvisors.com/assets/images/logoIcon/logo.png" alt="logo">
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
                         <span class="menu-toggle"></span>
@@ -42,7 +42,8 @@
                         <ul class="navbar-nav main-menu m-auto">
                             <li><a class="" href="dashboard.html">Dashboard</a></li>
                             <li><a class="" href="deposits.html">Deposit</a></li>
-                            <li><a class="" href="withdrawals.html">TRANSFER</a></li>
+                            <li><a class="" href="transfer.html">Transfer</a></li>
+                            <li><a class="" href="withdrawals.html">Withdraw</a></li>
                             <li><a class="active" href="profile.html">More</a></li>
                         </ul>
                         <div class="nav-right">
@@ -73,7 +74,7 @@
             </div>
         </nav>
 
-        <section class="pt-100 pb-100 bg_img" style="background-image: url('https://1lifefinancial.com/assets/templates/basic/images/elements/bg1.jpg');">
+        <section class="pt-100 pb-100">
             <div class="container">
                 <form class="register" id="profileForm" enctype="multipart/form-data">
                     <div class="row justify-content-center gy-4">
@@ -86,15 +87,17 @@
                                             <label for="imageUpload"></label>
                                         </div>
                                         <div class="avatar-preview">
-                                            <div id="imagePreview" style="background-image: url(https://1lifefinancial.com/placeholder-image/350x300);"></div>
+                                            <div id="imagePreview" style="background-image: url(https://ideologywealthadvisors.com/placeholder-image/350x300);"></div>
                                         </div>
                                     </div>
                                     <ul class="caption-list-two">
                                         <li><span class="caption">Name</span><span class="value" id="fullName">-</span></li>
+                                        <li><span class="caption">Account Number</span><span class="value" id="accountNumber">-</span></li>
                                         <li><span class="caption">E-mail Address</span><span class="value" id="email">-</span></li>
                                         <li><span class="caption">Mobile Number</span><span class="value" id="mobile">-</span></li>
                                         <li><span class="caption">Country</span><span class="value" id="country">-</span></li>
                                         <li><span class="caption">City</span><span class="value" id="city">-</span></li>
+                                        <li><span class="caption">State</span><span class="value" id="state">-</span></li>
                                         <li><span class="caption">Zip Code</span><span class="value" id="zip">-</span></li>
                                         <li><span class="caption">Address</span><span class="value" id="address">-</span></li>
                                     </ul>
@@ -130,6 +133,10 @@
                                             <input type="text" class="form--control" id="cityInput" name="city" placeholder="City" readonly>
                                         </div>
                                         <div class="form-group col-12">
+                                            <label for="stateInput" class="col-form-label">State:</label>
+                                            <input type="text" class="form--control" id="stateInput" name="state" placeholder="State" readonly>
+                                        </div>
+                                        <div class="form-group col-12">
                                             <label for="zipInput" class="col-form-label">Zip Code:</label>
                                             <input type="text" class="form--control" id="zipInput" name="zip" placeholder="Zip Code" readonly>
                                         </div>
@@ -161,7 +168,7 @@
                 <div class="col-lg-4 col-sm-6 order-lg-1 order-1">
                     <div class="footer-widget">
                         <h3 class="footer-widget__title">About Us</h3>
-                        <p>1life financial is a complete e-Banking system.</p>
+                        <p>Ideology Wealth Advisors is a complete e-Banking system.</p>
                         <ul class="social-media-links d-flex align-items-center mt-3">
                             <li><a href="https://bd.linkedin.com/" target="_blank"><i class="fab fa-linkedin-in"></i></a></li>
                             <li><a href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram"></i></a></li>
@@ -195,7 +202,7 @@
                         <h3 class="footer-widget__title">Contact Us</h3>
                         <ul class="footer-info-list">
                             <li><i class="fas fa-map-marked"></i><p>4400 Easton Commons Way, Columbus Ohio 43219.</p></li>
-                            <li><i class="fas fa-envelope"></i><p>inquiries@1lifefinancial.com</p></li>
+                            <li><i class="fas fa-envelope"></i><p>inquiries@ideologywealthadvisors.com</p></li>
                             <li><i class="fas fa-headphones"></i><p>+1 614 3627053 // +1 614 3627054</p></li>
                         </ul>
                     </div>
@@ -204,7 +211,7 @@
             <div class="footer__bottom">
                 <div class="row gy-4 align-items-center">
                     <div class="col-lg-12 col-sm-6 order-lg-3 order-2 text-sm-end text-center">
-                        <p>Copyright © 2021 1life financial All Right Reserved</p>
+                        <p>Copyright © 2021 Ideology Wealth Advisors All Right Reserved</p>
                     </div>
                 </div>
             </div>
@@ -220,7 +227,13 @@
     <script src="profile_files/iziToast.min.js"></script>
     <script>
         function notify(s,m){iziToast[s]({message:m,position:"topRight"});}
-        function logout(){localStorage.clear();window.location.href='login.html';}
+        function logout() {
+            const token = localStorage.getItem('auth_token');
+            const headers = {};
+            if (token) headers['X-Auth-Token'] = token;
+            fetch('/api/logout.php', { method: 'GET', credentials: 'include', headers: headers })
+                .finally(() => { localStorage.clear(); window.location.href = 'login.html'; });
+        }
         
         function readURL(input){
             if(input.files&&input.files[0]){
@@ -235,25 +248,35 @@
         $("#imageUpload").change(function(){readURL(this);});
         
         function loadProfile(){
-            $.get('/api/user.php').done(r=>{
+            const _token = localStorage.getItem('auth_token');
+            $.ajax({ url: '/api/user.php?_=' + Date.now(), headers: _token ? {'X-Auth-Token': _token} : {} }).done(r=>{
                 if(r.success&&r.user){
                     const u=r.user;
-                    $('#fullName').text(u.firstname+' '+u.lastname);
+                    $('#fullName').text((u.firstname||'')+' '+(u.lastname||''));
+                    if($('#accountNumber').length) $('#accountNumber').text(u.account_number||'-');
                     $('#email').text(u.email);
                     $('#mobile').text(u.mobile);
                     $('#country').text(u.country_code);
                     $('#city').text(u.city);
+                    $('#state').text(u.state);
                     $('#zip').text(u.zip);
-                    $('#address').text(u.address);
+                    $('#address').text(typeof u.address==='object'?'':u.address||'');
                     $('#firstname').val(u.firstname);
                     $('#lastname').val(u.lastname);
                     $('#emailInput').val(u.email);
                     $('#mobileInput').val(u.mobile);
                     $('#countryInput').val(u.country_code);
                     $('#cityInput').val(u.city);
+                    $('#stateInput').val(u.state);
                     $('#zipInput').val(u.zip);
-                    $('#addressInput').val(u.address);
+                    $('#addressInput').val(typeof u.address==='object'?'':u.address||'');
+                } else {
+                    localStorage.clear();
+                    window.location.href='login.html';
                 }
+            }).fail(function(){
+                localStorage.clear();
+                window.location.href='login.html';
             });
         }
         
@@ -269,6 +292,12 @@
             }).fail(()=>notify('error','Connection error'));
         });
         
+        $.ajaxSetup({
+            beforeSend: function(xhr) {
+                const token = localStorage.getItem('auth_token');
+                if (token) xhr.setRequestHeader('X-Auth-Token', token);
+            }
+        });
         if(localStorage.getItem('logged_in')!=='true')window.location.href='login.html';
         else loadProfile();
     </script>

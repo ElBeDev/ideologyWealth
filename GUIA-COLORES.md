@@ -1,8 +1,8 @@
-# 🎨 Guía de Colores de Marca - 1Life Financial PWA
+# 🎨 Guía de Colores de Marca - Ideology Wealth Advisors PWA
 
 ## ✅ Trabajo Completado
 
-Se han actualizado **todos los colores** en tu aplicación PWA de 1Life Financial. Ya no hay rastros de la plantilla original clonada. Los colores ahora son:
+Se han actualizado **todos los colores** en tu aplicación PWA de Ideology Wealth Advisors. Ya no hay rastros de la plantilla original clonada. Los colores ahora son:
 
 ### 🟢 Verde Primario: `#6fb950`
 - Botones principales
@@ -46,7 +46,7 @@ Se han actualizado **todos los colores** en tu aplicación PWA de 1Life Financia
 ### 1. Verificación Visual
 ```bash
 # Abre la página principal
-open "1life Financial - Home.html"
+open "Ideology Wealth Advisors - Home.html"
 ```
 
 Revisa:
@@ -142,11 +142,11 @@ El botón "Instalar App" usa el gradiente de marca automáticamente.
 ## 🔍 Páginas Actualizadas
 
 Todas estas páginas tienen los colores actualizados:
-- ✅ `1life Financial - Home.html`
-- ✅ `1life Financial - About Us.html`
-- ✅ `1life Financial - Services.html`
-- ✅ `1life Financial - FAQ.html`
-- ✅ `1life Financial - Contact Us.html`
+- ✅ `Ideology Wealth Advisors - Home.html`
+- ✅ `Ideology Wealth Advisors - About Us.html`
+- ✅ `Ideology Wealth Advisors - Services.html`
+- ✅ `Ideology Wealth Advisors - FAQ.html`
+- ✅ `Ideology Wealth Advisors - Contact Us.html`
 
 ---
 
@@ -158,7 +158,7 @@ Todas estas páginas tienen los colores actualizados:
 - Azul claro genérico: `#00a6f7`
 - Gradientes rojos-naranja
 
-### ✅ DESPUÉS (1Life Financial)
+### ✅ DESPUÉS (Ideology Wealth Advisors)
 - Verde vibrante: `#6fb950`
 - Azul oscuro profesional: `#0143a3`
 - Verde hover: `#5ea840`
@@ -216,7 +216,7 @@ mv "archivo.css.backup" "archivo.css"
 
 ✅ **48 archivos CSS actualizados**
 ✅ **Cero colores rojos restantes**
-✅ **100% colores de marca 1Life Financial**
+✅ **100% colores de marca Ideology Wealth Advisors**
 ✅ **PWA funcionando con colores correctos**
 ✅ **Archivos de respaldo disponibles**
 

@@ -1,0 +1,36 @@
+#!/bin/bash
+
+# Script para actualizar el repositorio en la VPS con los cambios del campo 'state'
+
+echo "==================================="
+echo "Actualización: Campo 'State' agregado"
+echo "==================================="
+echo ""
+
+echo "📝 Archivos modificados:"
+echo "  ✓ register.html - Formulario con campo State"
+echo "  ✓ profile.html - Perfil mostrando State"
+echo "  ✓ api/register.php - Backend guardando State"
+echo "  ✓ api/user.php - Backend retornando State"
+echo "  ✓ api/update_profile.php - Backend actualizando State"
+echo "  ✓ api/admin_users.php - Admin mostrando State"
+echo ""
+
+echo "📋 Pasos para aplicar en la VPS:"
+echo ""
+echo "1. Subir archivos modificados a la VPS"
+echo "2. Ejecutar el script SQL para agregar la columna 'state'"
+echo ""
+echo "Para ejecutar el script SQL en la VPS:"
+echo "  Opción A - Desde navegador web:"
+echo "    https://ideologywealthadvisors.com/api/add_state_column.php"
+echo ""
+echo "  Opción B - Desde terminal SSH:"
+echo "    cd /path/to/api"
+echo "    php add_state_column.php"
+echo ""
+echo "  Opción C - MySQL directo:"
+echo "    mysql -u onelife_user -p lifefina_bank"
+echo "    ALTER TABLE users ADD COLUMN IF NOT EXISTS state VARCHAR(100) DEFAULT NULL AFTER city;"
+echo ""
+echo "==================================="

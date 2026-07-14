@@ -6,14 +6,12 @@ define('DB_USER', 'onelife_user');
 define('DB_PASS', 'OneLif3Secure2024!');
 define('DB_CHARSET', 'utf8mb4');
 
-// Session configuration
-ini_set('session.cookie_httponly', 1);
-ini_set('session.use_only_cookies', 1);
-ini_set('session.cookie_secure', 1);
-ini_set('session.cookie_samesite', 'Strict');
-
-// Start session if not already started
+// Session configuration - must be set before session_start()
 if (session_status() === PHP_SESSION_NONE) {
+    ini_set('session.cookie_httponly', 1);
+    ini_set('session.use_only_cookies', 1);
+    ini_set('session.cookie_secure', 1);
+    ini_set('session.cookie_samesite', 'Strict');
     session_start();
 }
 
@@ -28,7 +26,27 @@ try {
     $pdo = new PDO($dsn, DB_USER, DB_PASS, $options);
 } catch (PDOException $e) {
     error_log("Database connection failed: " . $e->getMessage());
-    die(json_encode(['success' => false, 'message' => 'Error de conexión a la base de datos']));
+    die(json_encode(['success' => false, 'message' => 'Database connection error']));
+}
+
+// Token-based auth fallback: if no active PHP session, check X-Auth-Token header
+if (empty($_SESSION['logged_in']) && empty($_SESSION['user_id'])) {
+    $authToken = $_SERVER['HTTP_X_AUTH_TOKEN'] ?? null;
+    if ($authToken && strlen($authToken) === 64) {
+        try {
+            $stmt = $pdo->prepare("SELECT id, username, email FROM users WHERE auth_token = ? AND auth_token IS NOT NULL LIMIT 1");
+            $stmt->execute([$authToken]);
+            $tokenUser = $stmt->fetch();
+            if ($tokenUser) {
+                $_SESSION['user_id'] = $tokenUser['id'];
+                $_SESSION['username'] = $tokenUser['username'];
+                $_SESSION['email'] = $tokenUser['email'];
+                $_SESSION['logged_in'] = true;
+            }
+        } catch (Exception $e) {
+            error_log("Token auth error: " . $e->getMessage());
+        }
+    }
 }
 
 // Helper function to respond with JSON
@@ -41,7 +59,14 @@ function jsonResponse($data, $statusCode = 200) {
 
 // Helper function to generate account number
 function generateAccountNumber() {
-    return '317012315';
+    global $pdo;
+    do {
+        // Format: 0173 + 14 random digits = 18 digits total
+        $number = '0173' . str_pad(mt_rand(0, 99999999999999), 14, '0', STR_PAD_LEFT);
+        $stmt = $pdo->prepare("SELECT id FROM users WHERE account_number = ? LIMIT 1");
+        $stmt->execute([$number]);
+    } while ($stmt->fetch());
+    return $number;
 }
 
 // Helper function to hash password

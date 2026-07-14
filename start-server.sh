@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# 1life Financial - PWA Local Server Starter
+# Ideology Wealth Advisors - PWA Local Server Starter
 # Este script inicia un servidor local para probar la PWA
 
-echo "🚀 Iniciando servidor local para 1life Financial PWA..."
+echo "🚀 Iniciando servidor local para Ideology Wealth Advisors PWA..."
 echo ""
 
 # Detectar el puerto (default: 8000)

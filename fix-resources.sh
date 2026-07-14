@@ -3,12 +3,12 @@
 echo "
 ╔═══════════════════════════════════════════════════════════════╗
 ║                                                                 ║
-║      🔧 SOLUCIONADOR DE RECURSOS FALTANTES - 1Life Financial   ║
+║      🔧 SOLUCIONADOR DE RECURSOS FALTANTES - Ideology Wealth Advisors   ║
 ║                                                                 ║
 ╚═══════════════════════════════════════════════════════════════╝
 "
 
-cd "/Users/bener/GitHub/1lifefinancial.com"
+cd "/Users/bener/GitHub/ideologywealthadvisors.com"
 
 echo "📁 Creando estructura de carpetas necesarias..."
 mkdir -p images/elements

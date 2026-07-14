@@ -150,7 +150,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $current_balance = floatval($user['balance']);
             
             // Calcular nuevo post_balance
-            $post_balance = null;
+            $post_balance = $transaction['post_balance']; // keep existing value by default
             
             // Si pasa a completed, aplicar al balance
             if ($new_status === 'completed' && $old_status !== 'completed') {
@@ -175,9 +175,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
             }
             
-            // Actualizar estado
-            $stmt = $pdo->prepare("UPDATE transactions SET status = ?, post_balance = ? WHERE id = ?");
-            $stmt->execute([$new_status, $post_balance, $transaction_id]);
+            // Actualizar estado (y TRX si se proporcionó)
+            $new_trx = trim($input['trx'] ?? '');
+            if ($new_trx) {
+                $stmt = $pdo->prepare("UPDATE transactions SET status = ?, post_balance = ?, trx = ? WHERE id = ?");
+                $stmt->execute([$new_status, $post_balance, $new_trx, $transaction_id]);
+            } else {
+                $stmt = $pdo->prepare("UPDATE transactions SET status = ?, post_balance = ? WHERE id = ?");
+                $stmt->execute([$new_status, $post_balance, $transaction_id]);
+            }
             
             echo json_encode([
                 'success' => true,
@@ -268,6 +274,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
             $stmt = $pdo->prepare("DELETE FROM transactions WHERE id = ?");
             $stmt->execute([$transaction_id]);
+
+            // Also delete matching deposit record (linked by trx + user_id)
+            if ($transaction && $transaction['trx']) {
+                $txTrx  = $transaction['trx'];
+                $userId = $transaction['user_id'];
+                // Scenario A: same trx (admin manual add)
+                // Scenario B: transaction trx = 'DEP' + deposit trx (deposit approve flow)
+                $depositTrx = (substr($txTrx, 0, 3) === 'DEP') ? substr($txTrx, 3) : $txTrx;
+                $stmt = $pdo->prepare("DELETE FROM deposits WHERE user_id = ? AND (trx = ? OR trx = ?)");
+                $stmt->execute([$userId, $txTrx, $depositTrx]);
+            }
             
             echo json_encode([
                 'success' => true,

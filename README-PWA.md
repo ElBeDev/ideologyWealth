@@ -1,4 +1,4 @@
-# 1life Financial - Progressive Web App (PWA)
+# Ideology Wealth Advisors - Progressive Web App (PWA)
 
 ## 🚀 Características PWA Implementadas
 
@@ -19,7 +19,7 @@ Esta aplicación ahora es una **Progressive Web App** completa con las siguiente
 ## 📁 Archivos PWA Creados
 
 ```
-1lifefinancial.com/
+ideologywealthadvisors.com/
 ├── manifest.json           # Configuración de la PWA
 ├── service-worker.js       # Service Worker para caché y offline
 ├── offline.html           # Página para cuando no hay conexión
@@ -33,7 +33,7 @@ Esta aplicación ahora es una **Progressive Web App** completa con las siguiente
 │   ├── icon-192x192.png
 │   ├── icon-384x384.png
 │   └── icon-512x512.png
-└── 1life Financial - Home.html  # HTML modificado con PWA
+└── Ideology Wealth Advisors - Home.html  # HTML modificado con PWA
 ```
 
 ---
@@ -54,7 +54,7 @@ Esta aplicación ahora es una **Progressive Web App** completa con las siguiente
 ### Opción A: Usar Python (Recomendado)
 ```bash
 # Navega a la carpeta del proyecto
-cd /Users/bener/GitHub/1lifefinancial.com
+cd /Users/bener/GitHub/ideologywealthadvisors.com
 
 # Python 3
 python3 -m http.server 8000
@@ -81,7 +81,7 @@ php -S localhost:8000
 
 ### Opción D: Live Server (VS Code)
 1. Instala la extensión "Live Server" en VS Code
-2. Click derecho en `1life Financial - Home.html`
+2. Click derecho en `Ideology Wealth Advisors - Home.html`
 3. Selecciona "Open with Live Server"
 
 ---
@@ -119,12 +119,12 @@ git init
 git add .
 git commit -m "PWA ready"
 git branch -M main
-git remote add origin https://github.com/TU-USUARIO/1lifefinancial.git
+git remote add origin https://github.com/TU-USUARIO/ideologywealthadvisors.git
 git push -u origin main
 
 # Ir a Settings > Pages > Deploy from main branch
 ```
-URL: `https://TU-USUARIO.github.io/1lifefinancial/`
+URL: `https://TU-USUARIO.github.io/ideologywealthadvisors/`
 
 #### 2️⃣ **Netlify** (Gratis, más fácil)
 1. Crea cuenta en [netlify.com](https://netlify.com)

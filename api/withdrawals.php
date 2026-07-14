@@ -1,25 +1,42 @@
 <?php
-header('Content-Type: application/json');
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
-header('Access-Control-Allow-Headers: Content-Type');
-
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    exit(0);
-}
-
-session_start();
 require_once 'config.php';
 
-if (!isset($_SESSION['user_id'])) {
-    echo json_encode([
-        'success' => false,
-        'message' => 'Unauthorized. Please login.'
-    ]);
+header('Content-Type: application/json');
+$origin = $_SERVER['HTTP_ORIGIN'] ?? '';
+if ($origin) {
+    header('Access-Control-Allow-Origin: ' . $origin);
+    header('Access-Control-Allow-Credentials: true');
+} else {
+    header('Access-Control-Allow-Origin: *');
+}
+header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type, X-Auth-Token');
+
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
     exit;
 }
 
-$user_id = $_SESSION['user_id'];
+$user_id = null;
+
+if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
+    $user_id = $_SESSION['user_id'];
+} else {
+    $token = $_SERVER['HTTP_X_AUTH_TOKEN'] ?? $_GET['token'] ?? null;
+    if ($token) {
+        $stmt = $pdo->prepare("SELECT id FROM users WHERE auth_token = ? LIMIT 1");
+        $stmt->execute([$token]);
+        $row = $stmt->fetch();
+        if ($row) {
+            $user_id = $row['id'];
+        }
+    }
+}
+
+if (!$user_id) {
+    echo json_encode(['success' => false, 'message' => 'Unauthorized. Please login.']);
+    exit;
+}
 
 // GET - Get user withdrawals
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
@@ -89,14 +106,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute([$user_id]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
         
-        // Calculate charges (2% fee)
-        $charge = $amount * 0.02;
-        $final_amount = $amount + $charge; // Total to deduct from balance
+        // No charge on withdrawals
+        $charge = 0;
+        $final_amount = $amount;
         
         if (!$user || $user['balance'] < $final_amount) {
             echo json_encode([
                 'success' => false,
-                'message' => 'Insufficient balance. You need $' . number_format($final_amount, 2) . ' (including 2% fee)'
+                'message' => 'Insufficient balance. Available: $' . number_format($user['balance'], 2)
             ]);
             exit;
         }

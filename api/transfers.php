@@ -2,16 +2,45 @@
 require_once 'config.php';
 
 header('Content-Type: application/json');
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type');
 
-// Check if admin is logged in
-if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
-    jsonResponse(['success' => false, 'message' => 'Unauthorized'], 401);
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit;
 }
 
 // Handle POST requests (update transfer status)
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $action = $_POST['action'] ?? '';
     
+    if ($action === 'delete') {
+        $transferId = filter_var($_POST['transfer_id'] ?? 0, FILTER_VALIDATE_INT);
+        if (!$transferId) {
+            jsonResponse(['success' => false, 'message' => 'Invalid transfer ID'], 400);
+        }
+        try {
+            $stmt = $pdo->prepare("SELECT user_id, final_amount, status FROM transfers WHERE id = ?");
+            $stmt->execute([$transferId]);
+            $transfer = $stmt->fetch();
+            if (!$transfer) {
+                jsonResponse(['success' => false, 'message' => 'Transfer not found'], 404);
+            }
+            // Return balance if pending (was already deducted on creation)
+            if ($transfer['status'] === 'pending') {
+                $stmt = $pdo->prepare("UPDATE users SET balance = balance + ? WHERE id = ?");
+                $stmt->execute([$transfer['final_amount'], $transfer['user_id']]);
+            }
+            $stmt = $pdo->prepare("DELETE FROM transfers WHERE id = ?");
+            $stmt->execute([$transferId]);
+            jsonResponse(['success' => true, 'message' => 'Transfer deleted']);
+        } catch (PDOException $e) {
+            error_log("Transfer delete error: " . $e->getMessage());
+            jsonResponse(['success' => false, 'message' => 'Database error'], 500);
+        }
+    }
+
     if ($action === 'updateStatus') {
         $transferId = filter_var($_POST['transfer_id'] ?? 0, FILTER_VALIDATE_INT);
         $status = $_POST['status'] ?? '';
@@ -28,22 +57,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ");
             $stmt->execute([$status, $transferId]);
             
-            // If approved, deduct amount from user's balance
-            if ($status === 'approved') {
+            // Balance was already deducted when transfer was created.
+            // On reject: return it to the user.
+            if ($status === 'rejected') {
                 $stmt = $pdo->prepare("
-                    SELECT t.user_id, t.final_amount 
-                    FROM transfers t 
-                    WHERE t.id = ?
+                    SELECT user_id, final_amount FROM transfers WHERE id = ?
                 ");
                 $stmt->execute([$transferId]);
                 $transfer = $stmt->fetch();
-                
+
                 if ($transfer) {
-                    $stmt = $pdo->prepare("
-                        UPDATE users 
-                        SET balance = balance - ? 
-                        WHERE id = ?
-                    ");
+                    $stmt = $pdo->prepare("UPDATE users SET balance = balance + ? WHERE id = ?");
                     $stmt->execute([$transfer['final_amount'], $transfer['user_id']]);
                 }
             }
@@ -64,8 +88,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 // Handle GET requests (fetch transfers)
 try {
     $status = $_GET['status'] ?? 'all';
-    $search = $_GET['search'] ?? '';
-    $dateRange = $_GET['dateRange'] ?? '';
     
     // Base query
     $sql = "

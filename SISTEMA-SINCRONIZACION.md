@@ -1,5 +1,5 @@
 # 🔄 Sistema de Sincronización Admin ↔ Frontend
-## 1life Financial - Flujo Completo de Datos
+## Ideology Wealth Advisors - Flujo Completo de Datos
 
 ---
 

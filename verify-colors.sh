@@ -3,7 +3,7 @@
 # Script de verificación visual de colores
 # Muestra una vista previa de los colores aplicados
 
-echo "🎨 1Life Financial - Verificación de Colores de Marca"
+echo "🎨 Ideology Wealth Advisors - Verificación de Colores de Marca"
 echo "=================================================="
 echo ""
 echo "✅ COLORES ACTUALES:"
@@ -44,7 +44,7 @@ fi
 
 echo ""
 echo "🌐 Para ver los cambios:"
-echo "   1. Abre: 1life Financial - Home.html en tu navegador"
+echo "   1. Abre: Ideology Wealth Advisors - Home.html en tu navegador"
 echo "   2. Verifica que todos los elementos sean verde (#6fb950) o azul (#0143a3)"
 echo "   3. Prueba hover en botones y enlaces"
 echo ""

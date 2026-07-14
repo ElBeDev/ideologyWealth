@@ -1,4 +1,4 @@
-# 🔧 Solución de Errores - 1Life Financial PWA
+# 🔧 Solución de Errores - Ideology Wealth Advisors PWA
 
 ## 📅 Fecha: 14 de Noviembre 2025
 
@@ -82,7 +82,7 @@ Cannot read properties of null (reading 'add')
 ### 4. ✅ Errores CORS de Cookies
 **Problema:**
 ```
-Access to XMLHttpRequest at 'https://1lifefinancial.com/cookie/accept' 
+Access to XMLHttpRequest at 'https://ideologywealthadvisors.com/cookie/accept' 
 from origin 'null' has been blocked by CORS policy
 ```
 
@@ -133,13 +133,13 @@ has been blocked by CORS policy
 
 ### Iniciar el Servidor
 ```bash
-cd /Users/bener/GitHub/1lifefinancial.com
+cd /Users/bener/GitHub/ideologywealthadvisors.com
 ./start-server.sh 8080
 ```
 
 ### Acceder a la Aplicación
 - **Página Principal:** http://localhost:8080
-- **Home:** http://localhost:8080/1life%20Financial%20-%20Home.html
+- **Home:** http://localhost:8080/home.html
 - **PWA Checker:** http://localhost:8080/pwa-checker.html
 - **Icon Generator:** http://localhost:8080/generate-icons.html
 

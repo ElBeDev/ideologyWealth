@@ -25,6 +25,7 @@ $user_id = $_SESSION['user_id'];
 // GET - Get user deposits
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     try {
+        // Deposits from the deposits table
         $stmt = $pdo->prepare("
             SELECT 
                 id,
@@ -35,15 +36,50 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 final_amount,
                 status,
                 transaction_id,
+                notes AS purpose,
                 created_at,
                 updated_at
             FROM deposits 
             WHERE user_id = ? 
             ORDER BY created_at DESC
         ");
-        
         $stmt->execute([$user_id]);
         $deposits = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // Also include credit transactions not already linked to a deposit record
+        try {
+            $stmt = $pdo->prepare("
+                SELECT
+                    NULL AS id,
+                    t.trx,
+                    'Manual (Admin)' AS gateway,
+                    t.amount,
+                    0 AS charge,
+                    t.amount AS final_amount,
+                    t.status,
+                    NULL AS transaction_id,
+                    t.details AS purpose,
+                    t.date AS created_at,
+                    t.date AS updated_at
+                FROM transactions t
+                WHERE t.user_id = ?
+                  AND t.type = 'credit'
+                  AND NOT EXISTS (
+                      SELECT 1 FROM deposits d
+                      WHERE d.user_id = t.user_id
+                        AND (d.trx = t.trx COLLATE utf8mb4_unicode_ci OR d.trx = REPLACE(t.trx, 'DEP', '') COLLATE utf8mb4_unicode_ci)
+                  )
+                ORDER BY t.date DESC
+            ");
+            $stmt->execute([$user_id]);
+            $txDeposits = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $deposits = array_merge($deposits, $txDeposits);
+            usort($deposits, function($a, $b) {
+                return strtotime($b['created_at']) - strtotime($a['created_at']);
+            });
+        } catch (PDOException $e) {
+            // transactions table may not exist yet
+        }
         
         echo json_encode([
             'success' => true,

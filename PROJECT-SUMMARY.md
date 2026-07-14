@@ -3,7 +3,7 @@
 ```
 ┌─────────────────────────────────────────────────────┐
 │                                                     │
-│         1life Financial - PWA Completa              │
+│         Ideology Wealth Advisors - PWA Completa              │
 │                                                     │
 │  ✅ Service Worker configurado                      │
 │  ✅ Manifest.json creado                            │
@@ -19,9 +19,9 @@
 ## 📁 Estructura del Proyecto
 
 ```
-1lifefinancial.com/
+ideologywealthadvisors.com/
 │
-├── 📄 1life Financial - Home.html    ← Página principal (modificada con PWA)
+├── 📄 Ideology Wealth Advisors - Home.html    ← Página principal (modificada con PWA)
 ├── 📄 index.html                     ← Redirige a la principal
 ├── 📄 manifest.json                  ← Configuración de PWA ⭐
 ├── 📄 service-worker.js              ← Cache y funcionalidad offline ⭐
@@ -154,18 +154,18 @@ http://localhost:8000/pwa-checker.html
 git init
 git add .
 git commit -m "PWA ready"
-git remote add origin https://github.com/TU-USUARIO/1lifefinancial.git
+git remote add origin https://github.com/TU-USUARIO/ideologywealthadvisors.git
 git push -u origin main
 
 # Activa en GitHub: Settings > Pages
-# URL: https://TU-USUARIO.github.io/1lifefinancial/
+# URL: https://TU-USUARIO.github.io/ideologywealthadvisors/
 ```
 
 #### Opción C - Vercel:
 ```bash
 npm install -g vercel
 vercel --prod
-# URL: https://1lifefinancial.vercel.app
+# URL: https://ideologywealthadvisors.vercel.app
 ```
 
 ### Paso 6: Verificar en Producción (2 minutos)

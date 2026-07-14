@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>1life Financial - Sign Up</title>
+  <title>Ideology Wealth Advisors - Sign Up</title>
   
   <!-- bootstrap 5 -->
   <link rel="stylesheet" href="1life Financial - Sign Up_files/bootstrap.min.css">
@@ -43,10 +43,10 @@
   </div>
 
   <div class="main-wrapper">
-    <section class="account-section registration-section bg_img" style="background-image: url('https://1lifefinancial.com/assets/images/frontend/signup_bg/6110d5890dc201628493193.jpg');">
+    <section class="account-section registration-section bg_img" style="background-image: url('https://ideologywealthadvisors.com/assets/images/frontend/signup_bg/6110d5890dc201628493193.jpg');">
       <div class="account-section-left">
         <div class="account-section-left-inner">
-          <h4 class="title text-white mb-2">Create an Account to 1life financial</h4>
+          <h4 class="title text-white mb-2">Create an Account to Ideology Wealth Advisors</h4>
           <p class="text-white">Please provide your valid information to register!</p>
           <p class="mt-xl-5 mt-3 text-white">Have an account? <a href="login.html" class="text--base">Login here</a></p>
         </div>
@@ -55,7 +55,7 @@
       <div class="account-section-right">
         <div class="top text-center">
           <a href="index.html" class="account-logo">
-            <img src="https://1lifefinancial.com/assets/images/logoIcon/logo.png" alt="logo">
+            <img src="https://ideologywealthadvisors.com/assets/images/logoIcon/logo.png" alt="logo">
           </a>
         </div>
         
@@ -114,6 +114,11 @@
               <div class="col-lg-6 form-group">
                 <label for="city">City *</label>
                 <input id="city" type="text" class="form--control" name="city" value="" placeholder="Enter City" required>
+              </div>
+
+              <div class="col-lg-6 form-group">
+                <label for="state">State *</label>
+                <input id="state" type="text" class="form--control" name="state" value="" placeholder="Enter State" required>
               </div>
 
               <div class="col-lg-6 form-group">
@@ -212,6 +217,7 @@
       const country = $('#country').val();
       const mobile = $('#mobile').val().trim();
       const city = $('#city').val().trim();
+      const state = $('#state').val().trim();
       const zip = $('#zip').val().trim();
       const address = $('#address').val().trim();
       const password = $('#password').val();
@@ -222,8 +228,8 @@
       const registerBtnText = $('#registerBtnText');
       const registerBtnSpinner = $('#registerBtnSpinner');
       
-      if (!firstname || !lastname || !username || !email || !mobile || !city || !zip || !address || !password || !confirm_password) {
-        notify('error', 'Por favor complete todos los campos');
+      if (!firstname || !lastname || !username || !email || !mobile || !city || !state || !zip || !address || !password || !confirm_password) {
+        notify('error', 'Please fill in all fields');
         return false;
       }
       
@@ -263,6 +269,7 @@
           country_code: $('input[name="country_code"]').val(),
           mobile: mobile,
           city: city,
+          state: state,
           zip: zip,
           address: address,
           password: password,
@@ -270,12 +277,20 @@
         }),
         success: function(data) {
           if (data.success) {
-            notify('success', data.message || 'Registro exitoso');
-            localStorage.setItem('user', JSON.stringify(data.user));
-            localStorage.setItem('logged_in', 'true');
-            setTimeout(function() {
-              window.location.href = 'dashboard.html';
-            }, 1500);
+            if (data.pending_activation) {
+              // Account pending admin approval - do NOT log in or redirect to dashboard
+              notify('success', '✅ ' + (data.message || 'Registration successful! Your account is pending administrator approval.'));
+              setTimeout(function() {
+                window.location.href = 'login.html';
+              }, 4000);
+            } else {
+              notify('success', data.message || 'Registration successful');
+              localStorage.setItem('user', JSON.stringify(data.user));
+              localStorage.setItem('logged_in', 'true');
+              setTimeout(function() {
+                window.location.href = 'dashboard.html';
+              }, 1500);
+            }
           } else {
             notify('error', data.message || 'Registration error');
             registerBtn.prop('disabled', false);
@@ -284,8 +299,11 @@
           }
         },
         error: function(xhr, status, error) {
-          console.error('Register error:', error);
-          notify('error', 'Error de conexión. Por favor intente nuevamente.');
+          var msg = 'Connection error. Please try again.';
+          if (xhr.responseJSON && xhr.responseJSON.message) {
+            msg = xhr.responseJSON.message;
+          }
+          notify('error', msg);
           registerBtn.prop('disabled', false);
           registerBtnText.removeClass('d-none');
           registerBtnSpinner.addClass('d-none');
@@ -305,6 +323,99 @@
       $('input[name=country_code]').val($('select[name=country] :selected').data('code'));
       $('.mobile-code').text('+'+$('select[name=country] :selected').data('mobile_code'));
     })(jQuery);
+
+    // ── Auto-corrector de texto para nombres y campos de dirección ──────────
+    (function () {
+      // Tabla de corrección de acentos comunes (mayúsculas incorrectas → correctas)
+      const accentMap = {
+        'A': 'A', 'E': 'E', 'I': 'I', 'O': 'O', 'U': 'U',
+        'a': 'a', 'e': 'e', 'i': 'i', 'o': 'o', 'u': 'u',
+        'Á': 'Á', 'É': 'É', 'Í': 'Í', 'Ó': 'Ó', 'Ú': 'Ú',
+        'á': 'á', 'é': 'é', 'í': 'í', 'ó': 'ó', 'ú': 'ú',
+        'ñ': 'ñ', 'Ñ': 'Ñ', 'ü': 'ü', 'Ü': 'Ü'
+      };
+
+      // Capitalize the first letter of each word, preserving accents and special chars
+      function toTitleCase(str) {
+        if (!str) return str;
+        return str
+          .toLowerCase()
+          // Capitalize after space, hyphen or apostrophe
+          .replace(/(^|[\s\-'])([a-záéíóúàèìòùâêîôûäëïöüñ])/gu, function (match, sep, letter) {
+            return sep + letter.toUpperCase();
+          });
+      }
+
+      // Remove extra spaces
+      function normalizeSpaces(str) {
+        return str.replace(/\s{2,}/g, ' ').trim();
+      }
+
+      function autoCorrectName(field, doTrim) {
+        const raw = field.value;
+        // Only letters (including accented), spaces, hyphens and apostrophes
+        const cleaned = raw.replace(/[^a-zA-ZáéíóúàèìòùâêîôûäëïöüñÁÉÍÓÚÀÈÌÒÙÂÊÎÔÛÄËÏÖÜÑ\s\-']/g, '');
+        // On input: only collapse multiple spaces (keep trailing space so user can type next word)
+        // On blur: full trim to clean up
+        const normalized = doTrim ? normalizeSpaces(cleaned) : cleaned.replace(/\s{2,}/g, ' ');
+        const corrected = toTitleCase(normalized);
+        if (field.value !== corrected) {
+          const pos = field.selectionStart;
+          field.value = corrected;
+          // Restore cursor position as best as we can
+          try { field.setSelectionRange(pos, pos); } catch(e){}
+        }
+      }
+
+      function autoCorrectCity(field) {
+        const raw = field.value;
+        const cleaned = raw.replace(/[^a-zA-ZáéíóúàèìòùâêîôûäëïöüñÁÉÍÓÚÀÈÌÒÙÂÊÎÔÛÄËÏÖÜÑ0-9\s\-'.]/g, '');
+        const corrected = toTitleCase(normalizeSpaces(cleaned));
+        if (field.value !== corrected) {
+          field.value = corrected;
+        }
+      }
+
+      // Attach to name fields (live correction on input event)
+      ['firstname', 'lastname'].forEach(function (id) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.addEventListener('input', function () { autoCorrectName(this, false); });
+        el.addEventListener('blur', function () { autoCorrectName(this, true); });
+        // Hint attributes for mobile keyboards
+        el.setAttribute('autocorrect', 'on');
+        el.setAttribute('autocapitalize', 'words');
+        el.setAttribute('spellcheck', 'false');
+      });
+
+      // City / State fields – capitalize words, allow numbers
+      ['city', 'state'].forEach(function (id) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.addEventListener('blur', function () { autoCorrectCity(this); });
+        el.setAttribute('autocapitalize', 'words');
+      });
+
+      // Lowercase+trim for email
+      const emailEl = document.getElementById('email');
+      if (emailEl) {
+        emailEl.addEventListener('blur', function () {
+          this.value = this.value.trim().toLowerCase();
+        });
+      }
+
+      // Lowercase for username (only alphanumeric allowed by backend)
+      const usernameEl = document.getElementById('username');
+      if (usernameEl) {
+        usernameEl.addEventListener('input', function () {
+          const val = this.value;
+          // Remove any character that isn't alphanumeric
+          const cleaned = val.replace(/[^a-zA-Z0-9]/g, '');
+          if (this.value !== cleaned) this.value = cleaned;
+        });
+      }
+    })();
+    // ────────────────────────────────────────────────────────────────────────
     
     if (localStorage.getItem('logged_in') === 'true') {
       window.location.href = 'dashboard.html';

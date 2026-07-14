@@ -2,18 +2,44 @@
 require_once 'config.php';
 
 header('Content-Type: application/json');
+$origin = $_SERVER['HTTP_ORIGIN'] ?? '';
+if ($origin) {
+    header('Access-Control-Allow-Origin: ' . $origin);
+    header('Access-Control-Allow-Credentials: true');
+} else {
+    header('Access-Control-Allow-Origin: *');
+}
+header('Access-Control-Allow-Methods: POST, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type, X-Auth-Token');
 
-// Check if user is logged in
-if (!isset($_SESSION['user_id'])) {
-    jsonResponse(['success' => false, 'message' => 'Unauthorized. Please log in.'], 401);
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit;
 }
 
-$userId = $_SESSION['user_id'];
+// Authenticate via session OR X-Auth-Token header
+$userId = null;
+if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
+    $userId = $_SESSION['user_id'];
+} else {
+    $token = $_SERVER['HTTP_X_AUTH_TOKEN'] ?? null;
+    if ($token) {
+        $stmt = $pdo->prepare("SELECT id FROM users WHERE auth_token = ? LIMIT 1");
+        $stmt->execute([$token]);
+        $row = $stmt->fetch();
+        if ($row) $userId = $row['id'];
+    }
+}
+
+if (!$userId) {
+    jsonResponse(['success' => false, 'message' => 'Unauthorized. Please log in.'], 401);
+}
 
 // Get and validate input
 $input = json_decode(file_get_contents('php://input'), true);
 
 $beneficiaryName = trim($input['beneficiary_name'] ?? '');
+$bankName = trim($input['bank_name'] ?? '');
 $accountNumber = trim($input['account_number'] ?? '');
 $routingNumber = trim($input['routing_number'] ?? '');
 $swiftCode = trim($input['swift_code'] ?? '');
@@ -27,16 +53,12 @@ if (empty($beneficiaryName)) {
     $errors[] = 'Beneficiary name is required';
 }
 
+if (empty($bankName)) {
+    $errors[] = 'Bank name is required';
+}
+
 if (empty($accountNumber)) {
     $errors[] = 'Account number is required';
-}
-
-if (empty($routingNumber)) {
-    $errors[] = 'Routing number is required';
-}
-
-if (empty($swiftCode)) {
-    $errors[] = 'SWIFT code is required';
 }
 
 if ($amount <= 0) {
@@ -75,29 +97,33 @@ try {
     
     // Generate unique transaction ID
     $trx = 'TRF' . strtoupper(uniqid());
-    
+
+    $pdo->beginTransaction();
+
     // Insert transfer request
     $stmt = $pdo->prepare("
         INSERT INTO transfers (
-            user_id, 
-            trx, 
-            beneficiary_name, 
-            account_number, 
-            routing_number, 
+            user_id,
+            trx,
+            beneficiary_name,
+            bank_name,
+            account_number,
+            routing_number,
             swift_code,
-            amount, 
-            charge, 
-            final_amount, 
-            purpose, 
+            amount,
+            charge,
+            final_amount,
+            purpose,
             status,
             created_at
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending', NOW())
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending', NOW())
     ");
-    
+
     $stmt->execute([
         $userId,
         $trx,
         $beneficiaryName,
+        $bankName,
         $accountNumber,
         $routingNumber,
         $swiftCode,
@@ -106,12 +132,17 @@ try {
         $finalAmount,
         $purpose
     ]);
-    
-    // Get the inserted transfer
+
     $transferId = $pdo->lastInsertId();
-    
+
+    // Deduct balance immediately (returned if admin rejects)
+    $stmt = $pdo->prepare("UPDATE users SET balance = balance - ? WHERE id = ?");
+    $stmt->execute([$finalAmount, $userId]);
+
+    $pdo->commit();
+
     jsonResponse([
-        'success' => true, 
+        'success' => true,
         'message' => 'Transfer request submitted successfully',
         'data' => [
             'transfer_id' => $transferId,
@@ -122,8 +153,9 @@ try {
             'status' => 'pending'
         ]
     ]);
-    
+
 } catch (PDOException $e) {
+    if ($pdo->inTransaction()) $pdo->rollBack();
     error_log("Transfer creation error: " . $e->getMessage());
     jsonResponse(['success' => false, 'message' => 'Failed to process transfer. Please try again.'], 500);
 }

@@ -26,7 +26,7 @@ add_pwa_to_file() {
   <!-- iOS Specific Meta Tags -->\
   <meta name="apple-mobile-web-app-capable" content="yes">\
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">\
-  <meta name="apple-mobile-web-app-title" content="1life Financial">\
+  <meta name="apple-mobile-web-app-title" content="Ideology Wealth Advisors">\
   \
   <!-- Additional PWA Icons -->\
   <link rel="apple-touch-icon" sizes="72x72" href="./icons/icon-72x72.png">\
@@ -55,10 +55,10 @@ add_pwa_to_file() {
 }
 
 # Procesar archivos
-add_pwa_to_file "1life Financial - About Us.html" "About Us"
-add_pwa_to_file "1life Financial - Services.html" "Services"
-add_pwa_to_file "1life Financial - FAQ.html" "FAQ"
-add_pwa_to_file "1life Financial - Contact Us.html" "Contact Us"
+add_pwa_to_file "Ideology Wealth Advisors - About Us.html" "About Us"
+add_pwa_to_file "Ideology Wealth Advisors - Services.html" "Services"
+add_pwa_to_file "Ideology Wealth Advisors - FAQ.html" "FAQ"
+add_pwa_to_file "Ideology Wealth Advisors - Contact Us.html" "Contact Us"
 
 echo ""
 echo "🎉 PWA agregada a todas las páginas!"

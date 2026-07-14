@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>1life Financial - Transfer</title>
-    <link rel="shortcut icon" href="https://1lifefinancial.com/assets/images/logoIcon/favicon.png" type="image/x-icon">
+    <title>Ideology Wealth Advisors - Transfer</title>
+    <link rel="shortcut icon" href="https://ideologywealthadvisors.com/assets/images/logoIcon/favicon.png" type="image/x-icon">
     
     <!-- bootstrap 5  -->
     <link rel="stylesheet" href="home_files/bootstrap.min.css">
@@ -20,12 +20,12 @@
 </head>
 
 <body>
-    <header class="header inner-hero bg_img overlay--one" style="background-image: url('https://1lifefinancial.com/assets/images/frontend/breadcumb/60c7569dec4f01623676573.jpg');padding-top: 0px;padding-bottom: 27px;">
+    <header class="header inner-hero bg_img overlay--one" style="background-image: url('https://ideologywealthadvisors.com/assets/images/frontend/breadcumb/60c7569dec4f01623676573.jpg');padding-top: 0px;padding-bottom: 27px;">
         <div class="header__bottom2">
             <div class="container">
                 <nav class="navbar navbar-expand-lg p-0 align-items-center justify-content-between">
                     <a class="site-logo site-title" href="index.html">
-                        <img src="https://1lifefinancial.com/assets/images/logoIcon/logo.png" alt="logo">
+                        <img src="https://ideologywealthadvisors.com/assets/images/logoIcon/logo.png" alt="logo">
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
                         <span class="menu-toggle"></span>
@@ -50,7 +50,7 @@
     </header>
 
     <div class="main-wrapper" style="min-height: calc(-536px + 100vh);">
-        <section class="pt-100 pb-100 bg_img" style="background-image: url('https://1lifefinancial.com/assets/templates/basic/images/elements/bg1.jpg');">
+        <section class="pt-100 pb-100">
             <div class="container">
                 <h3 class="mb-4" style="color: #83af40;">Transfer Options</h3>
                 
@@ -127,10 +127,24 @@
                                         <h5 id="displaySwift" style="color: #83af40;">-</h5>
                                     </div>
                                 </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <div class="p-3" style="background: #f8f9fa; border-radius: 8px;">
+                                        <label class="fw-bold text-muted mb-2">Intermediary</label>
+                                        <h5 id="displayIntermediary" style="color: #83af40;">-</h5>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <div class="p-3" style="background: #f8f9fa; border-radius: 8px;">
+                                        <label class="fw-bold text-muted mb-2">Bank Address</label>
+                                        <h5 id="displayBankAddress" style="color: #83af40;">-</h5>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="alert alert-info mt-3">
-                                <i class="las la-info-circle"></i> Use this information to receive transfers to your account
+                                <i class="las la-info-circle"></i> Please remit your electronic proof of payment to the custodial email for transaction verification and account allocation.
                             </div>
                         </div>
                     </div>
@@ -153,20 +167,24 @@
                                         <label class="form-label">Beneficiary's Name</label>
                                         <input type="text" class="form-control" id="beneficiaryName" required>
                                     </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Bank Name</label>
+                                        <input type="text" class="form-control" id="bankName" placeholder="e.g. Chase, Bank of America" required>
+                                    </div>
                                     
                                     <div class="col-md-6 mb-3">
                                         <label class="form-label">Recipient Account Number</label>
-                                        <input type="text" class="form-control" id="recipientAccount" required>
+                                        <input type="text" class="form-control" id="recipientAccount" required>                                    </div>
+                                    
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Routing Number <span class="text-muted fw-normal">(Optional)</span></label>
+                                        <input type="text" class="form-control" id="routingNumber" placeholder="Optional">
                                     </div>
                                     
                                     <div class="col-md-6 mb-3">
-                                        <label class="form-label">Routing Number</label>
-                                        <input type="text" class="form-control" id="routingNumber" required>
-                                    </div>
-                                    
-                                    <div class="col-md-6 mb-3">
-                                        <label class="form-label">SWIFT Code</label>
-                                        <input type="text" class="form-control" id="swiftCode" required>
+                                        <label class="form-label">SWIFT Code <span class="text-muted fw-normal">(Optional)</span></label>
+                                        <input type="text" class="form-control" id="swiftCode" placeholder="Optional">
                                     </div>
                                     
                                     <div class="col-md-6 mb-3">
@@ -219,9 +237,13 @@
 
             // Then try to refresh from API
             try {
-                const response = await fetch('/api/user.php', {
+                const token = localStorage.getItem('auth_token');
+                const headers = {};
+                if (token) headers['X-Auth-Token'] = token;
+                const response = await fetch('/api/user.php?_=' + Date.now(), {
                     method: 'GET',
-                    credentials: 'include'
+                    credentials: 'include',
+                    headers: headers
                 });
 
                 if (response.ok) {
@@ -238,32 +260,59 @@
             }
         }
 
-        function showAccountInfo() {
-            if (!userData) {
-                const cachedUser = localStorage.getItem('user');
-                if (cachedUser) {
-                    try {
-                        userData = JSON.parse(cachedUser);
-                    } catch (e) {
-                        console.error('Error parsing user data:', e);
-                    }
-                }
-            }
+        function renderAccountInfo(user) {
+            const fields = {
+                displayAccountNumber: user.bank_account_number || '317012315',
+                displayRouting:       user.bank_routing       || '-',
+                displayBeneficiary:   user.bank_beneficiary   || '-',
+                displaySwift:         user.bank_swift         || '-',
+                displayIntermediary:  user.bank_intermediary  || '-',
+                displayBankAddress:   user.bank_address       || '-'
+            };
+            Object.entries(fields).forEach(([id, val]) => {
+                const el = document.getElementById(id);
+                if (el) el.textContent = val;
+            });
+        }
 
-            if (userData) {
-                const accountNum = document.getElementById('displayAccountNumber');
-                const routing = document.getElementById('displayRouting');
-                const beneficiary = document.getElementById('displayBeneficiary');
-                const swift = document.getElementById('displaySwift');
-                
-                if (accountNum) accountNum.textContent = userData.bank_account_number || '317012315';
-                if (routing) routing.textContent = userData.bank_routing || '-';
-                if (beneficiary) beneficiary.textContent = userData.bank_beneficiary || '-';
-                if (swift) swift.textContent = userData.bank_swift || '-';
-            }
-
+        async function showAccountInfo() {
             document.getElementById('accountInfoSection').style.display = 'block';
             document.getElementById('otherAccountSection').style.display = 'none';
+
+            // Show loading state
+            ['displayAccountNumber','displayRouting','displayBeneficiary',
+             'displaySwift','displayIntermediary','displayBankAddress'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.textContent = '...';
+            });
+
+            // Always fetch fresh data from the server
+            try {
+                const token = localStorage.getItem('auth_token');
+                const headers = { 'Content-Type': 'application/json' };
+                if (token) headers['X-Auth-Token'] = token;
+
+                const response = await fetch('/api/user.php', {
+                    method: 'GET',
+                    credentials: 'include',
+                    headers: headers
+                });
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.success && data.user) {
+                        userData = data.user;
+                        localStorage.setItem('user', JSON.stringify(data.user));
+                        renderAccountInfo(data.user);
+                        return;
+                    }
+                }
+            } catch (e) {
+                console.error('Error fetching fresh user data:', e);
+            }
+
+            // Fallback to cache
+            const cached = userData || JSON.parse(localStorage.getItem('user') || '{}');
+            renderAccountInfo(cached);
         }
 
         function hideAccountInfo() {
@@ -283,6 +332,7 @@
             e.preventDefault();
             
             const beneficiaryName = document.getElementById('beneficiaryName').value;
+            const bankName = document.getElementById('bankName').value;
             const recipientAccount = document.getElementById('recipientAccount').value;
             const routingNumber = document.getElementById('routingNumber').value;
             const swiftCode = document.getElementById('swiftCode').value;
@@ -304,6 +354,7 @@
                     credentials: 'include',
                     body: JSON.stringify({
                         beneficiary_name: beneficiaryName,
+                        bank_name: bankName,
                         account_number: recipientAccount,
                         routing_number: routingNumber,
                         swift_code: swiftCode,
@@ -343,13 +394,11 @@
         });
 
         function logout() {
-            fetch('/api/logout.php', {
-                method: 'GET',
-                credentials: 'include'
-            }).finally(() => {
-                localStorage.clear();
-                window.location.href = 'login.html';
-            });
+            const token = localStorage.getItem('auth_token');
+            const headers = {};
+            if (token) headers['X-Auth-Token'] = token;
+            fetch('/api/logout.php', { method: 'GET', credentials: 'include', headers: headers })
+                .finally(() => { localStorage.clear(); window.location.href = 'login.html'; });
         }
 
         // Initialize

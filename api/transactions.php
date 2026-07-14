@@ -2,73 +2,85 @@
 require_once 'config.php';
 
 header('Content-Type: application/json');
-header('Access-Control-Allow-Credentials: true');
-header('Access-Control-Allow-Origin: ' . $_SERVER['HTTP_ORIGIN']);
-header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
-header('Access-Control-Allow-Headers: Content-Type');
+$origin = $_SERVER['HTTP_ORIGIN'] ?? '';
+if ($origin) {
+    header('Access-Control-Allow-Origin: ' . $origin);
+    header('Access-Control-Allow-Credentials: true');
+} else {
+    header('Access-Control-Allow-Origin: *');
+}
+header('Access-Control-Allow-Methods: GET, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type, X-Auth-Token');
 
-// Handle preflight OPTIONS request
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);
     exit;
 }
 
-if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
-    jsonResponse(['success' => false, 'message' => 'No autenticado'], 401);
+// Auth: PHP session OR X-Auth-Token header
+$user_id = null;
+if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
+    $user_id = $_SESSION['user_id'];
+} else {
+    $token = $_SERVER['HTTP_X_AUTH_TOKEN'] ?? $_GET['token'] ?? null;
+    if ($token) {
+        $stmt = $pdo->prepare("SELECT id FROM users WHERE auth_token = ? LIMIT 1");
+        $stmt->execute([$token]);
+        $row = $stmt->fetch();
+        if ($row) $user_id = $row['id'];
+    }
+}
+
+if (!$user_id) {
+    jsonResponse(['success' => false, 'message' => 'Unauthorized. Please login.'], 401);
 }
 
 try {
-    $user_id = $_SESSION['user_id'];
-
-    // Get user info to check username
-    $stmt = $pdo->prepare("SELECT username, firstname, lastname FROM users WHERE id = :id");
-    $stmt->execute(['id' => $user_id]);
-    $user = $stmt->fetch();
-
-    if (!$user) {
-        jsonResponse(['success' => false, 'message' => 'Usuario no encontrado'], 404);
-    }
-
     $transactions = [];
 
-    // Check if this is Kurt Stoops
-    $fullName = strtolower(trim($user['firstname'] . ' ' . $user['lastname']));
-    $isKurtStoops = ($fullName === 'kurt stoops' || strtolower($user['username']) === 'kurt stoops');
+    // Deposits (credit)
+    $stmt = $pdo->prepare("
+        SELECT trx, 'Deposit' AS tx_type, 'credit' AS type,
+               amount, charge, final_amount,
+               CONCAT('Deposit via ', gateway) AS details,
+               transaction_id AS account_number,
+               status, created_at AS date
+        FROM deposits
+        WHERE user_id = ?
+    ");
+    $stmt->execute([$user_id]);
+    $transactions = array_merge($transactions, $stmt->fetchAll(PDO::FETCH_ASSOC));
 
-    if ($isKurtStoops) {
-        // Add the HILTON pending transaction for Kurt Stoops
-        $transactions[] = [
-            'id' => 'TRX281744624',
-            'trx' => '#TRX281744624',
-            'date' => '2025-12-29 00:00:00',
-            'details' => 'Incoming Transfer - HILTON',
-            'account_number' => '281744624',
-            'amount' => 118042.00,
-            'type' => 'credit',
-            'status' => 'pending',
-            'post_balance' => null,
-            'description' => 'Transfer from HILTON - Account: 281744624 - PENDING/FROZEN'
-        ];
-    }
+    // Withdrawals (debit)
+    $stmt = $pdo->prepare("
+        SELECT trx, 'Withdrawal' AS tx_type, 'debit' AS type,
+               amount, charge, final_amount,
+               CONCAT('Withdrawal via ', gateway) AS details,
+               transaction_id AS account_number,
+               status, created_at AS date
+        FROM withdrawals
+        WHERE user_id = ?
+    ");
+    $stmt->execute([$user_id]);
+    $transactions = array_merge($transactions, $stmt->fetchAll(PDO::FETCH_ASSOC));
 
-    // Get real transactions from database (if table exists)
-    try {
-        $stmt = $pdo->prepare("
-            SELECT id, trx, date, details, account_number, amount, type, status, post_balance, description
-            FROM transactions 
-            WHERE user_id = :user_id 
-            ORDER BY date DESC, id DESC
-        ");
-        $stmt->execute(['user_id' => $user_id]);
-        $dbTransactions = $stmt->fetchAll();
-        
-        // Merge with existing transactions
-        $transactions = array_merge($transactions, $dbTransactions);
-        
-    } catch (PDOException $e) {
-        // Table might not exist yet, that's OK
-        error_log("Transactions table query error: " . $e->getMessage());
-    }
+    // Transfers (debit)
+    $stmt = $pdo->prepare("
+        SELECT trx, 'Transfer' AS tx_type, 'debit' AS type,
+               amount, charge, final_amount,
+               CONCAT('Transfer to ', beneficiary_name, ' - ', bank_name) AS details,
+               account_number,
+               status, created_at AS date
+        FROM transfers
+        WHERE user_id = ?
+    ");
+    $stmt->execute([$user_id]);
+    $transactions = array_merge($transactions, $stmt->fetchAll(PDO::FETCH_ASSOC));
+
+    // Sort all by date DESC
+    usort($transactions, function($a, $b) {
+        return strtotime($b['date']) - strtotime($a['date']);
+    });
 
     jsonResponse([
         'success' => true,

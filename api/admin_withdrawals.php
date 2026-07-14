@@ -76,7 +76,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo json_encode(['success' => false, 'message' => 'Withdrawal not found']);
             exit;
         }
-        
+
+        if ($action === 'delete') {
+            // Return balance if withdrawal was pending (already deducted)
+            if ($withdrawal['status'] === 'pending') {
+                $stmt = $pdo->prepare("UPDATE users SET balance = balance + ? WHERE id = ?");
+                $stmt->execute([$withdrawal['final_amount'], $withdrawal['user_id']]);
+            }
+            $stmt = $pdo->prepare("DELETE FROM withdrawals WHERE id = ?");
+            $stmt->execute([$withdrawal_id]);
+            $pdo->commit();
+            echo json_encode(['success' => true, 'message' => 'Withdrawal deleted']);
+            exit;
+        }
+
         if ($withdrawal['status'] !== 'pending') {
             echo json_encode(['success' => false, 'message' => 'Withdrawal already processed']);
             exit;

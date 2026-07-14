@@ -3,29 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>1life Financial - Sign In</title>
-  <meta name="title" content="1life Financial - Sign In">
-  <meta name="description" content="1life financial is a complete e-Banking system. We have account-holders from almost all over the world. This is getting popular day by day. Our system is secure and robust. You may feel safe about your deposited funds.">
+  <title>Ideology Wealth Advisors - Sign In</title>
+  <meta name="title" content="Ideology Wealth Advisors - Sign In">
+  <meta name="description" content="Ideology Wealth Advisors, LLC is a registered investment advisory firm based in Dallas, Texas (CRD #292923), providing portfolio management for individuals and small businesses.">
   <meta name="keywords" content="bank,e-banking,digital banking,digital bank,laon,deposit,fdr,dps">
-  <link rel="shortcut icon" href="https://1lifefinancial.com/assets/images/logoIcon/favicon.png" type="image/x-icon">
+  <link rel="shortcut icon" href="https://ideologywealthadvisors.com/assets/images/logoIcon/favicon.png" type="image/x-icon">
 
-  <link rel="apple-touch-icon" href="https://1lifefinancial.com/assets/images/logoIcon/logo.png">
+  <link rel="apple-touch-icon" href="https://ideologywealthadvisors.com/assets/images/logoIcon/logo.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="1life Financial - Sign In">
+  <meta name="apple-mobile-web-app-title" content="Ideology Wealth Advisors - Sign In">
   
-  <meta itemprop="name" content="1life Financial - Sign In">
+  <meta itemprop="name" content="Ideology Wealth Advisors - Sign In">
   <meta itemprop="description" content="">
-  <meta itemprop="image" content="https://1lifefinancial.com/assets/images/logoIcon/logo.png">
+  <meta itemprop="image" content="https://ideologywealthadvisors.com/assets/images/logoIcon/logo.png">
   
   <meta property="og:type" content="website">
-  <meta property="og:title" content="1life financial">
-  <meta property="og:description" content="1life financialis a complete e-Banking system. We have account-holders from almost all over the world. This is getting popular day by day. Our system is secure and robust. You may feel safe about your deposited funds.">
-  <meta property="og:image" content="https://1lifefinancial.com/assets/images/logoIcon/logo.png">
+  <meta property="og:title" content="Ideology Wealth Advisors">
+  <meta property="og:description" content="Ideology Wealth Advisors, LLC is a registered investment advisory firm based in Dallas, Texas (CRD #292923), providing portfolio management for individuals and small businesses.">
+  <meta property="og:image" content="https://ideologywealthadvisors.com/assets/images/logoIcon/logo.png">
   <meta property="og:image:type" content="image/jpg">
   <meta property="og:image:width" content="600">
   <meta property="og:image:height" content="315">
-  <meta property="og:url" content="https://1lifefinancial.com/login">
+  <meta property="og:url" content="https://ideologywealthadvisors.com/login">
   
   <meta name="twitter:card" content="summary_large_image">
 
@@ -60,10 +60,10 @@
   </div>
 
   <div class="main-wrapper">
-    <section class="account-section bg_img" style="background-image: url('https://1lifefinancial.com/assets/images/frontend/login_bg/6110c9ec14e281628490220.jpg');">
+    <section class="account-section bg_img" style="background-image: url('https://ideologywealthadvisors.com/assets/images/frontend/login_bg/6110c9ec14e281628490220.jpg');">
       <div class="account-section-left">
         <div class="account-section-left-inner">
-          <h4 class="title text-white mb-2">Welcome to 1life financial</h4>
+          <h4 class="title text-white mb-2">Welcome to Ideology Wealth Advisors</h4>
           <p class="text-white">Please input your username and password and login into your account</p>
           <p class="mt-xl-5 mt-3 text-white">Haven't an account? <a href="register.html" class="text--base">Signup here</a></p>
         </div>
@@ -72,7 +72,7 @@
       <div class="account-section-right">
         <div class="top text-center">
           <a href="index.html" class="account-logo">
-            <img src="https://1lifefinancial.com/assets/images/logoIcon/logo.png" alt="logo">
+            <img src="https://ideologywealthadvisors.com/assets/images/logoIcon/logo.png" alt="logo">
           </a>
         </div>
         
@@ -184,7 +184,7 @@
       
       // Validate inputs
       if (!username || !password) {
-        notify('error', 'Por favor complete todos los campos');
+        notify('error', 'Please fill in all fields');
         return;
       }
       
@@ -208,11 +208,14 @@
         const data = await response.json();
         
         if (data.success) {
-          notify('success', data.message || 'Inicio de sesión exitoso');
+          notify('success', data.message || 'Login successful');
           
-          // Save user data to localStorage
+          // Save user data and auth token to localStorage
           localStorage.setItem('user', JSON.stringify(data.user));
           localStorage.setItem('logged_in', 'true');
+          if (data.auth_token) {
+            localStorage.setItem('auth_token', data.auth_token);
+          }
           
           // Redirect to dashboard after 1 second
           setTimeout(() => {
@@ -226,7 +229,7 @@
         }
       } catch (error) {
         console.error('Login error:', error);
-        notify('error', 'Error de conexión. Por favor intente nuevamente.');
+        notify('error', 'Connection error. Please try again.');
         loginBtn.disabled = false;
         loginBtnText.classList.remove('d-none');
         loginBtnSpinner.classList.add('d-none');

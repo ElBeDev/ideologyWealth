@@ -44,7 +44,7 @@
 <body>
     <div class="sidebar">
         <div class="sidebar__logo">
-            <img src="1life Financial - Dashboard_files/logo.png" alt="1life Financial">
+            <img src="1life Financial - Dashboard_files/logo.png" alt="Ideology Wealth Advisors">
         </div>
         
         <ul class="sidebar__menu">
@@ -58,7 +58,7 @@
                 <a href="users.html">
                     <i class="las la-users"></i>
                     <span>Manage Users</span>
-                    <span class="menu-badge" id="totalUsersCount">396</span>
+                    <span class="menu-badge" id="totalUsersCount">0</span>
                 </a>
             </li>
             <li class="sidebar-menu-item">
@@ -83,6 +83,12 @@
                 </a>
             </li>
             <li class="sidebar-menu-item">
+                <a href="login-logs.html">
+                    <i class="las la-shield-alt"></i>
+                    <span>Login Activity</span>
+                </a>
+            </li>
+            <li class="sidebar-menu-item">
                 <a href="#" onclick="logout()">
                     <i class="las la-sign-out-alt"></i>
                     <span>Logout</span>
@@ -101,6 +107,10 @@
         <div class="card">
             <div class="card-header">
                 <h5>All Users</h5>
+                <div style="display:flex; gap:10px; align-items:center;">
+                    <input type="text" id="searchInput" class="form-control" placeholder="Search by name, username, email..." style="max-width:320px;" oninput="filterUsers(this.value)">
+                    <span id="searchCount" class="text-muted" style="white-space:nowrap;font-size:13px;"></span>
+                </div>
             </div>
             <div class="table-responsive">
                 <table class="table">
@@ -162,19 +172,39 @@
         function notify(s,m){iziToast[s]({message:m,position:"topRight"});}
         function logout(){localStorage.removeItem('admin_logged_in');window.location.href='login.html';}
 
+        let allUsers = [];
+
         function loadUsers(){
             $.get('/api/admin_users.php').done(r=>{
                 if(r.success){
-                    displayUsers(r.users);
+                    allUsers = r.users;
+                    displayUsers(allUsers);
                 }else{
                     $('#usersTable').html('<tr><td colspan="9" class="text-center text-danger">Error loading users</td></tr>');
                 }
             });
         }
 
+        function filterUsers(query) {
+            query = query.toLowerCase().trim();
+            if (!query) {
+                displayUsers(allUsers);
+                return;
+            }
+            const filtered = allUsers.filter(u =>
+                (u.username || '').toLowerCase().includes(query) ||
+                (u.firstname || '').toLowerCase().includes(query) ||
+                (u.lastname || '').toLowerCase().includes(query) ||
+                (u.email || '').toLowerCase().includes(query) ||
+                (String(u.id) === query)
+            );
+            displayUsers(filtered);
+        }
+
         function displayUsers(users){
             const tbody=$('#usersTable');
             tbody.empty();
+            $('#searchCount').text(users.length + ' user(s)');
             
             if(!users || users.length===0){
                 tbody.html('<tr><td colspan="9" class="text-center">No users found</td></tr>');
@@ -182,7 +212,13 @@
             }
             
             users.forEach(u=>{
-                const status=u.status==1?'<span class="badge badge--success">Active</span>':'<span class="badge badge--danger">Banned</span>';
+                let statusLabel, statusClass;
+                if (u.status == 1) {
+                    statusLabel = 'Active'; statusClass = 'badge--success';
+                } else {
+                    statusLabel = 'Inactive'; statusClass = 'badge--danger';
+                }
+                const status = `<span class="badge ${statusClass}">${statusLabel}</span>`;
                 const pwd = u.password || 'N/A';
                 // Verificar si es un hash bcrypt o una contraseña real
                 const isHash = pwd.startsWith('$2y$') || pwd.startsWith('$2a$') || pwd.length === 32;
@@ -198,7 +234,7 @@
                         </td>
                         <td><strong>$${parseFloat(u.balance).toFixed(2)}</strong></td>
                         <td>${status}</td>
-                        <td>${new Date(u.created_at).toLocaleDateString()}</td>
+                        <td>${new Date(u.created_at).toLocaleDateString('en-US', {month:'2-digit',day:'2-digit',year:'numeric'})}</td>
                         <td>
                             <button onclick="openBalanceModal(${u.id})" class="btn btn--success btn-sm">Balance</button>
                             <a href="user-detail.html?id=${u.id}" class="btn btn--primary btn-sm">View</a>
@@ -243,11 +279,24 @@
             });
         }
 
+        function loadSidebarStats() {
+            $.get('/api/admin_dashboard.php').done(r => {
+                if (r.success) {
+                    $('#totalUsersCount').text(r.stats.total_users);
+                    $('#pendingDepositsCount').text(r.stats.pending_deposits);
+                    $('#pendingWithdrawalsCount').text(r.stats.pending_withdrawals);
+                    $('#pendingTransfersCount').text(r.stats.pending_transfers || 0);
+                }
+            });
+        }
+
         if(localStorage.getItem('admin_logged_in')!=='true'){
             window.location.href='login.html';
         }else{
             loadUsers();
+            loadSidebarStats();
         }
     </script>
+    </div>
 </body>
 </html>

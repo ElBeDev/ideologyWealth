@@ -4,13 +4,13 @@ import re
 print("🚀 Agregando PWA a Services, FAQ y Contact...")
 
 files_to_update = [
-    "1life Financial - Services.html",
-    "1life Financial - FAQ.html",
-    "1life Financial - Contact Us.html"
+    "Ideology Wealth Advisors - Services.html",
+    "Ideology Wealth Advisors - FAQ.html",
+    "Ideology Wealth Advisors - Contact Us.html"
 ]
 
 # Leer el archivo About Us que ya tiene PWA
-with open("1life Financial - About Us.html", "r", encoding="utf-8") as f:
+with open("Ideology Wealth Advisors - About Us.html", "r", encoding="utf-8") as f:
     about_content = f.read()
 
 # Extraer la sección PWA del head (desde <!-- PWA Manifest --> hasta antes de <!-- bootstrap 5 -->)

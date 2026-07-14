@@ -1,9 +1,9 @@
 @echo off
-REM 1life Financial - PWA Local Server Starter (Windows)
+REM Ideology Wealth Advisors - PWA Local Server Starter (Windows)
 REM Este script inicia un servidor local para probar la PWA
 
 echo.
-echo 🚀 Iniciando servidor local para 1life Financial PWA...
+echo 🚀 Iniciando servidor local para Ideology Wealth Advisors PWA...
 echo.
 
 SET PORT=8000

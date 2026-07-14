@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Script para reemplazar todos los colores rojos de la plantilla original
-# con los colores oficiales de la marca 1Life Financial
+# con los colores oficiales de la marca Ideology Wealth Advisors
 #
 # Colores de marca:
 # - Verde primario: #6fb950
@@ -45,7 +45,7 @@ find . -type f -name "*.css" ! -path "*/node_modules/*" ! -path "*/.git/*" | whi
 done
 
 echo ""
-echo "🎉 ¡Todos los archivos CSS han sido actualizados con los colores de marca 1Life Financial!"
+echo "🎉 ¡Todos los archivos CSS han sido actualizados con los colores de marca Ideology Wealth Advisors!"
 echo ""
 echo "📋 Resumen de cambios:"
 echo "   #fb3b47 → #6fb950 (verde primario)"

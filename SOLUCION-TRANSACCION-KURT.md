@@ -54,7 +54,7 @@ Cuando hagas commit y push a la VPS, **SÍ funcionará correctamente**:
 
 1. **Hacer pull del repositorio**:
 ```bash
-cd /ruta/a/1lifefinancial.com
+cd /ruta/a/ideologywealthadvisors.com
 git pull
 ```
 

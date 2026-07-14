@@ -3,29 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>1life Financial - My Transactions</title>
-    <meta name="title" content="1life Financial - My Transactions">
-    <meta name="description" content="1life financial is a complete e-Banking system. We have account-holders from almost all over the world. This is getting popular day by day. Our system is secure and robust. You may feel safe about your deposited funds.">
+    <title>Ideology Wealth Advisors - My Transactions</title>
+    <meta name="title" content="Ideology Wealth Advisors - My Transactions">
+    <meta name="description" content="Ideology Wealth Advisors, LLC is a registered investment advisory firm based in Dallas, Texas (CRD #292923), providing portfolio management for individuals and small businesses.">
     <meta name="keywords" content="bank,e-banking,digital banking,digital bank,laon,deposit,fdr,dps">
-    <link rel="shortcut icon" href="https://1lifefinancial.com/assets/images/logoIcon/favicon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="https://ideologywealthadvisors.com/assets/images/logoIcon/favicon.png" type="image/x-icon">
 
-    <link rel="apple-touch-icon" href="https://1lifefinancial.com/assets/images/logoIcon/logo.png">
+    <link rel="apple-touch-icon" href="https://ideologywealthadvisors.com/assets/images/logoIcon/logo.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="1life Financial - My Transactions">
+    <meta name="apple-mobile-web-app-title" content="Ideology Wealth Advisors - My Transactions">
     
-    <meta itemprop="name" content="1life Financial - My Transactions">
+    <meta itemprop="name" content="Ideology Wealth Advisors - My Transactions">
     <meta itemprop="description" content="">
-    <meta itemprop="image" content="https://1lifefinancial.com/assets/images/logoIcon/logo.png">
+    <meta itemprop="image" content="https://ideologywealthadvisors.com/assets/images/logoIcon/logo.png">
     
     <meta property="og:type" content="website">
-    <meta property="og:title" content="1life financial">
-    <meta property="og:description" content="1life financialis a complete e-Banking system. We have account-holders from almost all over the world. This is getting popular day by day. Our system is secure and robust. You may feel safe about your deposited funds.">
-    <meta property="og:image" content="https://1lifefinancial.com/assets/images/logoIcon/logo.png">
+    <meta property="og:title" content="Ideology Wealth Advisors">
+    <meta property="og:description" content="Ideology Wealth Advisors, LLC is a registered investment advisory firm based in Dallas, Texas (CRD #292923), providing portfolio management for individuals and small businesses.">
+    <meta property="og:image" content="https://ideologywealthadvisors.com/assets/images/logoIcon/logo.png">
     <meta property="og:image:type" content="image/jpg">
     <meta property="og:image:width" content="600">
     <meta property="og:image:height" content="315">
-    <meta property="og:url" content="https://1lifefinancial.com/user/transactions">
+    <meta property="og:url" content="https://ideologywealthadvisors.com/user/transactions">
     
     <meta name="twitter:card" content="summary_large_image">
 
@@ -56,12 +56,12 @@
         </div>
     </div>
 
-    <header class="header inner-hero bg_img overlay--one" style="background-image: url('https://1lifefinancial.com/assets/images/frontend/breadcumb/60c7569dec4f01623676573.jpg');padding-top: 0px;padding-bottom: 27px;">
+    <header class="header inner-hero bg_img overlay--one" style="background-image: url('https://ideologywealthadvisors.com/assets/images/frontend/breadcumb/60c7569dec4f01623676573.jpg');padding-top: 0px;padding-bottom: 27px;">
         <div class="header__bottom2">
             <div class="container">
                 <nav class="navbar navbar-expand-lg p-0 align-items-center justify-content-between">
                     <a class="site-logo site-title" href="index.html">
-                        <img src="https://1lifefinancial.com/assets/images/logoIcon/logo.png" alt="logo">
+                        <img src="https://ideologywealthadvisors.com/assets/images/logoIcon/logo.png" alt="logo">
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
                         <span class="menu-toggle"></span>
@@ -69,20 +69,23 @@
                     <div class="collapse navbar-collapse mt-xl-0 mt-3" id="navbarSupportedContent">
                         <ul class="navbar-nav main-menu m-auto">
                             <li>
-                                <a class="" href="dashboard.html">Dashboard</a>
+                                <a class="active" href="dashboard.html">Dashboard</a>
                             </li>
                             <li>
                                 <a class="" href="deposits.html">Deposit</a>
                             </li>
                             <li>
-                                <a class="" href="withdrawals.html">TRANSFER</a>
+                                <a class="" href="transfer.html">Transfer</a>
                             </li>
                             <li>
-                                <a class="active" href="transactions.html">More</a>
+                                <a class="" href="withdrawals.html">Withdraw</a>
+                            </li>
+                            <li>
+                                <a class="" href="profile.html">More</a>
                             </li>
                         </ul>
                         <div class="nav-right">
-                            <a href="login.html" class="btn btn-sm py-2 custom--bg text-white"> <i class="fa fa-sign-out-alt" aria-hidden="true"></i> Logout</a>
+                            <a href="#" onclick="localStorage.clear(); window.location.href='login.html'; return false;" class="btn btn-sm py-2 custom--bg text-white"><i class="fa fa-sign-out-alt"></i> Logout</a>
                         </div>
                     </div>
                 </nav>
@@ -107,7 +110,7 @@
             </div>
         </nav>
 
-        <section class="pt-100 pb-100 bg_img" style="background-image: url('https://1lifefinancial.com/assets/templates/basic/images/elements/bg1.jpg');">
+        <section class="pt-100 pb-100">
             <div class="container">
                 <div class="row justify-content-center mb-none-30">
                     <div class="col-lg-12">
@@ -117,15 +120,14 @@
                                     <thead>
                                         <tr>
                                             <th>Date</th>
-                                            <th>Trx</th>
+                                            <th>TRX</th>
                                             <th>Details</th>
                                             <th>Amount</th>
-                                            <th>Post Balance</th>
                                         </tr>
                                     </thead>
                                     <tbody id="transactionsTableBody">
                                         <tr>
-                                            <td colspan="5" class="text-center">
+                                            <td colspan="4" class="text-center">
                                                 <div class="spinner-border text-primary" role="status">
                                                     <span class="sr-only">Loading...</span>
                                                 </div>
@@ -152,7 +154,7 @@
                 <div class="col-lg-4 col-sm-6 order-lg-1 order-1">
                     <div class="footer-widget">
                         <h3 class="footer-widget__title">About Us</h3>
-                        <p>1life financial is a complete e-Banking system. We have account-holders from almost all over the world. This is getting popular day by day. Our system is secure and robust. You may feel safe about your deposited funds.</p>
+                        <p>Ideology Wealth Advisors, LLC is a registered investment advisory firm based in Dallas, Texas (CRD #292923), providing portfolio management for individuals and small businesses.</p>
                         <ul class="social-media-links d-flex align-items-center mt-3">
                             <li>
                                 <a href="https://bd.linkedin.com/" target="_blank">
@@ -213,7 +215,7 @@
                             </li>
                             <li>
                                 <i class="fas fa-envelope"></i>
-                                <p>inquiries@1lifefinancial.com</p>
+                                <p>inquiries@ideologywealthadvisors.com</p>
                             </li>
                             <li>
                                 <i class="fas fa-headphones"></i>
@@ -226,7 +228,7 @@
             <div class="footer__bottom">
                 <div class="row gy-4 align-items-center">
                     <div class="col-lg-12 col-sm-6 order-lg-3 order-2 text-sm-end text-center">
-                        <p>Copyright © 2021 1life financial All Right Reserved</p>
+                        <p>Copyright © 2021 Ideology Wealth Advisors All Right Reserved</p>
                     </div>
                 </div>
             </div>
@@ -264,6 +266,14 @@
                 });
             }
         }
+
+        // Set auth token for all AJAX requests
+        $.ajaxSetup({
+            beforeSend: function(xhr) {
+                const token = localStorage.getItem('auth_token');
+                if (token) xhr.setRequestHeader('X-Auth-Token', token);
+            }
+        });
 
         // Load transactions
         $(document).ready(function() {
@@ -309,10 +319,11 @@
             }
 
             transactions.forEach(function(trx) {
-                var date = new Date(trx.date);
-                var dateStr = date.toLocaleDateString('en-US', { 
-                    month: 'short', 
-                    day: 'numeric', 
+                var rawDate = ((trx.date || trx.created_at) || '').replace(' ', 'T');
+                var date = new Date(rawDate);
+                var dateStr = isNaN(date.getTime()) ? (trx.date || '---') : date.toLocaleDateString('en-US', { 
+                    month: '2-digit', 
+                    day: '2-digit', 
                     year: 'numeric' 
                 });
 
@@ -323,38 +334,35 @@
                     maximumFractionDigits: 2
                 });
 
+                // Type badge
+                var typeBadgeClass = {'Deposit': 'bg-success', 'Withdrawal': 'bg-danger', 'Transfer': 'bg-primary'}[trx.tx_type] || 'bg-secondary';
+                var typeBadge = trx.tx_type ? '<span class="badge ' + typeBadgeClass + ' me-1">' + trx.tx_type + '</span>' : '';
+
+                // Status badge
                 var statusBadge = '';
-                var postBalance = '';
-
                 if (trx.status === 'pending') {
-                    statusBadge = '<span class="badge bg-warning text-dark mt-1"><i class="fas fa-lock"></i> PENDING - FROZEN</span>';
-                    postBalance = '<span class="text-muted">---</span><br><small class="text-warning"><i class="fas fa-exclamation-triangle"></i> On Hold</small>';
+                    statusBadge = '<span class="badge bg-warning text-dark mt-1"><i class="fas fa-clock"></i> Pending</span>';
                 } else if (trx.status === 'approved' || trx.status === 'completed') {
-                    statusBadge = '<span class="badge bg-success text-white mt-1"><i class="fas fa-check"></i> COMPLETED</span>';
-                    postBalance = trx.post_balance ? '$' + parseFloat(trx.post_balance).toLocaleString('en-US', {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2
-                    }) : '---';
+                    statusBadge = '<span class="badge bg-success text-white mt-1"><i class="fas fa-check"></i> Completed</span>';
                 } else if (trx.status === 'rejected' || trx.status === 'failed') {
-                    statusBadge = '<span class="badge bg-danger text-white mt-1"><i class="fas fa-times"></i> FAILED</span>';
-                    postBalance = '<span class="text-muted">---</span>';
+                    statusBadge = '<span class="badge bg-danger text-white mt-1"><i class="fas fa-times"></i> Failed</span>';
                 }
 
-                var detailsHtml = '<div><strong class="d-block">' + trx.details + '</strong>';
+                var detailsHtml = '<div>' + typeBadge + '<strong class="d-block mt-1">' + (trx.details || '') + '</strong>';
                 if (trx.account_number) {
-                    detailsHtml += '<small class="text-muted">Account: ' + trx.account_number + '</small><br>';
+                    detailsHtml += '<small class="text-muted">Ref: ' + trx.account_number + '</small><br>';
                 }
-                if (statusBadge) {
-                    detailsHtml += statusBadge;
-                }
-                detailsHtml += '</div>';
+                detailsHtml += statusBadge + '</div>';
+
+                var chargeHtml = parseFloat(trx.charge || 0) > 0
+                    ? '<br><small class="text-muted">Fee: $' + parseFloat(trx.charge).toFixed(2) + '</small>'
+                    : '';
 
                 var row = '<tr>' +
                     '<td><span class="text-muted">' + dateStr + '</span></td>' +
                     '<td><span class="fw-bold text-primary">' + trx.trx + '</span></td>' +
                     '<td>' + detailsHtml + '</td>' +
-                    '<td><span class="fw-bold ' + amountClass + '">' + amountFormatted + '</span></td>' +
-                    '<td>' + postBalance + '</td>' +
+                    '<td><span class="fw-bold ' + amountClass + '">' + amountFormatted + '</span>' + chargeHtml + '</td>' +
                     '</tr>';
 
                 tbody.append(row);
@@ -364,7 +372,7 @@
         function displayNoTransactions() {
             var tbody = $('#transactionsTableBody');
             tbody.empty();
-            tbody.append('<tr><td colspan="5" class="text-center justify-content-center">No Transaction Yet</td></tr>');
+            tbody.append('<tr><td colspan="4" class="text-center justify-content-center">No Transaction Yet</td></tr>');
         }
     </script>
 
@@ -372,7 +380,7 @@
         (function ($) {
             "use strict";
             $(".langSel").on("change", function () {
-                window.location.href = "https://1lifefinancial.com/change/" + $(this).val();
+                window.location.href = "https://ideologywealthadvisors.com/change/" + $(this).val();
             });
         })(jQuery);
     </script>

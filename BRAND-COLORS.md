@@ -1,4 +1,4 @@
-# 1Life Financial - Colores de Marca Oficiales
+# Ideology Wealth Advisors - Colores de Marca Oficiales
 
 ## Paleta de Colores Principal
 

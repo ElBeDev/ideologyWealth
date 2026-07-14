@@ -1,4 +1,4 @@
-# 🎯 Explicación de Mensajes de Consola - 1Life Financial PWA
+# 🎯 Explicación de Mensajes de Consola - Ideology Wealth Advisors PWA
 
 ## ✅ TODO ESTÁ FUNCIONANDO BIEN
 
@@ -176,7 +176,7 @@ Cuando despliegues a producción:
 
 ## 🎉 ¡Felicidades!
 
-Tu PWA de 1Life Financial está:
+Tu PWA de Ideology Wealth Advisors está:
 - ✅ Completamente funcional
 - ✅ Con colores de marca correctos
 - ✅ Con Service Worker funcionando
