@@ -32,11 +32,11 @@ Se ha realizado una actualización completa de todos los colores en la aplicaci�
 
 ### Archivos CSS Actualizados (48 archivos)
 Todos los archivos CSS en las siguientes carpetas:
-- `1life Financial - Home_files/`
-- `1life Financial - About Us_files/`
-- `1life Financial - Services_files/`
-- `1life Financial - FAQ_files/`
-- `1life Financial - Contact Us_files/`
+- `Ideology Wealth Advisors - Home_files/`
+- `Ideology Wealth Advisors - About Us_files/`
+- `Ideology Wealth Advisors - Services_files/`
+- `Ideology Wealth Advisors - FAQ_files/`
+- `Ideology Wealth Advisors - Contact Us_files/`
 
 Archivos específicos por carpeta:
 - `main.css` - Estilos principales

@@ -53,7 +53,7 @@ ideologywealthadvisors.com/
 │   ├── icon-384x384.png
 │   └── icon-512x512.png
 │
-└── 📁 1life Financial - Home_files/  ← CSS, JS, imágenes
+└── 📁 Ideology Wealth Advisors - Home_files/  ← CSS, JS, imágenes
     ├── bootstrap.min.css
     ├── jquery-3.5.1.min.js
     ├── app.js

@@ -27,7 +27,7 @@
 - **Causa:** Slick intenta inicializar sliders inexistentes en el DOM
 - **Solución:** ✅ Agregar verificaciones `if()` antes de `.slick()`
 - **Archivos Modificados:**
-  - `1life Financial - Home_files/app.js`
+  - `Ideology Wealth Advisors - Home_files/app.js`
 - **Sliders Corregidos:**
   - ✅ `testimonial-slider`
   - ✅ `brand-slider`
@@ -51,7 +51,7 @@ service-worker.js
 ├── Removidas fuentes del cache
 └── Optimizado para menor tamaño
 
-1life Financial - Home_files/app.js
+Ideology Wealth Advisors - Home_files/app.js
 ├── Agregadas 4 verificaciones if()
 ├── Previene TypeError de slick.min.js
 └── Mejora estabilidad general

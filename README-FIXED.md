@@ -140,7 +140,7 @@ ideologywealthadvisors.com/
 ├── fonts/ ✨ NUEVO
 │   └── la-solid-900.woff2
 │
-└── 1life Financial - Home_files/
+└── Ideology Wealth Advisors - Home_files/
     ├── CSS (8 archivos)
     ├── JavaScript (7 archivos)
     └── Imágenes (4 archivos)
