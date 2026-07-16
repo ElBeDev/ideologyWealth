@@ -6,27 +6,30 @@
  */
 
 :root {
-    /* Colores Primarios */
-    --color-primary: #6fb950;
-    --color-primary-hover: #5ea840;
-    --color-primary-light: rgba(111, 185, 80, 0.15);
+    /* Colores Primarios - Negro Mate & Dorado */
+    --color-primary: #1a1a1a;
+    --color-primary-hover: #2a2a2a;
+    --color-primary-light: rgba(26, 26, 26, 0.1);
     
-    /* Colores Secundarios */
-    --color-secondary: #0143a3;
-    --color-secondary-dark: #013178;
+    /* Colores Secundarios - Dorado */
+    --color-secondary: #d4af37;
+    --color-secondary-dark: #b8941f;
+    --color-secondary-light: #e8c547;
     
     /* Gradientes */
-    --gradient-primary: linear-gradient(135deg, #6fb950 0%, #0143a3 100%);
-    --gradient-primary-hover: linear-gradient(135deg, #5ea840 0%, #013178 100%);
+    --gradient-primary: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+    --gradient-primary-hover: linear-gradient(135deg, #d4af37 0%, #b8941f 100%);
+    --gradient-accent: linear-gradient(135deg, #1a1a1a 0%, #d4af37 100%);
     
     /* Colores de Texto */
-    --text-dark: #464646;
+    --text-dark: #1a1a1a;
     --text-light: #ffffff;
-    --text-muted: #cccccc;
+    --text-muted: #999999;
     
     /* Colores de Fondo */
-    --bg-light: #f8f8f8;
+    --bg-light: #f5f5f5;
     --bg-white: #ffffff;
+    --bg-dark: #0d0d0d;
 }
 
 /* ========== Clases de Utilidad - Colores de Fondo ========== */
