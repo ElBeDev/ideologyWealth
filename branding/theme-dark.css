@@ -1,0 +1,64 @@
+:root{
+  --black-matte: #1a1a1a;
+  --black-2: #2a2a2a;
+  --gold: #d4af37;
+  --gold-light: #e8c547;
+  --muted: #9a9a9a;
+  --text: #eaeaea;
+}
+
+/* Base */
+html,body{
+  background: var(--black-matte) !important;
+  color: var(--text) !important;
+}
+
+/* Links & accents */
+a, a:visited, .nav-link{ color: var(--gold) !important; }
+a:hover, .nav-link:hover{ color: var(--gold-light) !important; }
+
+/* Header / navbar / footer */
+.navbar, header, .site-header, .site-footer, footer{ background: var(--black-2) !important; border-color: rgba(212,175,55,0.06) !important; }
+
+/* Buttons */
+.btn, button{ background: var(--black-2) !important; color: var(--text) !important; border-color: rgba(255,255,255,0.04) !important; }
+.btn-primary, .btn--primary{ background: var(--gold) !important; color: #111 !important; border-color: var(--gold) !important; }
+.btn-outline{ background: transparent !important; border: 1px solid var(--gold) !important; color: var(--gold) !important; }
+.btn-primary:hover{ background: var(--gold-light) !important; }
+
+/* Cards / panels */
+.card, .panel, .panel-body, .modal-content{ background: #111 !important; color: var(--text) !important; border-color: rgba(255,255,255,0.03) !important; }
+
+/* Background utilities overrides */
+.bg--primary, .bg--base{ background-color: var(--black-matte) !important; color: var(--text) !important; }
+.bg--secondary{ background-color: var(--black-2) !important; }
+
+/* Text utilities */
+.text--primary, .text--base{ color: var(--gold) !important; }
+.text--dark{ color: var(--text) !important; }
+.text--muted{ color: var(--muted) !important; }
+
+/* Forms */
+input, textarea, select{ background: #0f0f0f !important; color: var(--text) !important; border: 1px solid rgba(255,255,255,0.04) !important; }
+
+/* Tables */
+table, thead, tbody, tr, td, th{ color: var(--text) !important; }
+
+/* Small tweaks for icons and svg */
+img, svg{ filter: none !important; }
+
+/* High specificity fallbacks for common selectors */
+.header, .navbar .navbar-brand, .site-logo img{ background: transparent !important; }
+
+/* Make badges and small accents gold */
+.badge, .label, .badge-primary{ background: var(--gold) !important; color: #111 !important; }
+
+/* Ensure footer links are visible */
+footer a{ color: var(--muted) !important; }
+footer a:hover{ color: var(--gold) !important; }
+
+/* Safety: reduce bright gradients */
+.gradient--bg, .hero{ background-image: none !important; background: linear-gradient(180deg, var(--black-matte), var(--black-2)) !important; }
+
+/* Misc */
+hr{ border-color: rgba(255,255,255,0.03) !important; }
