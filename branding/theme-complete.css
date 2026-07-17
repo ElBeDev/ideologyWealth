@@ -17,13 +17,13 @@ html,body{
 .text--success, .text--base, .text--primary, .text--base, .text--dark, .text--muted { color: var(--text) !important; }
 .text--primary, .text--base { color: var(--gold) !important; }
 
-.bg--gold, .bg--base, .bg--primary, .bg--info, .bg--light { background-color: var(--black-2) !important; color: var(--text) !important; }
+.bg--success, .bg--base, .bg--primary, .bg--info, .bg--light { background-color: var(--black-2) !important; color: var(--text) !important; }
 .bg--primary { background-color: var(--black-matte) !important; }
 
 /* Buttons and badges */
 .btn, button{ background: transparent !important; color: var(--text) !important; border-color: rgba(255,255,255,0.04) !important; }
 .btn--primary, .btn-primary{ background: var(--gold) !important; color: #111 !important; border-color: var(--gold) !important; }
-.btn--success, .btn-gold{ background: var(--gold) !important; color: #111 !important; border-color: var(--gold) !important; }
+.btn--success, .btn-success{ background: var(--gold) !important; color: #111 !important; border-color: var(--gold) !important; }
 .btn-outline{ border:1px solid var(--gold) !important; color:var(--gold) !important; background:transparent !important; }
 .badge, .badge-primary, .badge-success{ background: var(--gold) !important; color:#111 !important; }
 
@@ -68,7 +68,7 @@ footer a:hover{ color: var(--gold) !important; }
 input, textarea, select{ background: #0d0d0d !important; color: var(--text) !important; border:1px solid rgba(255,255,255,0.04) !important; }
 
 /* High specificity rules for common framework utility classes */
-.btn-primary, .bg--gold, .text--success, .badge-success, .alert-success { background: var(--gold) !important; color: #111 !important; border-color: var(--gold) !important; }
+.btn-primary, .bg--success, .text--success, .badge-success, .alert-success { background: var(--gold) !important; color: #111 !important; border-color: var(--gold) !important; }
 
 /* Final safety: neutralize remaining green hex colors in stylesheet by targeting inline style attributes in upper/lower case */
 *[style*="#6FB950" i], *[style*="#28C76F" i], *[style*="#88FB3B" i] { background-color: var(--black-2) !important; color: var(--text) !important; }

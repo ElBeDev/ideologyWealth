@@ -18,7 +18,7 @@ header('Content-Type: text/html; charset=utf-8');
         body { font-family: Arial, sans-serif; padding: 20px; background: #f5f5f5; }
         .container { max-width: 1200px; margin: 0 auto; background: white; padding: 20px; border-radius: 10px; }
         h1 { color: #0143a3; }
-        h2 { color: #6fb950; margin-top: 30px; }
+        h2 { color: #d4af37; margin-top: 30px; }
         .success { color: green; font-weight: bold; }
         .error { color: red; font-weight: bold; }
         table { width: 100%; border-collapse: collapse; margin: 20px 0; }
