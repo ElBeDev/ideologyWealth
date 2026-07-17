@@ -21,9 +21,8 @@ html,body{
 .bg--primary { background-color: var(--black-matte) !important; }
 
 /* Buttons and badges */
-.btn, button{ background: transparent !important; color: var(--text) !important; border-color: rgba(255,255,255,0.04) !important; }
-.btn--primary, .btn-primary{ background: var(--gold) !important; color: #111 !important; border-color: var(--gold) !important; }
-.btn--success, .btn-success{ background: var(--gold) !important; color: #111 !important; border-color: var(--gold) !important; }
+.btn, button{ color: var(--text) !important; border-color: rgba(255,255,255,0.06) !important; }
+.btn--primary, .btn-primary, .btn--base, .btn--success, .btn-success{ background: linear-gradient(135deg, #b8941f, var(--gold), #e8c547) !important; color: #111 !important; border-color: var(--gold) !important; font-weight: 600 !important; }
 .btn-outline{ border:1px solid var(--gold) !important; color:var(--gold) !important; background:transparent !important; }
 .badge, .badge-primary, .badge-success{ background: var(--gold) !important; color:#111 !important; }
 

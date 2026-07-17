@@ -1,0 +1,687 @@
+/* ================================================================
+   IDEOLOGY WEALTH ADVISORS — TEMA DEFINITIVO
+   3 COLORES: Negro #0d0d0d | Blanco #f0f0f0 | Dorado #d4af37
+   ================================================================ */
+
+/* ---- RESET GLOBAL ---- */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+html, body {
+    background-color: #0d0d0d !important;
+    color: #f0f0f0 !important;
+}
+
+/* ---- TODO EL TEXTO ES BLANCO ---- */
+p, li, span, td, th, label, small, strong, em, blockquote,
+.text-muted, .text--muted, .text--dark, .text--secondary {
+    color: #f0f0f0 !important;
+}
+
+h1, h2, h3, h4, h5, h6,
+h1 > a, h2 > a, h3 > a, h4 > a, h5 > a, h6 > a {
+    color: #ffffff !important;
+}
+
+a {
+    color: #d4af37 !important;
+    text-decoration: none !important;
+}
+
+a:hover {
+    color: #f0d060 !important;
+}
+
+/* ---- LOGO — BLANCO (el favicon <link> no se ve afectado) ---- */
+.navbar-brand img,
+.header .logo img,
+.header .logo a img,
+.header__bottom .logo img,
+.header__bottom a img,
+header img,
+.header img,
+nav img {
+    filter: brightness(0) invert(1) !important;
+}
+
+/* ---- NAVBAR / HEADER — NEGRO ---- */
+header, .header, .navbar, nav,
+.header__bottom, .header__bottom2,
+.header .header__bottom,
+.header.menu-fixed .header__bottom,
+.header.animated .header__bottom,
+.header.animated.fadeInDown .header__bottom,
+.header-user, .header-user-menu {
+    background: #0d0d0d !important;
+    background-color: #0d0d0d !important;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.2) !important;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.8) !important;
+}
+
+/* Nav links */
+.header .main-menu li a,
+.navbar-nav .nav-link,
+.nav-link {
+    color: #f0f0f0 !important;
+}
+
+.header .main-menu li a:hover,
+.header .main-menu li a:focus,
+.header .main-menu li a.active,
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link.active {
+    color: #d4af37 !important;
+}
+
+/* Hamburger icon */
+.navbar-toggler-icon { filter: invert(1) !important; }
+
+/* Dropdown/submenu */
+.header .main-menu li .sub-menu,
+.dropdown-menu {
+    background: #141414 !important;
+    border: 1px solid rgba(212,175,55,0.2) !important;
+}
+
+.header .main-menu li .sub-menu li a,
+.dropdown-item {
+    color: #f0f0f0 !important;
+    background: transparent !important;
+}
+
+.header .main-menu li .sub-menu li a:hover,
+.dropdown-item:hover {
+    color: #d4af37 !important;
+    background: rgba(212,175,55,0.08) !important;
+}
+
+/* Botones del navbar */
+.header .btn--base,
+.header .btn-primary,
+.header [class*="btn--"],
+.header-user-menu li a {
+    color: #f0f0f0 !important;
+}
+
+/* ---- SECTIONS — TODO NEGRO ---- */
+section, .section, main, article,
+.preloader, .hero, .banner,
+.overview-section, .service-section,
+.subscribe-section, .feature-section,
+.how-work-section, .testimonial-section,
+.faq-section, .loan-section,
+.gradient--bg, .custom--bg,
+[class*="-section"], [class*="-area"],
+[class*="-wrapper"], .account-wrapper,
+.account-section-right,
+.account-wrapper .left,
+.registration-wrapper,
+.registration-wrapper .top-content {
+    background-color: #0d0d0d !important;
+    background: #0d0d0d !important;
+    color: #f0f0f0 !important;
+}
+
+/* Secciones alternas ligeramente más claras */
+.section--bg,
+.section--bg2,
+.overview-section,
+.about-section {
+    background-color: #111111 !important;
+}
+
+/* ---- CARDS — NEGRO OSCURO ---- */
+.card, .custom--card, .feature-card,
+.service-card, .choose-card, .loan-card,
+.panel, .panel-body, .widget, .box,
+.testimonial-item, .testimonial-item::before,
+.overview-card, .overview-area,
+.plan-card, .sidebar, .sidebar-menu {
+    background-color: #141414 !important;
+    background: #141414 !important;
+    border: 1px solid rgba(212,175,55,0.15) !important;
+    color: #f0f0f0 !important;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5) !important;
+}
+
+.card-header, .custom--card .card-header, .panel-heading {
+    background-color: #1a1a1a !important;
+    border-bottom: 1px solid rgba(212,175,55,0.15) !important;
+}
+
+.card-header *, .card-header h1, .card-header h2,
+.card-header h3, .card-header h4, .card-header h5, .card-header h6 {
+    color: #d4af37 !important;
+}
+
+.card-body, .card-footer {
+    background-color: #141414 !important;
+    color: #f0f0f0 !important;
+}
+
+.card-footer, .panel-footer {
+    border-top: 1px solid rgba(212,175,55,0.12) !important;
+    background-color: #111111 !important;
+}
+
+/* Plan cards */
+.plan-card__header {
+    background: linear-gradient(135deg, #b8941f, #d4af37) !important;
+    border: none !important;
+}
+
+.plan-card__header *, .plan-card__header h1,
+.plan-card__header h2, .plan-card__header h3,
+.plan-card__header h4, .plan-card__header h5,
+.plan-card__header h6, .plan-card__header p,
+.plan-card__header span {
+    color: #0d0d0d !important;
+    -webkit-text-fill-color: #0d0d0d !important;
+}
+
+.plan-card { border-bottom: 3px solid #d4af37 !important; }
+
+/* Feature card icons */
+.feature-card .icon, .service-card__icon,
+.feature-card i, .overview-card__icon {
+    background-color: rgba(212,175,55,0.12) !important;
+    color: #d4af37 !important;
+}
+
+.feature-card i, .service-card__icon i,
+.choose-card__icon i, .overview-card__icon i,
+.ratings i, .footer-info-list i,
+.contact-info-card__icon i {
+    color: #d4af37 !important;
+    -webkit-text-fill-color: #d4af37 !important;
+    background: none !important;
+    -webkit-background-clip: unset !important;
+    background-clip: unset !important;
+}
+
+/* ---- MODALES — NEGRO ---- */
+.modal-content {
+    background-color: #141414 !important;
+    border: 1px solid rgba(212,175,55,0.2) !important;
+    color: #f0f0f0 !important;
+}
+
+.modal-header {
+    background-color: #1a1a1a !important;
+    border-bottom: 1px solid rgba(212,175,55,0.2) !important;
+}
+
+.modal-title { color: #d4af37 !important; }
+.modal-footer { border-top: 1px solid rgba(212,175,55,0.15) !important; }
+.modal-backdrop { background-color: rgba(0,0,0,0.85) !important; }
+.btn-close, .close { filter: invert(1) !important; }
+
+/* ---- SIDEBAR ---- */
+.sidebar, .sidebar-menu, .left-sidebar,
+.side-nav, .sidebar-inner {
+    background-color: #0d0d0d !important;
+    border-right: 1px solid rgba(212,175,55,0.15) !important;
+}
+
+.sidebar-menu__link, .sidebar-menu .nav-link {
+    color: #a0a0a0 !important;
+}
+
+.sidebar-menu__link:hover, .sidebar-menu__link.active,
+.sidebar-menu .nav-link:hover, .sidebar-menu .nav-link.active {
+    color: #d4af37 !important;
+    background-color: rgba(212,175,55,0.07) !important;
+}
+
+.sidebar-menu__link i, .sidebar-menu .nav-link i {
+    color: #a0a0a0 !important;
+}
+
+.sidebar-menu__link:hover i, .sidebar-menu__link.active i {
+    color: #d4af37 !important;
+}
+
+/* ---- FORMULARIOS ---- */
+.form--control, .form-control, input, textarea, select,
+input[type="text"], input[type="email"], input[type="password"],
+input[type="number"], input[type="tel"], input[type="search"],
+input[type="date"], input[type="time"], .select {
+    background-color: #1a1a1a !important;
+    border: 1px solid rgba(255,255,255,0.1) !important;
+    color: #f0f0f0 !important;
+    border-radius: 6px !important;
+}
+
+.form--control:focus, .form-control:focus, input:focus,
+textarea:focus, select:focus {
+    background-color: #1a1a1a !important;
+    border-color: #d4af37 !important;
+    color: #ffffff !important;
+    box-shadow: 0 0 0 3px rgba(212,175,55,0.25) !important;
+    outline: none !important;
+}
+
+input::placeholder, textarea::placeholder { color: #666 !important; }
+
+.form--control[readonly], input[readonly] {
+    background-color: #111 !important;
+    color: #888 !important;
+}
+
+.input-group-text {
+    background-color: #1a1a1a !important;
+    border-color: rgba(255,255,255,0.1) !important;
+    color: #d4af37 !important;
+}
+
+select option {
+    background-color: #141414 !important;
+    color: #f0f0f0 !important;
+}
+
+label { color: #c0c0c0 !important; }
+
+/* Radio / Checkbox */
+.custom--radio input[type=radio]:checked ~ label::before { border-color: #d4af37 !important; }
+.custom--radio label::after { background-color: #d4af37 !important; }
+.custom--checkbox input:checked ~ label::before { color: #d4af37 !important; }
+
+/* ---- BOTONES — TODOS DORADOS CON TEXTO NEGRO ---- */
+.btn--base, .btn--primary, .btn--success, .btn--gradient,
+.btn-primary, .btn-success, .btn-gradient-brand,
+.pwa-install-button, .custom--btn, .btn--base-2 {
+    background: #d4af37 !important;
+    background-image: none !important;
+    border: 2px solid #d4af37 !important;
+    color: #0d0d0d !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.5px !important;
+    border-radius: 6px !important;
+    transition: all 0.25s ease !important;
+    box-shadow: 0 4px 15px rgba(212,175,55,0.3) !important;
+    -webkit-text-fill-color: #0d0d0d !important;
+}
+
+.btn--base:hover, .btn--primary:hover, .btn--success:hover,
+.btn-primary:hover, .btn-success:hover, .btn-gradient-brand:hover,
+.btn--base:focus, .btn-primary:focus {
+    background: #f0d060 !important;
+    border-color: #f0d060 !important;
+    color: #0d0d0d !important;
+    -webkit-text-fill-color: #0d0d0d !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 20px rgba(212,175,55,0.5) !important;
+}
+
+/* Botones secundarios — outline dorado */
+.btn--secondary, .btn-secondary, .btn-outline--base,
+.btn-outline-primary, .btn-outline--primary {
+    background: transparent !important;
+    border: 2px solid #d4af37 !important;
+    color: #d4af37 !important;
+    -webkit-text-fill-color: #d4af37 !important;
+}
+
+.btn--secondary:hover, .btn-secondary:hover,
+.btn-outline--base:hover {
+    background: #d4af37 !important;
+    color: #0d0d0d !important;
+    -webkit-text-fill-color: #0d0d0d !important;
+}
+
+/* Botones peligro */
+.btn--danger, .btn-danger {
+    background: #c0392b !important;
+    border-color: #c0392b !important;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+}
+
+/* Botón oscuro */
+.btn--dark, .btn-dark {
+    background: #1a1a1a !important;
+    border: 1px solid rgba(212,175,55,0.3) !important;
+    color: #f0f0f0 !important;
+    -webkit-text-fill-color: #f0f0f0 !important;
+}
+
+/* Asegurar que texto dentro de botones dorados sea negro */
+.btn--base *, .btn-primary *, .btn--success *,
+.btn--base i, .btn-primary i, .btn--gradient i {
+    color: #0d0d0d !important;
+    -webkit-text-fill-color: #0d0d0d !important;
+}
+
+/* ---- TABLAS ---- */
+.custom--table, table {
+    background-color: #141414 !important;
+    color: #f0f0f0 !important;
+    border-color: rgba(212,175,55,0.15) !important;
+}
+
+.custom--table thead, thead {
+    background: #d4af37 !important;
+}
+
+.custom--table thead th, thead th {
+    background: transparent !important;
+    color: #0d0d0d !important;
+    font-weight: 700 !important;
+    border: none !important;
+}
+
+.custom--table tbody td, tbody td {
+    color: #f0f0f0 !important;
+    border-bottom: 1px solid rgba(255,255,255,0.05) !important;
+}
+
+.custom--table tbody tr, tbody tr {
+    background-color: #141414 !important;
+}
+
+.custom--table tbody tr:nth-child(even), tbody tr:nth-child(even) {
+    background-color: #181818 !important;
+}
+
+.custom--table tbody tr:hover, tbody tr:hover {
+    background-color: rgba(212,175,55,0.06) !important;
+}
+
+/* Responsive table alternate rows */
+.table-responsive--md tbody tr:nth-child(odd),
+.table-responsive--sm tbody tr:nth-child(odd) {
+    background-color: rgba(212,175,55,0.04) !important;
+}
+
+/* ---- BADGES ---- */
+.badge--base, .badge-primary, .badge--success, .badge-success,
+.badge, .label, .badge-primary {
+    background: rgba(212,175,55,0.15) !important;
+    border: 1px solid #d4af37 !important;
+    color: #d4af37 !important;
+}
+
+.badge--danger, .badge-danger {
+    background: rgba(192,57,43,0.15) !important;
+    border-color: #c0392b !important;
+    color: #e74c3c !important;
+}
+
+.badge--warning, .badge-warning {
+    background: rgba(243,156,18,0.15) !important;
+    border-color: #f39c12 !important;
+    color: #f39c12 !important;
+}
+
+/* ---- ALERTAS ---- */
+.alert {
+    background-color: #141414 !important;
+    border: 1px solid rgba(212,175,55,0.2) !important;
+    color: #f0f0f0 !important;
+}
+
+.alert-success { background: rgba(39,174,96,0.1) !important; border-color: rgba(39,174,96,0.4) !important; color: #2ecc71 !important; }
+.alert-danger  { background: rgba(192,57,43,0.1) !important; border-color: rgba(192,57,43,0.4) !important; color: #e74c3c !important; }
+.alert-warning { background: rgba(243,156,18,0.1) !important; border-color: rgba(243,156,18,0.4) !important; color: #f39c12 !important; }
+.alert-info    { background: rgba(52,152,219,0.1) !important; border-color: rgba(52,152,219,0.4) !important; color: #3498db !important; }
+
+/* ---- TABS ---- */
+.nav-tabs { border-bottom: 1px solid rgba(212,175,55,0.2) !important; }
+
+.nav-tabs .nav-link {
+    color: #888 !important;
+    border-color: transparent !important;
+    background: transparent !important;
+}
+
+.nav-tabs .nav-link:hover { color: #d4af37 !important; }
+
+.nav-tabs .nav-link.active,
+.nav-tabs .nav-item.show .nav-link,
+.beneficiary-card .nav-tabs .nav-link.active,
+.beneficiary-card .nav-tabs .nav-item.show .nav-link {
+    background: #d4af37 !important;
+    border-color: #d4af37 !important;
+    color: #0d0d0d !important;
+}
+
+/* ---- ACCORDION ---- */
+.accordion-item, .custom--accordion .accordion-item {
+    background-color: #141414 !important;
+    border: 1px solid rgba(212,175,55,0.2) !important;
+}
+
+.accordion-button, .custom--accordion .accordion-button {
+    background-color: #141414 !important;
+    color: #f0f0f0 !important;
+    box-shadow: none !important;
+    border: none !important;
+}
+
+.accordion-button:not(.collapsed),
+.custom--accordion .accordion-button:not(.collapsed) {
+    background-color: rgba(212,175,55,0.08) !important;
+    color: #d4af37 !important;
+}
+
+.accordion-button::after { filter: invert(1) !important; }
+
+.accordion-body {
+    background-color: #141414 !important;
+    color: #f0f0f0 !important;
+    border-top: 1px solid rgba(212,175,55,0.15) !important;
+}
+
+/* ---- PROGRESS ---- */
+.progress { background-color: rgba(255,255,255,0.07) !important; }
+.progress-bar { background: #d4af37 !important; }
+
+/* ---- PAGINATION ---- */
+.pagination .page-item .page-link {
+    background: #141414 !important;
+    border: 1px solid rgba(212,175,55,0.25) !important;
+    color: #f0f0f0 !important;
+}
+
+.pagination .page-item.active .page-link {
+    background: #d4af37 !important;
+    border-color: #d4af37 !important;
+    color: #0d0d0d !important;
+}
+
+.pagination .page-item .page-link:hover {
+    background: rgba(212,175,55,0.15) !important;
+    border-color: #d4af37 !important;
+    color: #d4af37 !important;
+}
+
+/* ---- FOOTER ---- */
+footer, .footer, .site-footer, .footer__bottom {
+    background-color: #080808 !important;
+    border-top: 1px solid rgba(212,175,55,0.2) !important;
+    color: #a0a0a0 !important;
+}
+
+footer h1, footer h2, footer h3, footer h4, footer h5, footer h6 {
+    color: #d4af37 !important;
+}
+
+footer p, footer li, footer span { color: #a0a0a0 !important; }
+footer a { color: #a0a0a0 !important; }
+footer a:hover { color: #d4af37 !important; }
+
+/* ---- HOW IT WORKS STEPS ---- */
+.how-work-card__step, .how-work-card__step::before {
+    background: #d4af37 !important;
+    color: #0d0d0d !important;
+}
+
+.how-work-card__step * { color: #0d0d0d !important; }
+
+/* ---- SECTION TITLES ---- */
+.section-top-title, .section-top-title span {
+    color: #d4af37 !important;
+}
+
+.section-top-title.border-left::before {
+    background: #d4af37 !important;
+}
+
+/* ---- PLAN FEATURE LIST ---- */
+.plan-feature-list li::before { color: #d4af37 !important; }
+
+/* ---- PRELOADER ---- */
+.preloader { background: #0d0d0d !important; }
+.dl__square { background: #d4af37 !important; }
+.dl__corner--top:before, .dl__corner--top:after,
+.dl__corner--bottom:before, .dl__corner--bottom:after {
+    color: #d4af37 !important;
+    border-color: #d4af37 !important;
+}
+
+/* ---- DARK OVERLAY ---- */
+.dark--overlay::before, .dark--overlay-two::before {
+    background-color: rgba(0,0,0,0.7) !important;
+}
+
+/* ---- MISC ---- */
+hr { border-color: rgba(212,175,55,0.15) !important; }
+
+.list-group-item {
+    background-color: #141414 !important;
+    border-color: rgba(212,175,55,0.15) !important;
+    color: #f0f0f0 !important;
+}
+
+.list-group-item.active {
+    background: #d4af37 !important;
+    border-color: #d4af37 !important;
+    color: #0d0d0d !important;
+}
+
+.page-breadcrumb li { color: rgba(255,255,255,0.6) !important; }
+.page-breadcrumb li::before { color: #d4af37 !important; }
+.page-breadcrumb li a { color: #888 !important; }
+.page-breadcrumb li a:hover { color: #d4af37 !important; }
+
+/* ---- SCROLLBAR ---- */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #0d0d0d; }
+::-webkit-scrollbar-thumb { background: #d4af37; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #f0d060; }
+
+/* ---- IZITOAST ---- */
+.iziToast { background: #141414 !important; border-left: 4px solid #d4af37 !important; }
+.iziToast-title, .iziToast-message { color: #f0f0f0 !important; }
+.iziToast.iziToast-color-green { border-left-color: #27ae60 !important; }
+.iziToast.iziToast-color-red   { border-left-color: #c0392b !important; }
+
+/* ---- EXPIRED TIME CIRCLE ---- */
+.expired-time-circle { border-color: #d4af37 !important; color: #f0f0f0 !important; }
+.expired-time-circle.danger-border { border-color: #c0392b !important; }
+
+/* ---- COOKIE MODAL ---- */
+.cookie-modal {
+    background: rgba(10,10,10,0.97) !important;
+    border-top: 1px solid rgba(212,175,55,0.3) !important;
+}
+
+/* ---- VIDEO BTN ---- */
+.video--btn {
+    background: #d4af37 !important;
+    color: #0d0d0d !important;
+    border-color: #d4af37 !important;
+}
+
+/* ---- SUBSCRIBE FORM ---- */
+.subscribe-form, .subscribe-section {
+    background: #111 !important;
+    border: 1px solid rgba(212,175,55,0.2) !important;
+}
+
+/* ---- BOTTOM MENU ---- */
+.bottom-menu ul li a:hover,
+.bottom-menu ul li a.active { color: #d4af37 !important; }
+
+/* ---- CONTACT INFO CARDS — negro con borde dorado ---- */
+.contact-info-card,
+.contact-info-card.gradient--bg {
+    background: #141414 !important;
+    background-image: none !important;
+    border: 1px solid rgba(212,175,55,0.35) !important;
+    border-radius: 10px !important;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4) !important;
+    color: #f0f0f0 !important;
+}
+
+.contact-info-card__icon {
+    background: rgba(212,175,55,0.12) !important;
+    border: 1px solid rgba(212,175,55,0.3) !important;
+    border-radius: 8px !important;
+    color: #d4af37 !important;
+}
+
+.contact-info-card__icon i {
+    color: #d4af37 !important;
+    -webkit-text-fill-color: #d4af37 !important;
+}
+
+.contact-info-card__content h4,
+.contact-info-card__content h3,
+.contact-info-card h4,
+.contact-info-card h3 {
+    color: #ffffff !important;
+}
+
+.contact-info-card__content p,
+.contact-info-card__content a,
+.contact-info-card p,
+.contact-info-card a {
+    color: #c0c0c0 !important;
+}
+
+.contact-info-card:hover {
+    border-color: #d4af37 !important;
+    box-shadow: 0 6px 30px rgba(212,175,55,0.2) !important;
+    transform: translateY(-3px) !important;
+    transition: all 0.3s ease !important;
+}
+
+/* ---- TEXT UTILITIES ---- */
+.text--base, .text--success, .custom--cl { color: #d4af37 !important; }
+.text--danger { color: #e74c3c !important; }
+.text--success { color: #d4af37 !important; }
+.text--white { color: #fff !important; }
+.bg--base, .bg--success { background: #d4af37 !important; color: #0d0d0d !important; }
+
+/* ---- ICON BUTTON ---- */
+.icon-btn { background: #d4af37 !important; color: #0d0d0d !important; }
+
+/* ---- LINK GROUP ---- */
+.account-short-link li a:hover { color: #d4af37 !important; }
+
+/* ---- HEADER USER ---- */
+.header-user .header-user-menu {
+    background: #141414 !important;
+    border: 1px solid rgba(212,175,55,0.2) !important;
+}
+
+.header-user-menu li a { color: #f0f0f0 !important; }
+.header-user-menu li a:hover { color: #d4af37 !important; background: rgba(212,175,55,0.07) !important; }
+
+/* ---- CHOOSE CARD ---- */
+.choose-card, .choose-card * { color: #f0f0f0 !important; }
+.choose-card h1, .choose-card h2, .choose-card h3,
+.choose-card h4, .choose-card h5, .choose-card h6 { color: #fff !important; }
+
+/* ---- OVERVIEW SECTION ---- */
+.overview-area {
+    background: #111 !important;
+    border: 1px solid rgba(212,175,55,0.15) !important;
+}
+
+/* Amount colors (transactions) */
+.text-success, .amount-credit { color: #27ae60 !important; }
+.text-danger,  .amount-debit  { color: #e74c3c !important; }
+

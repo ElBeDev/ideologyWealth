@@ -21,16 +21,17 @@ a:hover, .nav-link:hover{ color: var(--gold-light) !important; }
 .navbar, header, .site-header, .site-footer, footer{ background: var(--black-2) !important; border-color: rgba(212,175,55,0.06) !important; }
 
 /* Buttons */
-.btn, button{ background: var(--black-2) !important; color: var(--text) !important; border-color: rgba(255,255,255,0.04) !important; }
-.btn-primary, .btn--primary{ background: var(--gold) !important; color: #111 !important; border-color: var(--gold) !important; }
+.btn, button{ color: var(--text) !important; border-color: rgba(255,255,255,0.06) !important; }
+.btn-primary, .btn--primary, .btn--base, .btn--success, .btn-success{ background: linear-gradient(135deg, #b8941f, var(--gold), #e8c547) !important; color: #111 !important; border-color: var(--gold) !important; font-weight: 600 !important; }
+.btn-primary:hover, .btn--base:hover, .btn--success:hover{ background: var(--gold-light) !important; color: #000 !important; }
 .btn-outline{ background: transparent !important; border: 1px solid var(--gold) !important; color: var(--gold) !important; }
-.btn-primary:hover{ background: var(--gold-light) !important; }
 
 /* Cards / panels */
 .card, .panel, .panel-body, .modal-content{ background: #111 !important; color: var(--text) !important; border-color: rgba(255,255,255,0.03) !important; }
 
 /* Background utilities overrides */
-.bg--primary, .bg--base{ background-color: var(--black-matte) !important; color: var(--text) !important; }
+.bg--primary{ background-color: var(--black-matte) !important; color: var(--text) !important; }
+.bg--base{ background-color: var(--gold) !important; color: #111 !important; }
 .bg--secondary{ background-color: var(--black-2) !important; }
 
 /* Text utilities */
