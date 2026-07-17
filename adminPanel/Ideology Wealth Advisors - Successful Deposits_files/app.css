@@ -1695,7 +1695,7 @@ p, li, a {
 }
 
 .text--success {
-    color: #28c76f !important;
+    color: #d4af37 !important;
 }
 
 .text--danger {
@@ -1892,8 +1892,8 @@ p, li, a {
     background-color: #868e96 !important;
 }
 
-.bg--success {
-    background-color: #28c76f !important;
+.bg--gold {
+    background-color: #d4af37 !important;
 }
 
 .bg--danger {
@@ -2410,7 +2410,7 @@ p, li, a {
 }
 
 [class*="overlay"].overlay--success::before {
-    background-color: #28c76f !important;
+    background-color: #d4af37 !important;
 }
 
 [class*="overlay"].overlay--danger::before {
@@ -2665,7 +2665,7 @@ p, li, a {
 }
 
 .border--success {
-    border-color: #28c76f !important;
+    border-color: #d4af37 !important;
 }
 
 .border--danger {
@@ -2893,7 +2893,7 @@ p, li, a {
 }
 
 .btn--success {
-    background-color: #28c76f !important;
+    background-color: #d4af37 !important;
 }
 
 .btn--success:hover {
@@ -2963,12 +2963,12 @@ p, li, a {
 }
 
 .btn-outline--success {
-    color: #28c76f;
-    border-color: #28c76f;
+    color: #d4af37;
+    border-color: #d4af37;
 }
 
 .btn-outline--success:hover {
-    background-color: #28c76f;
+    background-color: #d4af37;
 }
 
 .btn-outline--danger {
@@ -3162,9 +3162,9 @@ p, li, a {
     background: linear-gradient(to right, #636f8e 0%, #acb8da 100%);
 }
 
-.btn--success.btn--gradi, .btn-success.btn--gradi {
+.btn--success.btn--gradi, .btn-gold.btn--gradi {
     background: #0064fa;
-    background-image: linear-gradient(30deg, #28c76f, rgba(40, 199, 111, 0.6)) !important;
+    background-image: linear-gradient(30deg, #d4af37, rgba(40, 199, 111, 0.6)) !important;
 }
 
 .btn--danger.btn--gradi, .btn-danger.btn--gradi {
@@ -3455,8 +3455,8 @@ input.form-control-sm {
 }
 
 .form-check-success .custom-control-input:checked ~ .custom-control-label::before {
-    border-color: #28c76f;
-    background-color: #28c76f;
+    border-color: #d4af37;
+    background-color: #d4af37;
 }
 
 .form-check-info .custom-control-input:checked ~ .custom-control-label::before {
@@ -4243,7 +4243,7 @@ th.w-85 {
 }
 
 .widget__content .stat-up {
-    color: #28c76f;
+    color: #d4af37;
 }
 
 .widget__content .stat-up i {
@@ -6857,8 +6857,8 @@ a.icon-btn {
 
 .badge--success {
     background-color: rgba(40, 199, 111, 0.1);
-    border: 1px solid #28c76f;
-    color: #28c76f;
+    border: 1px solid #d4af37;
+    color: #d4af37;
 }
 
 .badge--danger {
