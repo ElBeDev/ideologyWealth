@@ -1,1 +1,5 @@
 .DS_Store
+api/config.php
+api/config-fixed.php
+*.env
+.env*

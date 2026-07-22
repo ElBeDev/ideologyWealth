@@ -1,0 +1,328 @@
+/* ================================================================
+   IDEOLOGY WEALTH ADVISORS — USER PANEL THEME
+   Overrides theme-black-gold.css for authenticated user pages.
+   Sidebar/nav: black/gold | Content area: white/light
+   ================================================================ */
+
+/* ---- BODY & LAYOUT ---- */
+html, body {
+    background-color: #f5f5f5 !important;
+    color: #1a1a1a !important;
+}
+
+section,
+.pt-100, .pb-100, .ptb-100,
+.pt-80, .pb-80, .ptb-80,
+.pt-60, .pb-60, .ptb-60,
+.section,
+.account-section,
+.user-section,
+.dashboard-section,
+.transaction-section,
+[class*="section"],
+[class*="-area"] {
+    background-color: #f5f5f5 !important;
+}
+
+/* ---- SIDEBAR / LEFT NAV (user panels) ---- */
+.sidebar,
+.left-sidebar,
+.user-sidebar {
+    background: #1a1a1a !important;
+    border-right: 1px solid rgba(212, 175, 55, 0.2) !important;
+}
+
+.sidebar a,
+.left-sidebar a,
+.sidebar-menu-item a {
+    color: rgba(255, 255, 255, 0.75) !important;
+}
+
+.sidebar a:hover,
+.left-sidebar a:hover,
+.sidebar-menu-item a:hover,
+.sidebar-menu-item.active a {
+    color: #d4af37 !important;
+    background: rgba(212, 175, 55, 0.1) !important;
+    border-left-color: #d4af37 !important;
+}
+
+/* ---- HEADER / NAV (user panel) ---- */
+.dashboard-nav,
+.user-header,
+.breadcrumb-area,
+.inner-hero-section {
+    background: #1a1a1a !important;
+    border-bottom: 2px solid rgba(212, 175, 55, 0.3) !important;
+}
+
+/* ---- MAIN CONTENT AREA ---- */
+.main-wrapper,
+.main-content,
+.container-fluid,
+.dashboard-content,
+.content-area {
+    background-color: #f5f5f5 !important;
+}
+
+/* ---- CARDS ---- */
+.card,
+.custom--card,
+.deposit-card,
+.withdraw-card,
+.transaction-card,
+.widget,
+.widget-card {
+    background: #ffffff !important;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07) !important;
+    border: 1px solid rgba(0,0,0,0.05) !important;
+    color: #1a1a1a !important;
+}
+
+.card-header,
+.custom--card .card-header {
+    background: #1a1a1a !important;
+    color: #d4af37 !important;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.3) !important;
+}
+
+.card-header h5,
+.card-header h6,
+.card-title {
+    color: #d4af37 !important;
+}
+
+.card-body {
+    background: #ffffff !important;
+    color: #1a1a1a !important;
+}
+
+/* ---- TEXTOS EN PANEL ---- */
+p, li, span, td, th, label, small, strong, em,
+.text-muted, .text--muted, .fs--14px, .fs--18px {
+    color: #4a4a4a !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #1a1a1a !important;
+}
+
+/* ---- TABLAS ---- */
+.table,
+.custom--table {
+    color: #1a1a1a !important;
+    background: #ffffff !important;
+}
+
+.table thead th,
+.custom--table thead th {
+    background: #1a1a1a !important;
+    color: #d4af37 !important;
+    border-bottom: 2px solid #d4af37 !important;
+    font-weight: 600 !important;
+}
+
+.table tbody tr,
+.custom--table tbody tr {
+    background-color: #ffffff !important;
+}
+
+.table tbody tr:nth-child(even),
+.custom--table tbody tr:nth-child(even) {
+    background-color: #fafafa !important;
+}
+
+.table tbody tr:hover,
+.custom--table tbody tr:hover {
+    background-color: #fff8e8 !important;
+}
+
+/* Específico para ganar sobre theme-black-gold .custom--table tbody td */
+.table tbody td, .table tbody th,
+.table thead td, .table thead th,
+.custom--table tbody td, .custom--table tbody th,
+.custom--table thead td, .custom--table thead th,
+.table td, .table th,
+.custom--table td, .custom--table th {
+    color: #1a1a1a !important;
+    border-bottom: 1px solid #eeeeee !important;
+    background: transparent !important;
+}
+
+/* Especificidad máxima para ganar sobre cualquier regla de theme-black-gold */
+html body .custom--table tbody td,
+html body .custom--table tbody th,
+html body .table tbody td,
+html body .table tbody th {
+    color: #1a1a1a !important;
+    background: transparent !important;
+}
+
+/* thead siempre con texto dorado */
+html body .custom--table thead th,
+html body .table thead th {
+    color: #d4af37 !important;
+    background: #1a1a1a !important;
+}
+
+.custom--table tbody td h6,
+.custom--table tbody td h5,
+.custom--table tbody td h4,
+.custom--table tbody td h3 {
+    color: #1a1a1a !important;
+}
+
+/* ---- BADGES ---- */
+.badge.bg-success {
+    background: rgba(25, 135, 84, 0.12) !important;
+    color: #198754 !important;
+}
+
+.badge.bg-warning {
+    background: rgba(255, 193, 7, 0.15) !important;
+    color: #a67c00 !important;
+}
+
+.badge.bg-danger {
+    background: rgba(220, 53, 69, 0.12) !important;
+    color: #dc3545 !important;
+}
+
+.badge.bg-primary {
+    background: rgba(212, 175, 55, 0.15) !important;
+    color: #b8941f !important;
+}
+
+/* ---- BOTONES ---- */
+.btn-primary,
+.btn--base,
+.custom--btn {
+    background: #1a1a1a !important;
+    color: #d4af37 !important;
+    border: 1px solid #d4af37 !important;
+}
+
+.btn-primary:hover,
+.btn--base:hover,
+.custom--btn:hover {
+    background: #d4af37 !important;
+    color: #1a1a1a !important;
+}
+
+.btn-success {
+    background: #198754 !important;
+    color: #fff !important;
+    border: none !important;
+}
+
+.btn-danger {
+    background: #dc3545 !important;
+    color: #fff !important;
+    border: none !important;
+}
+
+/* ---- INPUTS & FORMS ---- */
+input, select, textarea,
+.form-control, .form-select {
+    background: #ffffff !important;
+    color: #1a1a1a !important;
+    border: 1px solid #d0d0d0 !important;
+}
+
+input:focus, select:focus, textarea:focus,
+.form-control:focus, .form-select:focus {
+    border-color: #d4af37 !important;
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15) !important;
+    outline: none !important;
+    background: #ffffff !important;
+}
+
+input::placeholder, textarea::placeholder {
+    color: #aaaaaa !important;
+}
+
+/* ---- BALANCE / STATS WIDGETS ---- */
+.balance-widget,
+.stat-item,
+.trx-item {
+    background: #ffffff !important;
+    color: #1a1a1a !important;
+    border: 1px solid #eeeeee !important;
+}
+
+.balance-widget h3,
+.balance-widget h4 {
+    color: #d4af37 !important;
+}
+
+/* ---- PAGINATION ---- */
+.pagination .page-item.active .page-link {
+    background: #d4af37 !important;
+    border-color: #d4af37 !important;
+    color: #1a1a1a !important;
+}
+
+.pagination .page-link {
+    color: #1a1a1a !important;
+    background: #ffffff !important;
+    border: 1px solid #d0d0d0 !important;
+}
+
+.pagination .page-link:hover {
+    background: #f0e8c8 !important;
+}
+
+/* ---- MODAL ---- */
+.modal-content {
+    background: #ffffff !important;
+    color: #1a1a1a !important;
+    border: 1px solid rgba(212, 175, 55, 0.3) !important;
+}
+
+.modal-header {
+    background: #1a1a1a !important;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.3) !important;
+}
+
+.modal-title,
+.modal-header h5 {
+    color: #d4af37 !important;
+}
+
+.modal-footer {
+    border-top: 1px solid #eeeeee !important;
+    background: #ffffff !important;
+}
+
+/* ---- ALERTS ---- */
+.alert-success {
+    background: rgba(25, 135, 84, 0.1) !important;
+    color: #155724 !important;
+    border-color: rgba(25, 135, 84, 0.3) !important;
+}
+
+.alert-danger {
+    background: rgba(220, 53, 69, 0.1) !important;
+    color: #721c24 !important;
+    border-color: rgba(220, 53, 69, 0.3) !important;
+}
+
+.alert-warning {
+    background: rgba(255, 193, 7, 0.1) !important;
+    color: #856404 !important;
+    border-color: rgba(255, 193, 7, 0.3) !important;
+}
+
+/* ---- SCROLLBAR ---- */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f5f5f5;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #d4af37;
+    border-radius: 3px;
+}

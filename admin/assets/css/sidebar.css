@@ -1,11 +1,11 @@
 /* Admin Sidebar Standard Styles */
 :root {
-    --primary-color: #0143a3;
-    --success-color: #d4af37;
+    --primary-color: #d4af37;
+    --success-color: #198754;
     --danger-color: #dc3545;
     --warning-color: #ffc107;
-    --dark-bg: #1a1d2e;
-    --sidebar-bg: #212438;
+    --dark-bg: #1a1a1a;
+    --sidebar-bg: #1a1a1a;
     --card-bg: #fff;
 }
 
@@ -56,9 +56,9 @@
 
 .sidebar-menu-item a:hover,
 .sidebar-menu-item.active a {
-    background: rgba(1,67,163,0.15);
-    color: #fff;
-    border-left: 3px solid var(--primary-color);
+    background: rgba(212, 175, 55, 0.12);
+    color: #d4af37;
+    border-left: 3px solid #d4af37;
 }
 
 .sidebar-menu-item i {

@@ -8,120 +8,144 @@
     <link rel="stylesheet" href="Ideology Wealth Advisors - Dashboard_files/line-awesome.min.css">
     <link rel="stylesheet" href="Ideology Wealth Advisors - Dashboard_files/iziToast.min.css">
     <style>
-        :root {
-            --primary-color: #0143a3;
-            --dark-bg: #1a1d2e;
-        }
-        
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
         body {
-            background: linear-gradient(135deg, #0143a3 0%, #1a1d2e 100%);
+            background: #0d0d0d;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             font-family: 'Inter', sans-serif;
         }
-        
-        .login-card {
-            background: #fff;
-            border-radius: 15px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-            padding: 50px 40px;
-            width: 100%;
-            max-width: 450px;
+
+        /* Decorative gold line at top */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #d4af37, #f0d060, #b8941f);
         }
-        
+
+        .login-card {
+            background: #1a1a1a;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+            padding: 50px 45px;
+            width: 100%;
+            max-width: 460px;
+        }
+
         .login-card__logo {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 35px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
         }
-        
+
         .login-card__logo img {
-            max-width: 180px;
+            max-width: 200px;
+            height: auto;
         }
-        
+
         .login-card h3 {
             text-align: center;
-            color: var(--dark-bg);
-            margin-bottom: 10px;
+            color: #d4af37;
+            margin-bottom: 8px;
             font-weight: 700;
+            font-size: 22px;
+            letter-spacing: 1px;
         }
-        
+
         .login-card p {
             text-align: center;
-            color: #6c757d;
-            margin-bottom: 30px;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 35px;
+            font-size: 14px;
         }
-        
+
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 22px;
         }
-        
+
         .form-group label {
             display: block;
             margin-bottom: 8px;
-            color: var(--dark-bg);
+            color: rgba(255,255,255,0.8);
             font-weight: 500;
-            font-size: 14px;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
-        
-        .form-control {
-            width: 100%;
-            padding: 12px 15px;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 14px;
-            transition: all 0.3s;
-        }
-        
-        .form-control:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(1,67,163,0.1);
-        }
-        
-        .btn--primary {
-            width: 100%;
-            padding: 14px;
-            background: var(--primary-color);
-            color: #fff;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .btn--primary:hover {
-            background: #013380;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(1,67,163,0.3);
-        }
-        
+
         .input-group {
             position: relative;
         }
-        
+
         .input-group i {
             position: absolute;
             left: 15px;
             top: 50%;
             transform: translateY(-50%);
-            color: #6c757d;
+            color: #d4af37;
             font-size: 18px;
+            z-index: 1;
         }
-        
-        .input-group .form-control {
-            padding-left: 45px;
+
+        .form-control {
+            width: 100%;
+            padding: 13px 15px 13px 45px;
+            background: #2a2a2a;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 8px;
+            font-size: 14px;
+            color: #ffffff;
+            transition: all 0.3s;
+        }
+
+        .form-control::placeholder {
+            color: rgba(255,255,255,0.3);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #d4af37;
+            background: #2e2e2e;
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
+        }
+
+        .btn--primary {
+            width: 100%;
+            padding: 14px;
+            background: #d4af37;
+            color: #1a1a1a;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .btn--primary:hover {
+            background: #f0d060;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.35);
+        }
+
+        .btn--primary i {
+            margin-right: 8px;
         }
     </style>
-    <link rel="stylesheet" href="../theme-black-gold.css">
 </head>
 <body>
     <div class="login-card">
         <div class="login-card__logo">
-            <img src="Ideology Wealth Advisors - Dashboard_files/logo.png" alt="Ideology Wealth Advisors">
+            <img src="../branding/ideology-wealth-logo-white.png" alt="Ideology Wealth Advisors">
         </div>
         
         <h3>Admin Panel</h3>
